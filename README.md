@@ -1,5 +1,5 @@
 # Geometrical Optics Interactive Lab
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21370215.svg)](https://doi.org/10.5281/zenodo.21370215)
 A free, browser-based interactive laboratory designed for teaching and exploring the fundamental principles of geometrical optics.
 
 The simulator provides dynamic ray tracing, numerical calculations, guided examples, and interactive optical components. It runs directly in a modern web browser without installation or specialized software.
