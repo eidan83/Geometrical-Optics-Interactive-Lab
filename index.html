@@ -929,6 +929,21 @@ body.v215-modal-lock{overflow:hidden;}
 }
 </style>
 
+
+<style id="v218-photodetector-style">
+/* v21.8 — finite-aperture photodetector and digital power meter */
+.v218-detector-result{border-left:4px solid #f39c12!important;background:#fffaf0!important;}
+.v218-detector-result strong{color:#8a6200!important;}
+#v21-bench-svg .v218-detector-readout{font-family:Consolas,"Courier New",monospace;font-weight:800;letter-spacing:.01em;}
+#v21-bench-svg .v218-detector-housing{filter:drop-shadow(0 .25px .25px rgba(0,0,0,.18));}
+@media(max-width:700px){.v218-detector-result span{font-size:.74rem!important;}}
+</style>
+
+<style id="v219-project-io-style">
+#v21-export-project,#v21-import-project{border-color:#70a9cc!important;background:#f7fbfe!important;color:#245f88!important;font-weight:800!important;}
+#v21-export-project:hover,#v21-import-project:hover{background:#e8f4fb!important;border-color:#2f80c9!important;}
+@media(max-width:720px){#v21-export-project,#v21-import-project{font-size:.63rem!important;padding:4px 6px!important;}}
+</style>
 </head>
 <body class="v16-maker-stable">
 <div class="page">
@@ -1733,7 +1748,7 @@ body.v215-modal-lock{overflow:hidden;}
 
             <!-- ================= SECTION 7: INTERACTIVE OPTICAL BENCH ================= -->
             <div class="tab-content" id="tab-abcd">
-                <h2 class="v21-bench-title">Interactive Optical Bench – Drag, Trace & Measure <small>v21.7 Full Screen + Direct Rotation UI</small></h2>
+                <h2 class="v21-bench-title">Interactive Optical Bench – Drag, Trace & Measure <small>v21.9 Project Import/Export + Photodetector</small></h2>
 
                 <div class="v215-commandbar" aria-label="Interactive optical bench commands">
                     <div class="v215-command-group v215-examples-group">
@@ -1754,6 +1769,10 @@ body.v215-modal-lock{overflow:hidden;}
                             <option value="prism">13. Prism Deviation</option>
                             <option value="slab">14. Glass Slab Lateral Shift</option>
                             <option value="measurement">15. Measurement Laboratory</option>
+                            <option value="focusmeter">16. Lens Focus &amp; Power Meter</option>
+                            <option value="eyesensor">17. Normal Eye – Retinal Sensor</option>
+                            <option value="myopiaSensor">18. Myopic Eye – Uncorrected</option>
+                            <option value="hyperopiaSensor">19. Hyperopic Eye – Uncorrected</option>
                         </select>
                         <button type="button" id="v21-load-example" class="v215-primary">Load</button>
                     </div>
@@ -1772,7 +1791,8 @@ body.v215-modal-lock{overflow:hidden;}
                             <option value="convexMirror">Convex Spherical Mirror</option>
                             <option value="prism">Prism</option>
                             <option value="slab">Glass Slab</option>
-                            <option value="screen">Screen / Detector</option>
+                            <option value="screen">Screen / Image Plane</option>
+                            <option value="photodetector">Photodetector / Power Meter</option>
                             <option value="aperture">Aperture / Stop</option>
                             <option value="ruler">Ruler</option>
                             <option value="protractor">Protractor</option>
@@ -1815,7 +1835,10 @@ body.v215-modal-lock{overflow:hidden;}
                         <button type="button" id="v21-zoom-in" title="Zoom in">+</button>
                         <button type="button" id="v21-delete-board" class="v21-delete-button" title="Delete the selected element" disabled>🗑 Delete</button>
                         <button type="button" id="v21-fullscreen" class="v217-fullscreen-button" title="Full screen optical bench" aria-pressed="false">⛶ Full Screen</button>
+                        <button type="button" id="v21-export-project" title="Export the complete optical-bench project as a portable file">⇩ Export Project</button>
+                        <button type="button" id="v21-import-project" title="Import a previously saved optical-bench project">⇧ Import Project</button>
                         <button type="button" id="v21-save-png" title="Save board as PNG">Save PNG</button>
+                        <input type="file" id="v21-project-file" accept=".opticslab,.json,application/json" hidden>
                     </div>
                     <div id="v21-bench-board" class="v21-bench-board" tabindex="0" aria-label="Interactive geometrical-optics bench">
                         <svg id="v21-bench-svg" viewBox="0 0 120 60" preserveAspectRatio="xMidYMid meet" aria-label="Optical bench drawing"></svg>
@@ -1831,6 +1854,10 @@ body.v215-modal-lock{overflow:hidden;}
                         <div class="result-item"><strong>Screen hits</strong><span id="v21-screen-hits">0</span></div>
                         <div class="result-item"><strong>Mean screen coordinate</strong><span id="v21-screen-mean">–</span></div>
                         <div class="result-item"><strong>Screen RMS spread</strong><span id="v21-screen-rms">–</span></div>
+                        <div class="result-item v218-detector-result"><strong>Active detector</strong><span id="v21-detector-name">–</span></div>
+                        <div class="result-item v218-detector-result"><strong>Detected power</strong><span id="v21-detector-power">–</span></div>
+                        <div class="result-item v218-detector-result"><strong>Relative power</strong><span id="v21-detector-relative">–</span></div>
+                        <div class="result-item v218-detector-result"><strong>Focus signal</strong><span id="v21-detector-focus">–</span></div>
                     </div>
                 </div>
 
@@ -2553,6 +2580,22 @@ objectHeightInput.addEventListener('change', function () {
     let d  = 35;
     let y1 = 8;
 
+    // Guided learning state. Direct mode keeps the original Section 2 drawing unchanged.
+    window.DL_GUIDED_LAYER_PRESETS = window.DL_GUIDED_LAYER_PRESETS || {
+        step1: { object:true, lens1:true, rays1:false, intermediate:false, lens2:false, rays2:false, final:false, dimensions:true },
+        step2: { object:true, lens1:true, rays1:true,  intermediate:true,  lens2:false, rays2:false, final:false, dimensions:true },
+        step3: { object:true, lens1:true, rays1:true,  intermediate:true,  lens2:true,  rays2:false, final:false, dimensions:true },
+        step4: { object:true, lens1:true, rays1:true,  intermediate:true,  lens2:true,  rays2:true,  final:true,  dimensions:true },
+        stage1:{ object:true, lens1:true, rays1:true,  intermediate:true,  lens2:false, rays2:false, final:false, dimensions:true },
+        stage2:{ object:false,lens1:false,rays1:false, intermediate:true,  lens2:true,  rays2:true,  final:true,  dimensions:true },
+        all:   { object:true, lens1:true, rays1:true,  intermediate:true,  lens2:true,  rays2:true,  final:true,  dimensions:true }
+    };
+    window.DL_GUIDED_STATE = window.DL_GUIDED_STATE || { mode: 'guided', step: 1 };
+    if (!window.DL_GUIDED_STATE.layers) {
+        window.DL_GUIDED_STATE.layers = Object.assign({}, window.DL_GUIDED_LAYER_PRESETS.step1);
+    }
+    window.DL_GUIDED_REFRESH = function () { updateDoubleSimulation(); };
+
     // دالة لرسم سهم في نظام العدستين
     function drawArrow2(ctx, fromX, fromY, toX, toY, arrowSize=8) {
         const dx = toX - fromX;
@@ -2681,6 +2724,22 @@ objectHeightInput.addEventListener('change', function () {
             s1p_val, s2_val, s2p_val, M1, M2, Mtot, y1p, y2p
         } = params;
 
+        const dlGuide = window.DL_GUIDED_STATE || { mode: 'direct', step: 4 };
+        const dlStep = dlGuide.mode === 'guided'
+            ? Math.max(1, Math.min(4, Number(dlGuide.step) || 1))
+            : 4;
+        const dlFallbackLayers = (window.DL_GUIDED_LAYER_PRESETS || {}).step4 || {
+            object:true,lens1:true,rays1:true,intermediate:true,lens2:true,rays2:true,final:true,dimensions:true
+        };
+        const dlLayers = dlGuide.layers || dlFallbackLayers;
+        const dlShowObject       = dlLayers.object !== false;
+        const dlShowLens1        = dlLayers.lens1 !== false;
+        const dlShowRays1        = dlLayers.rays1 !== false;
+        const dlShowIntermediate = dlLayers.intermediate !== false;
+        const dlShowLens2        = dlLayers.lens2 !== false;
+        const dlShowRays2        = dlLayers.rays2 !== false;
+        const dlShowFinal        = dlLayers.final !== false;
+
         const width  = canvas2.width  = canvas2.offsetWidth;
         const height = canvas2.height = canvas2.offsetHeight;
 
@@ -2791,11 +2850,22 @@ objectHeightInput.addEventListener('change', function () {
             ctx2.fill();
         }
 
-        drawStick2(M1F,  Q1,  '#e74c3c', false);
-        if (Number.isFinite(s1p_val)) {
-            drawStick2(M1pF, Q1p, '#8e44ad', (s1p_val < 0));
+        if (dlShowObject) {
+            drawStick2(M1F, Q1, '#e74c3c', false);
         }
-        if (Number.isFinite(s2p_val)) {
+        if (dlShowIntermediate && Number.isFinite(s1p_val)) {
+            drawStick2(M1pF, Q1p, '#8e44ad', (s1p_val < 0));
+            if (!dlShowLens1 || !dlShowObject) {
+                const pI = toCanvas2(Q1p.x, Q1p.y);
+                ctx2.save();
+                ctx2.font = 'bold 12px Segoe UI';
+                ctx2.fillStyle = '#7d3c98';
+                ctx2.textAlign = 'left';
+                ctx2.fillText('I₁ / O₂', pI.x + 7, pI.y - 7);
+                ctx2.restore();
+            }
+        }
+        if (dlShowFinal && Number.isFinite(s2p_val)) {
             drawStick2(M2pF, Q2p, '#27ae60', (s2p_val < 0));
         }
 
@@ -2817,10 +2887,14 @@ objectHeightInput.addEventListener('change', function () {
             ctx2.fillText(label, pF.x, pF.y + 16);
         }
 
-        drawFocus2(F1_front, 'F₁');
-        drawFocus2(F1_back,  "F₁'");
-        drawFocus2(F2_front, 'F₂');
-        drawFocus2(F2_back,  "F₂'");
+        if (dlShowLens1) {
+            drawFocus2(F1_front, 'F₁');
+            drawFocus2(F1_back,  "F₁'");
+        }
+        if (dlShowLens2) {
+            drawFocus2(F2_front, 'F₂');
+            drawFocus2(F2_back,  "F₂'");
+        }
 
         // Lens shapes (adaptive)
         function drawLensShape(centerX_phys, isConvex, fEff) {
@@ -2888,8 +2962,12 @@ objectHeightInput.addEventListener('change', function () {
             }
         }
 
-        drawLensShape(x_L1, lens1Type === 'convex', f1_eff);
-        drawLensShape(x_L2, lens2Type === 'convex', f2_eff);
+        if (dlShowLens1) {
+            drawLensShape(x_L1, lens1Type === 'convex', f1_eff);
+        }
+        if (dlShowLens2) {
+            drawLensShape(x_L2, lens2Type === 'convex', f2_eff);
+        }
 
         function drawLensRays(xL, f_eff, s_obj_loc, s_img_loc, y_obj_loc, y_img_loc,
                               colorParallel, colorFocal, colorCentral) {
@@ -2955,11 +3033,7 @@ objectHeightInput.addEventListener('change', function () {
         }
 
         if (firstAtInfinity) {
-            /*
-               Dedicated sequential path for the focal-plane case:
-               Lens 1 produces a collimated bundle, and Lens 2 focuses that
-               bundle at x = d + f2.  This avoids undefined infinity geometry.
-            */
+            /* Layer-aware focal-plane case: Lens 1 produces a collimated bundle. */
             const objectPoint = { x: x_obj, y: y1 };
             const slopeBetween = -y1 / f1_eff;
             const hitLevels = [y1, 0, 0.5 * y1];
@@ -2969,29 +3043,56 @@ objectHeightInput.addEventListener('change', function () {
                 'rgba(155,89,182,0.95)'
             ];
             const finalPoint = { x: x_L2 + f2_eff, y: y2p };
+            const stageEndX = (dlShowLens2 || dlShowRays2)
+                ? x_L2
+                : Math.min(maxX, x_L1 + Math.max(28, Math.abs(f1_eff) * 2.4));
 
             hitLevels.forEach(function (hitY, idx) {
                 const atL1 = { x: x_L1, y: hitY };
                 const atL2 = { x: x_L2, y: hitY + slopeBetween * (x_L2 - x_L1) };
-                segWithArrow2(objectPoint, atL1, rayColors[idx], false, false);
-                segWithArrow2(atL1, atL2, rayColors[idx], false, false);
 
-                if (f2_eff > 0) {
-                    segWithArrow2(atL2, finalPoint, rayColors[idx], false, true);
-                } else {
-                    const far = intersectWithX2(finalPoint, atL2, maxX);
-                    segWithArrow2(atL2, far, rayColors[idx], false, true);
-                    segWithArrow2(atL2, finalPoint, rayColors[idx], true, false);
+                if (dlShowRays1) {
+                    segWithArrow2(objectPoint, atL1, rayColors[idx], false, false);
+                    const stageEnd = { x: stageEndX, y: hitY + slopeBetween * (stageEndX - x_L1) };
+                    segWithArrow2(atL1, stageEnd, rayColors[idx], false, !dlShowRays2);
+                }
+
+                if (dlShowRays2) {
+                    if (!dlShowRays1) {
+                        const startX = Math.max(minX, x_L2 - Math.max(24, Math.abs(f2_eff) * 1.7));
+                        const startRay = { x: startX, y: atL2.y - slopeBetween * (x_L2 - startX) };
+                        segWithArrow2(startRay, atL2, rayColors[idx], false, false);
+                    }
+                    if (f2_eff > 0) {
+                        segWithArrow2(atL2, finalPoint, rayColors[idx], false, true);
+                    } else {
+                        const far = intersectWithX2(finalPoint, atL2, maxX);
+                        segWithArrow2(atL2, far, rayColors[idx], false, true);
+                        segWithArrow2(atL2, finalPoint, rayColors[idx], true, false);
+                    }
                 }
             });
         } else {
-            // Rays through Lens 1
-            drawLensRays(x_L1, f1_eff, s1, s1p_val, y1, y1p,
-                'rgba(231,76,60,0.9)', 'rgba(155,89,182,0.95)', 'rgba(46,204,113,0.9)');
+            // First-stage construction: original object through Lens 1.
+            if (dlShowRays1) {
+                ctx2.save();
+                // When the second-stage rays are hidden, stop a real first-stage construction at I₁.
+                if (!dlShowRays2 && Number.isFinite(s1p_val) && s1p_val > 0) {
+                    const clipAt = toCanvas2(x_img1, 0).x + 3;
+                    ctx2.beginPath();
+                    ctx2.rect(0, 0, Math.max(0, Math.min(width, clipAt)), height);
+                    ctx2.clip();
+                }
+                drawLensRays(x_L1, f1_eff, s1, s1p_val, y1, y1p,
+                    'rgba(231,76,60,0.9)', 'rgba(155,89,182,0.95)', 'rgba(46,204,113,0.9)');
+                ctx2.restore();
+            }
 
-            // Rays through Lens 2
-            drawLensRays(x_L2, f2_eff, s2_val, s2p_val, y1p, y2p,
-                'rgba(231,76,60,0.7)', 'rgba(155,89,182,0.7)', 'rgba(46,204,113,0.7)');
+            // Second-stage construction: I₁ acts as O₂ for Lens 2.
+            if (dlShowRays2) {
+                drawLensRays(x_L2, f2_eff, s2_val, s2p_val, y1p, y2p,
+                    'rgba(231,76,60,0.7)', 'rgba(155,89,182,0.7)', 'rgba(46,204,113,0.7)');
+            }
         }
 
         ctx2.font = '14px Arial';
@@ -3024,16 +3125,37 @@ objectHeightInput.addEventListener('change', function () {
                          : (Mtot < 0)    ? 'inverted relative to the original object'
                          : 'upright relative to the original object';
 
-        dl_notes.textContent =
+        const dlFullNote =
             'Lens 1 forms ' + nature1 + ' at s₁′ = ' +
             (s1p_val === Infinity ? '∞' : s1p_val.toFixed(2) + ' cm') +
             '. This acts as ' + nature2obj + ' with s₂ = d − s₁′ = ' +
             (s2_val === Infinity ? '∞' : s2_val.toFixed(2) + ' cm') +
-            '. Lens 2 then produces ' + natureFinal + 
+            '. Lens 2 then produces ' + natureFinal +
             ' at s₂′ = ' + (s2p_val === Infinity ? '∞' : s2p_val.toFixed(2) + ' cm') +
             ', with height y₂′ = ' + (y2p === Infinity ? '∞' : y2p.toFixed(2) + ' cm') +
             '. The total magnification is M = ' +
             (Mtot === Infinity ? '∞' : Mtot.toFixed(3)) + ', so the final image is ' + orient + '.';
+
+        if (dlGuide.customView) {
+            dl_notes.textContent = 'Custom display: choose any combination of the first-stage and second-stage layers. ' + dlFullNote;
+        } else if (dlGuide.mode !== 'guided' || dlStep >= 4) {
+            dl_notes.textContent = dlFullNote;
+        } else if (dlStep === 1) {
+            dl_notes.textContent =
+                'Step 1: Start with the original object and Lens 1. Identify the signs of f₁ and s₁ before applying 1/f₁ = 1/s₁ + 1/s₁′.';
+        } else if (dlStep === 2) {
+            dl_notes.textContent =
+                'Step 2: Lens 1 forms ' + nature1 + ' at s₁′ = ' +
+                (s1p_val === Infinity ? '∞' : s1p_val.toFixed(2) + ' cm') +
+                ', with intermediate height y₁′ = ' +
+                (Number.isFinite(y1p) ? y1p.toFixed(2) + ' cm' : '∞') + '. This is the intermediate image I₁.';
+        } else {
+            dl_notes.textContent =
+                'Step 3: Place Lens 2. The intermediate image I₁ now acts as ' + nature2obj +
+                '. Using the adopted sign convention, s₂ = d − s₁′ = ' +
+                (s2_val === Infinity ? '∞' : s2_val.toFixed(2) + ' cm') +
+                '. Proceed to Step 4 to construct the final image.';
+        }
     }
 
     updateDoubleSimulation();
@@ -5970,10 +6092,11 @@ ready(function(){
         }
         bindDrag(canvas, function(p){
             const S=scene();
+            const layers=(window.DL_GUIDED_STATE&&window.DL_GUIDED_STATE.layers)||{};
             const objFoot=S.toCanvas(S.xObj,0), objTop=S.toCanvas(S.xObj,S.yObj);
-            if(distToSeg(p,objFoot,objTop)<HIT_LINE || hypot2(p.x-objTop.x,p.y-objTop.y)<HIT_POINT) return {role:'object'};
+            if(layers.object!==false && (distToSeg(p,objFoot,objTop)<HIT_LINE || hypot2(p.x-objTop.x,p.y-objTop.y)<HIT_POINT)) return {role:'object'};
             const lens2Base=S.toCanvas(S.xL2,0);
-            if(Math.abs(p.x-lens2Base.x)<HIT_LINE && Math.abs(p.y-lens2Base.y)<110) return {role:'lens2'};
+            if(layers.lens2!==false && Math.abs(p.x-lens2Base.x)<HIT_LINE && Math.abs(p.y-lens2Base.y)<110) return {role:'lens2'};
             return null;
         }, function(p, active){
             const S=scene(); const w=S.toWorld(p.x,p.y);
@@ -6331,20 +6454,22 @@ ready(function(){
     }
     function renderDouble(){
         const cb=toggles.double, canvas=document.getElementById('double-lens-canvas'); if(!cb||!cb.checked||!canvas) return;
+        const layers=(window.DL_GUIDED_STATE&&window.DL_GUIDED_STATE.layers)||{};
+        if(layers.dimensions===false) return;
         const ctx=canvas.getContext('2d'); const W=canvas.width,H=canvas.height; if(!W||!H) return; const P=computeDouble();
         const xL1=0,xL2=P.d,xObj=-P.s1,xImg1=P.s1p,xImg2=(P.s2p===Infinity?xL2+40:xL2+P.s2p);
         const minX=Math.min(xObj,xL1-P.f1*1.6,xL2-P.f2*1.6,xImg1,xImg2,-40),maxX=Math.max(xL2+P.f2*1.6,xImg1,xImg2,40);
         const minY=-25,maxY=25,padX=25,padY=25,scale=Math.min((W-2*padX)/(maxX-minX),(H-2*padY)/(maxY-minY));
         function X(x){ return padX+(x-minX)*scale; } function Y(y){ return H-(padY+(y-minY)*scale); } const axisY=Y(0);
         const c1='rgba(46,134,193,0.70)', c2='rgba(155,89,182,0.72)', c3='rgba(192,57,43,0.70)', c4='rgba(142,68,173,0.72)', cY='rgba(22,160,133,0.74)';
-        drawDim(ctx,X(xObj),X(xL1),axisY+22,axisY,'s₁ = '+cm(P.s1,2),c1);
-        drawDim(ctx,X(xL1),X(xL2),axisY+38,axisY,'d = '+cm(P.d,2),c2);
-        if(Number.isFinite(P.s1p)) drawDim(ctx,X(xL1),X(xImg1),axisY+54,axisY,"s₁′ = "+cm(P.s1p,2),c3);
-        if(Number.isFinite(P.s2p)) drawDim(ctx,X(xL2),X(xImg2),axisY+70,axisY,"s₂′ = "+cm(P.s2p,2),c3);
-        drawDim(ctx,X(xL1),X(xL1+P.f1),axisY-20,axisY,'|f₁| = '+cm(P.f1,2),c4);
-        drawDim(ctx,X(xL2),X(xL2+P.f2),axisY-36,axisY,'|f₂| = '+cm(P.f2,2),c4);
-        drawVDim(ctx,X(xObj)-10,axisY,Y(P.y1),'y = '+cm(P.y1,2),cY);
-        if(Number.isFinite(P.y2)) drawVDim(ctx,X(xImg2)+10,axisY,Y(P.y2),"y′ = "+cm(P.y2,2),c3);
+        if(layers.object!==false && layers.lens1!==false) drawDim(ctx,X(xObj),X(xL1),axisY+22,axisY,'s₁ = '+cm(P.s1,2),c1);
+        if(layers.lens1!==false && layers.lens2!==false) drawDim(ctx,X(xL1),X(xL2),axisY+38,axisY,'d = '+cm(P.d,2),c2);
+        if(layers.lens1!==false && layers.intermediate!==false && Number.isFinite(P.s1p)) drawDim(ctx,X(xL1),X(xImg1),axisY+54,axisY,"s₁′ = "+cm(P.s1p,2),c3);
+        if(layers.lens2!==false && layers.final!==false && Number.isFinite(P.s2p)) drawDim(ctx,X(xL2),X(xImg2),axisY+70,axisY,"s₂′ = "+cm(P.s2p,2),c3);
+        if(layers.lens1!==false) drawDim(ctx,X(xL1),X(xL1+P.f1),axisY-20,axisY,'|f₁| = '+cm(P.f1,2),c4);
+        if(layers.lens2!==false) drawDim(ctx,X(xL2),X(xL2+P.f2),axisY-36,axisY,'|f₂| = '+cm(P.f2,2),c4);
+        if(layers.object!==false) drawVDim(ctx,X(xObj)-10,axisY,Y(P.y1),'y = '+cm(P.y1,2),cY);
+        if(layers.final!==false && Number.isFinite(P.y2)) drawVDim(ctx,X(xImg2)+10,axisY,Y(P.y2),"y′ = "+cm(P.y2,2),c3);
     }
     function computeMirror(){
         const type=document.querySelector('#tab-mirrors .lens-option.active')?.dataset.type||'concave';
@@ -6431,7 +6556,14 @@ ready(function(){
         const X=x=>padX+(x-minX)*scale,Y=y=>H-(padY+(y-minY)*scale), worldX=px=>minX+(px-padX)/scale;
         return {X,Y,worldX,d};
     }
-    bindFocus(document.getElementById('double-lens-canvas'), function(){ const S=dblLensScene(); return [{role:'focus1',p:{x:S.X(num('dl_f1_range',15)),y:S.Y(0)}},{role:'focus2',p:{x:S.X(S.d+num('dl_f2_range',20)),y:S.Y(0)}}]; }, function(p,active){ const S=dblLensScene(); if(active.role==='focus1') setPair('dl_f1_range','dl_f1_input', Math.abs(S.worldX(p.x)), 2); else setPair('dl_f2_range','dl_f2_input', Math.abs(S.worldX(p.x)-S.d), 2); });
+    bindFocus(document.getElementById('double-lens-canvas'), function(){
+        const S=dblLensScene();
+        const layers=(window.DL_GUIDED_STATE&&window.DL_GUIDED_STATE.layers)||{};
+        const targets=[];
+        if(layers.lens1!==false) targets.push({role:'focus1',p:{x:S.X(num('dl_f1_range',15)),y:S.Y(0)}});
+        if(layers.lens2!==false) targets.push({role:'focus2',p:{x:S.X(S.d+num('dl_f2_range',20)),y:S.Y(0)}});
+        return targets;
+    }, function(p,active){ const S=dblLensScene(); if(active.role==='focus1') setPair('dl_f1_range','dl_f1_input', Math.abs(S.worldX(p.x)), 2); else setPair('dl_f2_range','dl_f2_input', Math.abs(S.worldX(p.x)-S.d), 2); });
     bindFocus(document.getElementById('mirror-canvas'), function(){ const c=document.getElementById('mirror-canvas'); const W=c.clientWidth||c.width||1,H=c.clientHeight||c.height||1, cx=W*.55, cy=H/2, scale=4; const type=document.querySelector('#tab-mirrors .lens-option.active')?.dataset.type||'concave'; const R=num('mirror-radius',15),f=(type==='concave'?1:-1)*(R/2); return [{role:'focus',p:{x:cx-f*scale,y:cy}}]; }, function(p){ const c=document.getElementById('mirror-canvas'); const W=c.clientWidth||c.width||1, cx=W*.55, scale=4; setPair('mirror-radius','mirror-radius-input', 2*Math.abs((cx-p.x)/scale), 2); });
 });
 })();
@@ -9011,15 +9143,15 @@ body.v217-body-locked{overflow:hidden!important;}
 <script id="v21-optical-bench-script">
 (function(){
 'use strict';
-window.__V21_BUILD__='v21.7-fullscreen-direct-rotation';
+window.__V21_BUILD__='v21.9-project-io-photodetector';
 
 var svg,board,inspector,badge;
 var WORLD={w:120,h:60,cy:30};
 var EPS=0.025,MAX_STEPS=42;
 var state={
-    elements:[],selected:null,drag:null,screenHits:{},
+    elements:[],selected:null,drag:null,screenHits:{},detectorHits:{},detectorReadings:{},
     ambient:1,rayLimit:14,showGrid:true,showLabels:true,showNormals:false,snap:true,
-    view:{x:0,y:0,w:120,h:60},history:[],historyIndex:-1,lastTrace:null
+    view:{x:0,y:0,w:120,h:60},history:[],historyIndex:-1,lastTrace:null,projectName:'Optical Bench Project'
 };
 var serial=1;
 
@@ -9048,12 +9180,12 @@ function snap(v){return state.snap?Math.round(v):Math.round(v*10)/10;}
 function byId(id){return state.elements.find(function(e){return e.id===id;})||null;}
 function isOptical(e){return !['ruler','protractor'].includes(e.type);}
 function isSource(e){return e.type==='pointSource'||e.type==='parallelSource';}
-function isRotatable(e){return ['pointSource','parallelSource','thickLens','planeMirror','sphericalMirror','prism','slab','screen','aperture','ruler'].includes(e.type);}
+function isRotatable(e){return ['pointSource','parallelSource','thickLens','planeMirror','sphericalMirror','prism','slab','screen','photodetector','aperture','ruler'].includes(e.type);}
 function rotationProp(e){return e&&e.type==='sphericalMirror'?'axisAngle':'angle';}
 function rotationValue(e){var k=rotationProp(e);return e&&e[k]!=null?e[k]:0;}
 function applyRotationStep(e,delta){if(!e||!isRotatable(e))return;var k=rotationProp(e);e[k]=num(e[k],0)+delta;sanitize(e);}
 function nameOf(e){
-    var map={pointSource:'Object / Point Source',parallelSource:'Parallel Beam',lens:'Thin Lens',thickLens:(e.R1>0?'Thick Convex Lens':'Thick Concave Lens'),planeMirror:'Plane Mirror',sphericalMirror:(e.R<0?'Concave Mirror':'Convex Mirror'),prism:'Prism',slab:'Glass Slab',screen:'Screen / Detector',aperture:'Aperture / Stop',ruler:'Ruler',protractor:'Protractor'};
+    var map={pointSource:'Object / Point Source',parallelSource:'Parallel Beam',lens:'Thin Lens',thickLens:(e.R1>0?'Thick Convex Lens':'Thick Concave Lens'),planeMirror:'Plane Mirror',sphericalMirror:(e.R<0?'Concave Mirror':'Convex Mirror'),prism:'Prism',slab:'Glass Slab',screen:'Screen / Image Plane',photodetector:'Photodetector / Power Meter',aperture:'Aperture / Stop',ruler:'Ruler',protractor:'Protractor'};
     return e.label||map[e.type]||e.type;
 }
 function prismHeightFromApex(e){var A=clamp(num(e.apex,60),20,140)*Math.PI/180;return e.width/(2*Math.tan(A/2));}
@@ -9069,14 +9201,15 @@ function elementPhysicsSummary(e){
     if(e.type==='prism')return 'Prism: apex angle A = '+fmt(e.apex,1)+'°, prism index n = '+fmt(e.n,3)+', surrounding index n₀ = '+fmt(state.ambient,3)+', relative index = '+fmt(e.n/state.ambient,3)+'.';
     if(e.type==='slab')return 'Parallel slab: thickness = '+fmt(e.width,2)+' cm, n = '+fmt(e.n,3)+', surrounding n₀ = '+fmt(state.ambient,3)+', relative index = '+fmt(e.n/state.ambient,3)+'.';
     if(e.type==='planeMirror')return 'Plane mirror: line angle = '+fmt(e.angle,1)+'°; length = '+fmt(e.length,1)+' cm.';
-    if(e.type==='pointSource'||e.type==='parallelSource')return 'Source emits '+Math.min(14,Math.round(e.rays))+' traced rays. The complete bench is limited to 14 rays in total.';
+    if(e.type==='photodetector'){var dr=state.detectorReadings[e.id];return 'Finite-aperture photodetector: active height = '+fmt(e.activeLength,2)+' cm; quantum/collection efficiency = '+fmt(100*e.efficiency,1)+'%. Each traced ray carries an equal share of its source power. '+(dr?'Current reading = '+fmt(dr.power,4)+' mW ('+fmt(dr.relative,1)+'%); focus signal = '+fmt(dr.focus,1)+'%.':'Place it near a focus to maximise captured power and concentration.');}
+    if(e.type==='pointSource'||e.type==='parallelSource')return 'Source power = '+fmt(e.power,3)+' mW, represented by '+Math.min(14,Math.round(e.rays))+' equal-power traced rays. The complete bench is limited to 14 rays in total.';
     return 'All displayed dimensions are editable in centimetres; angular properties are in degrees.';
 }
 
 function defaultElement(type,x,y){
     x=clamp(x==null?55:x,2,118);y=clamp(y==null?0:y,-28,28);
-    if(type==='pointSource')return{id:uid(),type:'pointSource',x:x,y:(y==null?8:y),angle:0,spread:24,rays:11,color:'#e74c3c'};
-    if(type==='parallelSource')return{id:uid(),type:'parallelSource',x:x,y:y,angle:0,width:16,rays:9,color:'#d35400'};
+    if(type==='pointSource')return{id:uid(),type:'pointSource',x:x,y:(y==null?8:y),angle:0,spread:24,rays:11,power:1.0,color:'#e74c3c'};
+    if(type==='parallelSource')return{id:uid(),type:'parallelSource',x:x,y:y,angle:0,width:16,rays:9,power:1.0,color:'#d35400'};
     if(type==='convexLens')return{id:uid(),type:'lens',x:x,y:y,f:16,aperture:26};
     if(type==='concaveLens')return{id:uid(),type:'lens',x:x,y:y,f:-16,aperture:26};
     if(type==='thickConvexLens')return{id:uid(),type:'thickLens',x:x,y:y,angle:0,n:1.52,width:5,aperture:24,R1:28,R2:-28};
@@ -9087,6 +9220,7 @@ function defaultElement(type,x,y){
     if(type==='prism')return{id:uid(),type:'prism',x:x,y:y,angle:0,n:1.52,apex:60,width:20,height:17.3205};
     if(type==='slab')return{id:uid(),type:'slab',x:x,y:y,angle:0,n:1.50,width:12,height:28};
     if(type==='screen')return{id:uid(),type:'screen',x:x,y:y,angle:90,length:34};
+    if(type==='photodetector')return{id:uid(),type:'photodetector',x:x,y:y,angle:90,length:12,activeLength:3,efficiency:1.0};
     if(type==='aperture')return{id:uid(),type:'aperture',x:x,y:y,angle:90,length:32,opening:8};
     if(type==='ruler')return{id:uid(),type:'ruler',x:x,y:y,angle:0,length:30};
     if(type==='protractor')return{id:uid(),type:'protractor',x:x,y:y,a1:0,a2:35,radius:10};
@@ -9108,7 +9242,125 @@ function undo(){if(state.historyIndex>0){state.historyIndex--;restore(state.hist
 function redo(){if(state.historyIndex<state.history.length-1){state.historyIndex++;restore(state.history[state.historyIndex]);updateHistoryButtons();}}
 function updateHistoryButtons(){$('v21-undo').disabled=state.historyIndex<=0;$('v21-redo').disabled=state.historyIndex>=state.history.length-1;}
 
+/* ===== Portable project import / export ===== */
+var V21_PROJECT_FORMAT='GeometricalOpticsInteractiveLabProject';
+var V21_PROJECT_VERSION='1.0';
+var V21_ALLOWED_TYPES=['pointSource','parallelSource','lens','thickLens','planeMirror','sphericalMirror','prism','slab','screen','photodetector','aperture','ruler','protractor'];
+
+function cloneJson(v){return JSON.parse(JSON.stringify(v));}
+function safeProjectName(name){
+    var n=String(name||'Optical Bench Project').trim().replace(/[\\/:*?"<>|]+/g,' ').replace(/\s+/g,' ');
+    return n.slice(0,80)||'Optical Bench Project';
+}
+function fileSafeName(name){return safeProjectName(name).replace(/\s+/g,'_').replace(/[^A-Za-z0-9_\-]+/g,'').slice(0,60)||'Optical_Bench_Project';}
+function timestampForFile(){
+    var d=new Date(),pad=function(n){return String(n).padStart(2,'0');};
+    return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'_'+pad(d.getHours())+pad(d.getMinutes());
+}
+function projectPayload(){
+    return{
+        format:V21_PROJECT_FORMAT,
+        version:V21_PROJECT_VERSION,
+        appBuild:window.__V21_BUILD__||'',
+        projectName:safeProjectName(state.projectName),
+        exportedAt:new Date().toISOString(),
+        units:{length:'cm',angle:'degree',power:'mW'},
+        bench:{
+            elements:cloneJson(state.elements),
+            ambient:state.ambient,
+            rayLimit:state.rayLimit,
+            showGrid:state.showGrid,
+            showLabels:state.showLabels,
+            showNormals:state.showNormals,
+            snap:state.snap,
+            view:cloneJson(state.view)
+        }
+    };
+}
+function downloadProject(){
+    var suggested=safeProjectName(state.projectName);
+    var entered=window.prompt('Project name:',suggested);
+    if(entered===null)return;
+    state.projectName=safeProjectName(entered);
+    var json=JSON.stringify(projectPayload(),null,2);
+    var blob=new Blob([json],{type:'application/json;charset=utf-8'});
+    var url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download=fileSafeName(state.projectName)+'_'+timestampForFile()+'.opticslab';
+    document.body.appendChild(a);a.click();a.remove();
+    setTimeout(function(){URL.revokeObjectURL(url);},1200);
+    $('v21-status').textContent='Project exported successfully: '+state.projectName;
+}
+function validView(v){
+    if(!v||typeof v!=='object')return{x:0,y:0,w:120,h:60};
+    var w=clamp(num(v.w,120),38,120),h=w/2;
+    return{x:clamp(num(v.x,0),0,WORLD.w-w),y:clamp(num(v.y,0),0,WORLD.h-h),w:w,h:h};
+}
+function resyncSerial(){
+    var max=0;
+    state.elements.forEach(function(e){var m=String(e.id||'').match(/^v21e(\d+)$/);if(m)max=Math.max(max,Number(m[1])||0);});
+    serial=Math.max(serial,max+1);
+}
+function normaliseElements(raw){
+    if(!Array.isArray(raw))throw new Error('The project does not contain an elements array.');
+    if(raw.length>250)throw new Error('The project contains too many elements.');
+    var seen={};
+    return raw.map(function(item,index){
+        if(!item||typeof item!=='object')throw new Error('Invalid optical element at position '+(index+1)+'.');
+        var e=cloneJson(item);
+        if(!V21_ALLOWED_TYPES.includes(e.type))throw new Error('Unsupported optical element type: '+String(e.type));
+        var candidate=String(e.id||'');
+        if(!candidate||seen[candidate]){do{candidate=uid();}while(seen[candidate]);}
+        e.id=candidate;seen[candidate]=true;sanitize(e);return e;
+    });
+}
+function loadProjectObject(data,sourceName){
+    if(!data||typeof data!=='object')throw new Error('The selected file is not a valid project.');
+    var bench,name;
+    if(data.format===V21_PROJECT_FORMAT){
+        var major=String(data.version||'1').split('.')[0];
+        if(major!=='1')throw new Error('This project uses an unsupported format version: '+String(data.version));
+        bench=data.bench;name=data.projectName;
+    }else if(Array.isArray(data.elements)){
+        /* Backward-compatible import of a raw bench snapshot. */
+        bench=data;name=sourceName||'Imported Optical Bench Project';
+    }else throw new Error('Unrecognised optical-bench project format.');
+    if(!bench||typeof bench!=='object')throw new Error('The project bench data are missing.');
+
+    var imported=normaliseElements(bench.elements);
+    state.elements=imported;
+    state.ambient=clamp(num(bench.ambient,1),1,2.5);
+    state.rayLimit=clamp(Math.round(num(bench.rayLimit,14)),1,14);
+    state.showGrid=bench.showGrid!==false;
+    state.showLabels=bench.showLabels!==false;
+    state.showNormals=!!bench.showNormals;
+    state.snap=bench.snap!==false;
+    state.view=validView(bench.view);
+    state.projectName=safeProjectName(name||sourceName||'Imported Optical Bench Project');
+    state.selected=null;state.drag=null;state.history=[];state.historyIndex=-1;
+    resyncSerial();syncGlobalUI();setView(state.view);
+    state.history=[snapshot()];state.historyIndex=0;updateHistoryButtons();closeProperties();renderAll();
+    $('v21-status').textContent='Project imported successfully: '+state.projectName+' ('+state.elements.length+' elements).';
+    return true;
+}
+function importProjectFile(file){
+    if(!file)return;
+    if(file.size>5*1024*1024){window.alert('The selected project file is larger than 5 MB.');return;}
+    var reader=new FileReader();
+    reader.onload=function(){
+        try{
+            var data=JSON.parse(String(reader.result||''));
+            var base=String(file.name||'Imported Project').replace(/\.(opticslab|json)$/i,'');
+            loadProjectObject(data,base);
+        }catch(err){window.alert('Could not import the project.\n\n'+(err&&err.message?err.message:String(err)));}
+        finally{var input=$('v21-project-file');if(input)input.value='';}
+    };
+    reader.onerror=function(){window.alert('The project file could not be read.');var input=$('v21-project-file');if(input)input.value='';};
+    reader.readAsText(file);
+}
+window.v21ProjectIO={exportObject:projectPayload,importObject:loadProjectObject,format:V21_PROJECT_FORMAT,version:V21_PROJECT_VERSION};
+
 function lineEnds(e){var t=unit(e.angle),h=e.length/2;return[add(e,mul(t,-h)),add(e,mul(t,h))];}
+function detectorActiveEnds(e){var t=unit(e.angle),h=e.activeLength/2;return[add(e,mul(t,-h)),add(e,mul(t,h))];}
 function lensEnds(e){return[{x:e.x,y:e.y-e.aperture/2},{x:e.x,y:e.y+e.aperture/2}];}
 function polygon(e){
     var pts;
@@ -9154,6 +9406,7 @@ function nearestInteraction(ray){
         if(e.type==='lens')take(candidateLine(ray,e,'lens',lensEnds(e)));
         else if(e.type==='planeMirror')take(candidateLine(ray,e,'planeMirror',lineEnds(e)));
         else if(e.type==='screen')take(candidateLine(ray,e,'screen',lineEnds(e)));
+        else if(e.type==='photodetector')take(candidateLine(ray,e,'photodetector',detectorActiveEnds(e)));
         else if(e.type==='aperture')take(candidateLine(ray,e,'aperture',lineEnds(e)));
         else if(e.type==='sphericalMirror'){
             var ps=mirrorPoints(e,58),center=add({x:e.x,y:e.y},mul(unit(e.axisAngle),e.R));
@@ -9175,21 +9428,25 @@ function sourceRays(){
         if(rays.length>=state.rayLimit)return;
         var remaining=state.rayLimit-rays.length;
         var count=clamp(Math.round(num(e.rays,7)),1,remaining);
+        var sourcePower=Math.max(0,num(e.power,1));
+        var rayPower=count>0?sourcePower/count:0;
         if(e.type==='pointSource'){
             var spread=rad(e.spread),base=rad(e.angle);
-            for(var i=0;i<count;i++){var a=base+(count===1?0:(i/(count-1)-.5)*spread);rays.push({p:{x:e.x,y:e.y},d:unit(deg(a)),color:e.color||'#e74c3c',inside:null,source:e.id});}
+            for(var i=0;i<count;i++){var a=base+(count===1?0:(i/(count-1)-.5)*spread);rays.push({p:{x:e.x,y:e.y},d:unit(deg(a)),color:e.color||'#e74c3c',inside:null,source:e.id,power:rayPower});}
         }else{
             var d=unit(e.angle),t=perp(d),w=e.width;
-            for(var j=0;j<count;j++){var off=count===1?0:(j/(count-1)-.5)*w;rays.push({p:add({x:e.x,y:e.y},mul(t,off)),d:d,color:e.color||'#d35400',inside:null,source:e.id});}
+            for(var j=0;j<count;j++){var off=count===1?0:(j/(count-1)-.5)*w;rays.push({p:add({x:e.x,y:e.y},mul(t,off)),d:d,color:e.color||'#d35400',inside:null,source:e.id,power:rayPower});}
         }
     });
     return rays;
 }
 
 function traceAll(){
-    state.screenHits={};var paths=[],normals=[],interactions=0;
-    sourceRays().forEach(function(src){
-        var ray={p:{x:src.p.x,y:src.p.y},d:norm(src.d),color:src.color,inside:null,source:src.source,segments:[]};
+    state.screenHits={};state.detectorHits={};state.detectorReadings={};
+    var paths=[],normals=[],interactions=0,emitted=sourceRays();
+    var totalPower=emitted.reduce(function(a,r){return a+Math.max(0,num(r.power,0));},0);
+    emitted.forEach(function(src){
+        var ray={p:{x:src.p.x,y:src.p.y},d:norm(src.d),color:src.color,inside:null,source:src.source,power:src.power,segments:[]};
         for(var step=0;step<MAX_STEPS;step++){
             var hit=nearestInteraction(ray);
             if(!hit){var ex=boardExit(ray.p,ray.d);ray.segments.push([ray.p,ex]);break;}
@@ -9198,7 +9455,11 @@ function traceAll(){
             var e=hit.e;
             if(hit.kind==='screen'){
                 var ends=lineEnds(e),tg=norm(sub(ends[1],ends[0])),coord=dot(sub(hit.p,{x:e.x,y:e.y}),tg);
-                (state.screenHits[e.id]||(state.screenHits[e.id]=[])).push({p:hit.p,coord:coord,color:ray.color});break;
+                (state.screenHits[e.id]||(state.screenHits[e.id]=[])).push({p:hit.p,coord:coord,color:ray.color,power:ray.power,source:ray.source});break;
+            }
+            if(hit.kind==='photodetector'){
+                var de=detectorActiveEnds(e),dt=norm(sub(de[1],de[0])),dc=dot(sub(hit.p,{x:e.x,y:e.y}),dt);
+                (state.detectorHits[e.id]||(state.detectorHits[e.id]=[])).push({p:hit.p,coord:dc,color:ray.color,power:ray.power,source:ray.source});break;
             }
             if(hit.kind==='aperture'){
                 var ae=lineEnds(e),at=norm(sub(ae[1],ae[0])),ac=Math.abs(dot(sub(hit.p,{x:e.x,y:e.y}),at));
@@ -9225,7 +9486,22 @@ function traceAll(){
     var hitList=[];Object.keys(state.screenHits).forEach(function(k){hitList=hitList.concat(state.screenHits[k]);});
     var mean=hitList.length?hitList.reduce(function(a,h){return a+h.coord;},0)/hitList.length:NaN;
     var rms=hitList.length?Math.sqrt(hitList.reduce(function(a,h){var d=h.coord-mean;return a+d*d;},0)/hitList.length):NaN;
-    state.lastTrace={paths:paths,normals:normals,interactions:interactions,hits:hitList,mean:mean,rms:rms};return state.lastTrace;
+    var detectorHitList=[];
+    state.elements.filter(function(e){return e.type==='photodetector';}).forEach(function(e){
+        var hits=state.detectorHits[e.id]||[],eff=clamp(num(e.efficiency,1),0,1);
+        var rawPower=hits.reduce(function(a,h){return a+Math.max(0,num(h.power,0));},0),power=rawPower*eff;
+        var relative=totalPower>0?100*power/totalPower:0;
+        var wsum=hits.reduce(function(a,h){return a+Math.max(0,num(h.power,0));},0);
+        var dmean=wsum>0?hits.reduce(function(a,h){return a+h.coord*Math.max(0,num(h.power,0));},0)/wsum:NaN;
+        var drms=wsum>0?Math.sqrt(hits.reduce(function(a,h){var dd=h.coord-dmean;return a+dd*dd*Math.max(0,num(h.power,0));},0)/wsum):NaN;
+        var scale=Math.max(num(e.activeLength,3)/4,.15),concentration=Number.isFinite(drms)?1/(1+(drms/scale)*(drms/scale)):0;
+        var focus=clamp(relative*concentration,0,100);
+        var effectiveWidth=Number.isFinite(drms)?Math.max(2*drms,num(e.activeLength,3)/20,.05):NaN;
+        var density=Number.isFinite(effectiveWidth)?power/effectiveWidth:0;
+        var reading={id:e.id,name:nameOf(e),hits:hits.length,power:power,relative:relative,mean:dmean,rms:drms,focus:focus,density:density,totalPower:totalPower};
+        state.detectorReadings[e.id]=reading;detectorHitList=detectorHitList.concat(hits);
+    });
+    state.lastTrace={paths:paths,normals:normals,interactions:interactions,hits:hitList,detectorHits:detectorHitList,mean:mean,rms:rms,totalPower:totalPower,detectorReadings:state.detectorReadings};return state.lastTrace;
 }
 
 function gridSvg(){
@@ -9266,6 +9542,21 @@ function elementSvg(e){
     }else if(e.type==='screen'){
         var se=lineEnds(e);s+='<line x1="'+se[0].x+'" y1="'+sy(se[0].y)+'" x2="'+se[1].x+'" y2="'+sy(se[1].y)+'" stroke="url(#v21-screen-pattern)" stroke-width="1.15"/>';
         s+='<line x1="'+se[0].x+'" y1="'+sy(se[0].y)+'" x2="'+se[1].x+'" y2="'+sy(se[1].y)+'" stroke="#5f7686" stroke-width=".25"/>'+labelSvg(e,e.x,sy(e.y)+e.length/2+2.2,'');
+    }else if(e.type==='photodetector'){
+        var ph=lineEnds(e),pa=detectorActiveEnds(e),ptg=norm(sub(ph[1],ph[0])),pn=perp(ptg),hw=.75;
+        var hp1=add(ph[0],mul(pn,-hw)),hp2=add(ph[1],mul(pn,-hw)),hp3=add(ph[1],mul(pn,hw)),hp4=add(ph[0],mul(pn,hw));
+        var reading=state.detectorReadings[e.id]||{power:0,relative:0,focus:0,rms:NaN,hits:0};
+        var hue=clamp(reading.focus*1.2,0,120),led='hsl('+hue+',72%,44%)';
+        s+='<polygon class="v218-detector-housing" points="'+[hp1,hp2,hp3,hp4].map(pt).join(' ')+'" fill="#263b49" stroke="#102833" stroke-width=".18"/>';
+        s+='<line x1="'+pa[0].x+'" y1="'+sy(pa[0].y)+'" x2="'+pa[1].x+'" y2="'+sy(pa[1].y)+'" stroke="#ffd84d" stroke-width="1.05" stroke-linecap="round"/>';
+        s+='<line x1="'+pa[0].x+'" y1="'+sy(pa[0].y)+'" x2="'+pa[1].x+'" y2="'+sy(pa[1].y)+'" stroke="#fff6b0" stroke-width=".28" stroke-linecap="round"/>';
+        s+='<circle cx="'+e.x+'" cy="'+sy(e.y)+'" r=".46" fill="'+led+'" stroke="#fff" stroke-width=".15"/>';
+        var bx=e.x>91?e.x-19:e.x+3.2,by=clamp(sy(e.y)-7.5,1.0,51.5),bw=15.8,bh=6.1,barw=clamp((bw-1.4)*reading.relative/100,0,bw-1.4);
+        s+='<rect x="'+bx+'" y="'+by+'" width="'+bw+'" height="'+bh+'" rx=".7" fill="#101d24" stroke="#506d7e" stroke-width=".18"/>';
+        s+='<text class="v218-detector-readout" x="'+(bx+.7)+'" y="'+(by+1.9)+'" font-size="1.18" fill="#8fffb7">P '+fmt(reading.power,3)+' mW</text>';
+        s+='<text class="v218-detector-readout" x="'+(bx+.7)+'" y="'+(by+3.55)+'" font-size="1.05" fill="#d5f4ff">'+fmt(reading.relative,1)+'%   Focus '+fmt(reading.focus,0)+'</text>';
+        s+='<rect x="'+(bx+.7)+'" y="'+(by+4.45)+'" width="'+(bw-1.4)+'" height=".8" rx=".25" fill="#263a45"/><rect x="'+(bx+.7)+'" y="'+(by+4.45)+'" width="'+barw+'" height=".8" rx=".25" fill="'+led+'"/>';
+        s+=labelSvg(e,e.x,sy(e.y)+e.length/2+2.4,'  active '+fmt(e.activeLength,1)+' cm');
     }else if(e.type==='aperture'){
         var ae=lineEnds(e),tg3=norm(sub(ae[1],ae[0])),g1=add(e,mul(tg3,-e.opening/2)),g2=add(e,mul(tg3,e.opening/2));
         s+='<line x1="'+ae[0].x+'" y1="'+sy(ae[0].y)+'" x2="'+g1.x+'" y2="'+sy(g1.y)+'" stroke="#222" stroke-width=".8"/><line x1="'+g2.x+'" y1="'+sy(g2.y)+'" x2="'+ae[1].x+'" y2="'+sy(ae[1].y)+'" stroke="#222" stroke-width=".8"/>'+labelSvg(e,e.x,sy(e.y)+e.length/2+2.2,'  Ø'+fmt(e.opening,1)+' cm');
@@ -9287,6 +9578,7 @@ function raySvg(trace){
     var s='<g pointer-events="none">';trace.paths.forEach(function(r){r.segments.forEach(function(seg){s+='<line class="v21-ray" x1="'+seg[0].x+'" y1="'+sy(seg[0].y)+'" x2="'+seg[1].x+'" y2="'+sy(seg[1].y)+'" stroke="'+r.color+'" stroke-width=".20" stroke-opacity=".88"/>';});});
     trace.normals.forEach(function(n){var a=add(n.p,mul(n.n,-2.2)),b=add(n.p,mul(n.n,2.2));s+='<line x1="'+a.x+'" y1="'+sy(a.y)+'" x2="'+b.x+'" y2="'+sy(b.y)+'" stroke="#16a085" stroke-width=".13" stroke-dasharray=".5 .45"/>';});
     trace.hits.forEach(function(h){s+='<circle cx="'+h.p.x+'" cy="'+sy(h.p.y)+'" r=".42" fill="'+h.color+'" stroke="#fff" stroke-width=".12"/>';});
+    (trace.detectorHits||[]).forEach(function(h){s+='<circle cx="'+h.p.x+'" cy="'+sy(h.p.y)+'" r=".48" fill="#ffd84d" stroke="'+h.color+'" stroke-width=".18"/>';});
     return s+'</g>';
 }
 function selectionSvg(e){
@@ -9342,8 +9634,8 @@ function renderInspector(){
     function f(key,label,min,max,step,type,value,full,readonly){fields.push({key:key,label:label,min:min,max:max,step:step,type:type||'number',value:value,full:!!full,readonly:!!readonly});}
     f('label','Element label',null,null,null,'text',e.label||'',true,false);
     f('x','Horizontal position x (cm)',0,120,.1);f('y','Vertical position y (cm)',-30,30,.1);
-    if(e.type==='pointSource'){f('angle','Central angle (°)',-180,180,.5);f('spread','Angular spread (°)',0,160,.5);f('rays','Rays (maximum 14)',1,14,1);f('color','Ray color',null,null,null,'color',null,true);}
-    if(e.type==='parallelSource'){f('angle','Beam angle (°)',-180,180,.5);f('width','Beam width (cm)',1,50,.1);f('rays','Rays (maximum 14)',1,14,1);f('color','Ray color',null,null,null,'color',null,true);}
+    if(e.type==='pointSource'){f('angle','Central angle (°)',-180,180,.5);f('spread','Angular spread (°)',0,160,.5);f('rays','Rays (maximum 14)',1,14,1);f('power','Source optical power (mW)',0,1000,.001);f('color','Ray color',null,null,null,'color',null,true);}
+    if(e.type==='parallelSource'){f('angle','Beam angle (°)',-180,180,.5);f('width','Beam width (cm)',1,50,.1);f('rays','Rays (maximum 14)',1,14,1);f('power','Source optical power (mW)',0,1000,.001);f('color','Ray color',null,null,null,'color',null,true);}
     if(e.type==='lens'){f('f','Focal length f (cm)',-100,100,.1);f('aperture','Clear aperture (cm)',2,55,.1);}
     if(e.type==='thickLens'){f('angle','Optical-axis angle (°)',-180,180,.5);f('n','Lens refractive index n',1,3,.001);f('__ambient','Surrounding index n₀',1,2.5,.001,'number',state.ambient);f('width','Central thickness d (cm)',1,20,.1);f('aperture','Clear aperture (cm)',2,50,.1);f('R1','First radius R₁ (cm)',-100,100,.1);f('R2','Second radius R₂ (cm)',-100,100,.1);f('__thickF','Derived effective focal length (cm)',null,null,null,'number',Number.isFinite(thickLensEffectiveF(e))?fmt(thickLensEffectiveF(e),4):'Infinity',true,true);}
     if(e.type==='planeMirror'){f('angle','Mirror line angle (°)',-180,180,.5);f('length','Mirror length (cm)',2,55,.1);}
@@ -9351,6 +9643,7 @@ function renderInspector(){
     if(e.type==='prism'){f('angle','Prism rotation (°)',-180,180,.5);f('apex','Apex angle A (°)',20,140,.1);f('n','Prism refractive index n',1,3,.001);f('__ambient','Surrounding index n₀',1,2.5,.001,'number',state.ambient);f('width','Base width (cm)',2,50,.1);f('__prismHeight','Derived prism height (cm)',null,null,null,'number',fmt(prismHeightFromApex(e),4),false,true);}
     if(e.type==='slab'){f('angle','Slab rotation (°)',-180,180,.5);f('n','Slab refractive index n',1,3,.001);f('__ambient','Surrounding index n₀',1,2.5,.001,'number',state.ambient);f('width','Slab thickness (cm)',2,50,.1);f('height','Slab height (cm)',2,55,.1);}
     if(e.type==='screen'){f('angle','Screen angle (°)',-180,180,.5);f('length','Screen length (cm)',2,58,.1);}
+    if(e.type==='photodetector'){var dr=state.detectorReadings[e.id]||{};f('angle','Detector angle (°)',-180,180,.5);f('length','Detector housing length (cm)',2,40,.1);f('activeLength','Sensitive aperture height (cm)',.2,30,.1);f('efficiency','Collection efficiency (0–1)',0,1,.01);f('__detPower','Detected power (mW)',null,null,null,'number',fmt(num(dr.power,0),5),false,true);f('__detRelative','Relative captured power (%)',null,null,null,'number',fmt(num(dr.relative,0),3),false,true);f('__detRms','Spot RMS on sensor (cm)',null,null,null,'number',Number.isFinite(dr.rms)?fmt(dr.rms,4):'–',false,true);f('__detFocus','Focus signal (0–100)',null,null,null,'number',fmt(num(dr.focus,0),2),true,true);}
     if(e.type==='aperture'){f('angle','Stop angle (°)',-180,180,.5);f('length','Stop length (cm)',2,58,.1);f('opening','Opening diameter (cm)',.5,50,.1);}
     if(e.type==='ruler'){f('angle','Ruler angle (°)',-180,180,.5);f('length','Measured length (cm)',1,80,.1);}
     if(e.type==='protractor'){f('a1','Baseline angle (°)',-180,180,.5);f('a2','Second arm angle (°)',-180,180,.5);f('radius','Protractor radius (cm)',4,20,.1);}
@@ -9359,7 +9652,7 @@ function renderInspector(){
     inspector.innerHTML=html;
     inspector.querySelectorAll('[data-v21-prop]:not([readonly])').forEach(function(inp){
         inp.addEventListener('input',function(){var key=inp.dataset.v21Prop;if(key==='label')e.label=inp.value;else if(key==='__mirrorF')e.R=2*num(inp.value,e.R/2);else if(key==='__ambient'){state.ambient=clamp(num(inp.value,state.ambient),1,2.5);syncGlobalUI();}else e[key]=inp.type==='color'?inp.value:num(inp.value,e[key]);sanitize(e);renderSvg();});
-        inp.addEventListener('change',function(){commit();renderInspector();renderSvg();});
+        inp.addEventListener('change',function(){commit();setTimeout(function(){renderSvg();renderInspector();},0);});
     });
 }
 function openProperties(){
@@ -9382,20 +9675,26 @@ function sanitize(e){
     if(e.R1!=null&&Math.abs(e.R1)<3)e.R1=e.R1<0?-3:3;if(e.R2!=null&&Math.abs(e.R2)<3)e.R2=e.R2<0?-3:3;
     if(e.type==='thickLens')e.aperture=Math.min(e.aperture,1.82*Math.min(Math.abs(e.R1),Math.abs(e.R2)));
     if(e.type==='prism'){e.apex=clamp(num(e.apex,60),20,140);e.width=clamp(num(e.width,20),2,50);e.height=prismHeightFromApex(e);if(e.height>50){e.height=50;e.width=2*e.height*Math.tan(e.apex*Math.PI/360);}}
-    ['aperture','length','width','height','opening','radius','rays','spread'].forEach(function(k){if(e[k]!=null)e[k]=Math.max(k==='rays'?1:.2,num(e[k],1));});
-    if(e.rays!=null)e.rays=clamp(Math.round(e.rays),1,14);
+    ['aperture','activeLength','length','width','height','opening','radius','rays','spread'].forEach(function(k){if(e[k]!=null)e[k]=Math.max(k==='rays'?1:.2,num(e[k],1));});
+    if(e.rays!=null)e.rays=clamp(Math.round(e.rays),1,14);if(e.power!=null)e.power=clamp(num(e.power,1),0,1000);if(e.efficiency!=null)e.efficiency=clamp(num(e.efficiency,1),0,1);if(e.type==='photodetector'){e.length=clamp(num(e.length,12),2,40);e.activeLength=clamp(num(e.activeLength,3),.2,e.length);}
     if(e.opening!=null&&e.length!=null)e.opening=Math.min(e.opening,e.length-0.2);if(e.n!=null)e.n=clamp(e.n,1,3);
 }
 function updateResults(tr){
     $('v21-element-count').textContent=state.elements.filter(function(e){return!isSource(e)&&e.type!=='ruler'&&e.type!=='protractor';}).length;
     $('v21-ray-count').textContent=tr.paths.length;$('v21-interaction-count').textContent=tr.interactions;$('v21-screen-hits').textContent=tr.hits.length;
     $('v21-screen-mean').textContent=Number.isFinite(tr.mean)?fmt(tr.mean,2)+' cm':'–';$('v21-screen-rms').textContent=Number.isFinite(tr.rms)?fmt(tr.rms,2)+' cm':'–';
+    var selected=byId(state.selected),det=selected&&selected.type==='photodetector'?selected:state.elements.find(function(e){return e.type==='photodetector';});
+    var dr=det?state.detectorReadings[det.id]:null;
+    $('v21-detector-name').textContent=det?nameOf(det):'–';
+    $('v21-detector-power').textContent=dr?fmt(dr.power,4)+' mW':'–';
+    $('v21-detector-relative').textContent=dr?fmt(dr.relative,1)+'%':'–';
+    $('v21-detector-focus').textContent=dr?fmt(dr.focus,1)+'/100':'–';
 }
 function updateStatus(){
-    var e=byId(state.selected),txt;if(e)txt=nameOf(e)+' selected — drag to move, use the purple handle to rotate, or click the tiny ⚙ square for physical properties.';else if(!state.elements.some(isSource))txt='Add an object/point source or a parallel beam to begin ray tracing.';else txt='Ray tracing is active. Add lenses, mirrors, refractors, a screen, or measuring tools.';
+    var e=byId(state.selected),txt;if(e)txt=nameOf(e)+' selected — drag to move, use the purple handle to rotate, or click the tiny ⚙ square for physical properties.';else if(!state.elements.some(isSource))txt='Add an object/point source or a parallel beam to begin ray tracing.';else txt='Ray tracing is active. Add lenses, mirrors, refractors, a screen, a photodetector, or measuring tools.';
     $('v21-status').textContent=txt;
 }
-function renderAll(){renderInspector();renderSvg();}
+function renderAll(){renderSvg();renderInspector();}
 
 function svgPoint(ev){var p=svg.createSVGPoint();p.x=ev.clientX;p.y=ev.clientY;var q=p.matrixTransform(svg.getScreenCTM().inverse());return{x:q.x,y:WORLD.cy-q.y};}
 function addElement(type,x,y){var e=defaultElement(type,x,y);if(!e)return;state.elements.push(e);state.selected=e.id;sanitize(e);commit();renderAll();}
@@ -9418,7 +9717,11 @@ var V21_EXAMPLE_INFO={
     mirror:'Concave-mirror imaging — parallel rays focus at f = R/2.',
     prism:'Prism deviation — adjustable apex angle and refractive indices.',
     slab:'Glass slab — refraction through parallel faces and lateral displacement.',
-    measurement:'Measurement laboratory — prism, detector, ruler, and protractor.'
+    measurement:'Measurement laboratory — prism, detector, ruler, and protractor.',
+    focusmeter:'Focus search — move the finite-aperture power meter along the axis; the digital signal peaks at the lens focus.',
+    eyesensor:'Normal eye — the retinal sensor is placed at the paraxial focus and records the maximum focus signal.',
+    myopiaSensor:'Uncorrected myopia — the focus forms before the retinal sensor, reducing the concentration signal at the retina.',
+    hyperopiaSensor:'Uncorrected hyperopia — the focus lies behind the retinal sensor, so the retinal signal is below its maximum.'
 };
 function updateExampleUI(name){var sel=$('v21-example-select'),desc=$('v21-example-description');if(sel&&name)sel.value=name;if(desc)desc.textContent=V21_EXAMPLE_INFO[name]||'';}
 
@@ -9486,8 +9789,24 @@ function example(name){
         E=[el('parallelSource',8,5,'Incident Beam'),el('prism',54,0,'Prism'),el('screen',104,-8,'Screen'),el('ruler',70,-20,'Distance Ruler'),el('protractor',76,-5,'Angle Protractor')];
         E[0].width=11;E[0].rays=9;E[1].angle=4;E[1].n=1.58;E[1].apex=55;E[2].length=44;E[3].length=34;E[4].a1=0;E[4].a2=-22;
     }
+    if(name==='focusmeter'){
+        E=[el('parallelSource',8,0,'1.000 mW Parallel Beam'),el('convexLens',52,0,'Converging Lens'),el('photodetector',70,0,'Digital Power Meter')];
+        E[0].width=18;E[0].rays=14;E[0].power=1.0;E[1].f=18;E[1].aperture=25;E[2].length=13;E[2].activeLength=2.5;E[2].efficiency=1.0;
+    }
+    if(name==='eyesensor'){
+        E=[el('parallelSource',7,0,'Distant Object Rays'),el('aperture',58,0,'Pupil'),el('convexLens',64,0,'Eye Lens'),el('photodetector',79,0,'Retinal Sensor')];
+        E[0].width=8;E[0].rays=14;E[0].power=1.0;E[1].opening=8;E[1].length=24;E[2].f=15;E[2].aperture=22;E[3].length=25;E[3].activeLength=2.0;E[3].efficiency=1.0;
+    }
+    if(name==='myopiaSensor'){
+        E=[el('parallelSource',7,0,'Distant Object Rays'),el('aperture',58,0,'Pupil'),el('convexLens',64,0,'Myopic Eye Lens'),el('photodetector',79,0,'Retinal Sensor')];
+        E[0].width=8;E[0].rays=14;E[0].power=1.0;E[1].opening=8;E[1].length=24;E[2].f=10;E[2].aperture=22;E[3].length=25;E[3].activeLength=2.0;E[3].efficiency=1.0;
+    }
+    if(name==='hyperopiaSensor'){
+        E=[el('parallelSource',7,0,'Distant Object Rays'),el('aperture',58,0,'Pupil'),el('convexLens',64,0,'Hyperopic Eye Lens'),el('photodetector',79,0,'Retinal Sensor')];
+        E[0].width=8;E[0].rays=14;E[0].power=1.0;E[1].opening=8;E[1].length=24;E[2].f=22;E[2].aperture=22;E[3].length=25;E[3].activeLength=2.0;E[3].efficiency=1.0;
+    }
     if(!E.length)return;
-    E.forEach(sanitize);state.elements=E;var preferred=E.find(function(q){return q&&['lens','thickLens','sphericalMirror','prism','slab','planeMirror'].indexOf(q.type)>=0;})||E[0];state.selected=preferred?preferred.id:null;updateExampleUI(name);commit();renderAll();
+    E.forEach(sanitize);state.elements=E;var preferred=E.find(function(q){return q&&q.type==='photodetector';})||E.find(function(q){return q&&['lens','thickLens','sphericalMirror','prism','slab','planeMirror'].indexOf(q.type)>=0;})||E[0];state.selected=preferred?preferred.id:null;updateExampleUI(name);commit();renderAll();
 }
 
 function onPointerDown(ev){
@@ -9590,6 +9909,9 @@ function install(){
     if($('v21-example-select'))$('v21-example-select').addEventListener('change',function(){updateExampleUI(this.value);});
 
     $('v21-zoom-in').addEventListener('click',function(){zoom(.82);});$('v21-zoom-out').addEventListener('click',function(){zoom(1.2);});$('v21-zoom-home').addEventListener('click',resetView);$('v21-save-png').addEventListener('click',savePng);
+    if($('v21-export-project'))$('v21-export-project').addEventListener('click',downloadProject);
+    if($('v21-import-project'))$('v21-import-project').addEventListener('click',function(){var input=$('v21-project-file');if(input)input.click();});
+    if($('v21-project-file'))$('v21-project-file').addEventListener('change',function(){importProjectFile(this.files&&this.files[0]);});
     $('v21-ambient').addEventListener('input',function(){state.ambient=clamp(num(this.value,1),1,2.5);renderSvg();});$('v21-ambient').addEventListener('change',commit);
     $('v21-ray-limit').addEventListener('input',function(){state.rayLimit=clamp(Math.round(num(this.value,14)),1,14);this.value=state.rayLimit;renderSvg();});$('v21-ray-limit').addEventListener('change',commit);
     $('v21-grid').addEventListener('change',function(){state.showGrid=this.checked;commit();renderSvg();});$('v21-labels').addEventListener('change',function(){state.showLabels=this.checked;commit();renderSvg();});$('v21-normals').addEventListener('change',function(){state.showNormals=this.checked;commit();renderSvg();});$('v21-snap').addEventListener('change',function(){state.snap=this.checked;commit();});
@@ -9601,6 +9923,8 @@ function install(){
         if((ev.key==='Delete'||ev.key==='Backspace')&&state.selected&&!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)){ev.preventDefault();deleteSelected();}
         if((ev.ctrlKey||ev.metaKey)&&ev.key.toLowerCase()==='z'){ev.preventDefault();ev.shiftKey?redo():undo();}
         if((ev.ctrlKey||ev.metaKey)&&ev.key.toLowerCase()==='y'){ev.preventDefault();redo();}
+        if((ev.ctrlKey||ev.metaKey)&&ev.key.toLowerCase()==='s'){ev.preventDefault();downloadProject();}
+        if((ev.ctrlKey||ev.metaKey)&&ev.key.toLowerCase()==='o'){ev.preventDefault();var projectInput=$('v21-project-file');if(projectInput)projectInput.click();}
         if(!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)&&state.selected){
             var se=byId(state.selected);
             if(ev.key==='['&&se&&isRotatable(se)){ev.preventDefault();applyRotationStep(se,-5);commit();renderAll();}
@@ -9615,6 +9939,217 @@ function install(){
 }
 
 document.addEventListener('DOMContentLoaded',install);
+})();
+</script>
+
+
+<style id="dl-guided-minimal-style">
+#tab-double .dl-guided-minimal-bar{
+  display:flex;align-items:center;gap:5px;flex-wrap:wrap;
+  margin:0 0 6px;padding:5px 7px;border:1px solid #d7e6f1;border-radius:8px;
+  background:#f7fbfe;color:#496579;font-size:.70rem;
+}
+#tab-double .dl-guided-minimal-title{font-weight:800;color:#315a76;margin-right:2px;}
+#tab-double .dl-guided-minimal-bar button{
+  min-width:30px;min-height:28px;padding:3px 7px;border:1px solid #9fc3dc;border-radius:6px;
+  background:#fff;color:#28678f;font-size:.68rem;font-weight:800;cursor:pointer;
+}
+#tab-double .dl-guided-minimal-bar button.active{background:#2f80c9;border-color:#2f80c9;color:#fff;}
+#tab-double .dl-guided-minimal-label{margin-left:3px;color:#60798b;font-weight:650;}
+#tab-double[data-dl-guide-mode="guided"][data-dl-guide-step="1"] .v13-handle[data-role="lens2"],
+#tab-double[data-dl-guide-mode="guided"][data-dl-guide-step="1"] .v13-handle[data-role="focus2"],
+#tab-double[data-dl-guide-mode="guided"][data-dl-guide-step="2"] .v13-handle[data-role="lens2"],
+#tab-double[data-dl-guide-mode="guided"][data-dl-guide-step="2"] .v13-handle[data-role="focus2"]{display:none!important;}
+@media(max-width:560px){
+ #tab-double .dl-guided-minimal-label{flex-basis:100%;margin-left:0;}
+ #tab-double .dl-guided-minimal-bar button{min-width:34px;}
+}
+</style>
+<script id="dl-guided-minimal-script">
+(function(){
+'use strict';
+function ready(fn){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fn,{once:true});else fn();}
+ready(function(){
+  const tab=document.getElementById('tab-double');
+  const canvas=document.getElementById('double-lens-canvas');
+  if(!tab||!canvas||document.getElementById('dl-guided-minimal-bar')) return;
+  const state=window.DL_GUIDED_STATE || (window.DL_GUIDED_STATE={mode:'guided',step:1});
+  const bar=document.createElement('div');
+  bar.id='dl-guided-minimal-bar';
+  bar.className='dl-guided-minimal-bar';
+  bar.innerHTML=''
+   +'<span class="dl-guided-minimal-title">Two-lens learning:</span>'
+   +'<button type="button" data-action="direct">Direct</button>'
+   +'<button type="button" data-step="1">1</button>'
+   +'<button type="button" data-step="2">2</button>'
+   +'<button type="button" data-step="3">3</button>'
+   +'<button type="button" data-step="4">4</button>'
+   +'<button type="button" data-action="prev" title="Previous step">◀</button>'
+   +'<button type="button" data-action="next" title="Next step">▶</button>'
+   +'<span class="dl-guided-minimal-label" id="dl-guided-minimal-label"></span>';
+  const wrap=canvas.closest('.v13-canvas-wrap') || canvas;
+  wrap.parentNode.insertBefore(bar,wrap);
+  const labels={1:'Object + Lens 1',2:'Intermediate image I₁',3:'I₁ becomes the object for Lens 2',4:'Final image'};
+  function refresh(){
+    tab.dataset.dlGuideMode=state.mode;
+    tab.dataset.dlGuideStep=String(state.step||4);
+    bar.querySelectorAll('button').forEach(btn=>{
+      const step=Number(btn.dataset.step);
+      btn.classList.toggle('active', state.mode==='guided' && step===state.step);
+      if(btn.dataset.action==='direct') btn.classList.toggle('active',state.mode==='direct');
+    });
+    const label=document.getElementById('dl-guided-minimal-label');
+    if(label) label.textContent=state.mode==='direct'?'Complete construction':('Step '+state.step+': '+labels[state.step]);
+    if(typeof window.DL_GUIDED_REFRESH==='function') window.DL_GUIDED_REFRESH();
+  }
+  bar.addEventListener('click',function(ev){
+    const btn=ev.target.closest('button'); if(!btn) return;
+    if(btn.dataset.step){ state.mode='guided'; state.step=Math.max(1,Math.min(4,Number(btn.dataset.step))); }
+    else if(btn.dataset.action==='direct'){ state.mode='direct'; state.step=4; }
+    else if(btn.dataset.action==='prev'){ state.mode='guided'; state.step=Math.max(1,(Number(state.step)||1)-1); }
+    else if(btn.dataset.action==='next'){ state.mode='guided'; state.step=Math.min(4,(Number(state.step)||1)+1); }
+    refresh();
+  });
+  refresh();
+});
+})();
+</script>
+
+
+<style id="dl-guided-layers-style">
+#tab-double .dl-layer-panel{
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  margin:-1px 0 6px;padding:5px 7px;border:1px solid #d7e6f1;border-radius:8px;
+  background:linear-gradient(180deg,#fbfdff,#f4f9fc);color:#496579;font-size:.67rem;
+}
+#tab-double .dl-layer-title{font-weight:850;color:#315a76;margin-right:2px;white-space:nowrap;}
+#tab-double .dl-layer-check{display:inline-flex;align-items:center;gap:3px;padding:2px 5px;border:1px solid #d9e6ef;border-radius:999px;background:#fff;cursor:pointer;white-space:nowrap;}
+#tab-double .dl-layer-check input{margin:0;accent-color:#2f80c9;}
+#tab-double .dl-layer-quick{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto;}
+#tab-double .dl-layer-quick button{min-height:25px;padding:3px 7px;border:1px solid #9fc3dc;border-radius:6px;background:#fff;color:#28678f;font-size:.64rem;font-weight:800;cursor:pointer;}
+#tab-double .dl-layer-quick button.active{background:#e9f4fb;border-color:#2f80c9;color:#1f608d;}
+#tab-double[data-dl-layer-object="0"] .v13-handle[data-role="object"]{display:none!important;}
+#tab-double[data-dl-layer-lens1="0"] .v13-handle[data-role="focus1"]{display:none!important;}
+#tab-double[data-dl-layer-lens2="0"] .v13-handle[data-role="lens2"],
+#tab-double[data-dl-layer-lens2="0"] .v13-handle[data-role="focus2"]{display:none!important;}
+@media(max-width:760px){
+ #tab-double .dl-layer-quick{margin-left:0;flex-basis:100%;}
+ #tab-double .dl-layer-check{font-size:.64rem;}
+}
+</style>
+<script id="dl-guided-layers-script">
+(function(){
+'use strict';
+function ready(fn){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fn,{once:true});else fn();}
+ready(function(){
+  const tab=document.getElementById('tab-double');
+  const bar=document.getElementById('dl-guided-minimal-bar');
+  if(!tab||!bar||document.getElementById('dl-layer-panel')) return;
+  const state=window.DL_GUIDED_STATE || (window.DL_GUIDED_STATE={mode:'guided',step:1});
+  const presets=window.DL_GUIDED_LAYER_PRESETS || {};
+  const keys=['object','lens1','rays1','intermediate','lens2','rays2','final','dimensions'];
+  const labels={object:'Object',lens1:'Lens 1',rays1:'Rays 1',intermediate:'I₁ / O₂',lens2:'Lens 2',rays2:'Rays 2',final:'Final I₂',dimensions:'Dimensions'};
+  if(!state.layers) state.layers=Object.assign({},presets.step1||{});
+
+  const panel=document.createElement('div');
+  panel.id='dl-layer-panel'; panel.className='dl-layer-panel';
+  panel.innerHTML='<span class="dl-layer-title">Display layers:</span>'
+    +keys.map(k=>'<label class="dl-layer-check"><input type="checkbox" data-layer="'+k+'"> '+labels[k]+'</label>').join('')
+    +'<span class="dl-layer-quick">'
+    +'<button type="button" data-preset="stage1">Stage 1 only</button>'
+    +'<button type="button" data-preset="stage2">Stage 2 only</button>'
+    +'<button type="button" data-preset="all">Show all</button>'
+    +'</span>';
+  bar.insertAdjacentElement('afterend',panel);
+
+  const layerInputs=[...panel.querySelectorAll('input[data-layer]')];
+  const originalDims=document.getElementById('ov-double-dims');
+  let syncing=false;
+
+  function clonePreset(name){ return Object.assign({},presets[name]||presets.all||{}); }
+  function triggerRedraw(){
+    const driver=document.getElementById('dl_s1_range');
+    if(driver) driver.dispatchEvent(new Event('input',{bubbles:true}));
+    else if(typeof window.DL_GUIDED_REFRESH==='function') window.DL_GUIDED_REFRESH();
+  }
+  function updateData(){
+    keys.forEach(k=>{tab.dataset['dlLayer'+k.charAt(0).toUpperCase()+k.slice(1)]=state.layers[k]===false?'0':'1';});
+  }
+  function updateBar(){
+    bar.querySelectorAll('button').forEach(btn=>{
+      const step=Number(btn.dataset.step);
+      btn.classList.toggle('active',!state.customView && state.mode==='guided' && step===Number(state.step));
+      if(btn.dataset.action==='direct') btn.classList.toggle('active',!state.customView && state.mode==='direct');
+    });
+    const text=document.getElementById('dl-guided-minimal-label');
+    if(text && state.customView){
+      const on=keys.filter(k=>state.layers[k]!==false && k!=='dimensions').length;
+      text.textContent='Custom display · '+on+' optical layers visible';
+    }
+  }
+  function syncUI(){
+    syncing=true;
+    layerInputs.forEach(input=>{input.checked=state.layers[input.dataset.layer]!==false;});
+    if(originalDims){
+      const desired=state.layers.dimensions!==false;
+      if(originalDims.checked!==desired) originalDims.checked=desired;
+    }
+    panel.querySelectorAll('button[data-preset]').forEach(b=>b.classList.toggle('active',state.viewPreset===b.dataset.preset));
+    updateData(); updateBar();
+    syncing=false;
+  }
+  function apply(name,opts){
+    state.layers=clonePreset(name);
+    state.viewPreset=(opts&&opts.viewPreset)||'';
+    state.customView=!!(opts&&opts.customView);
+    if(opts&&opts.mode) state.mode=opts.mode;
+    if(opts&&Number.isFinite(opts.step)) state.step=opts.step;
+    syncUI(); triggerRedraw();
+  }
+
+  // Numbered steps continue to act as pedagogical presets; layer ticks may then refine them.
+  bar.addEventListener('click',function(ev){
+    const btn=ev.target.closest('button'); if(!btn) return;
+    if(btn.dataset.step){
+      const step=Math.max(1,Math.min(4,Number(btn.dataset.step)||1));
+      apply('step'+step,{mode:'guided',step:step,customView:false});
+    } else if(btn.dataset.action==='direct'){
+      apply('all',{mode:'direct',step:4,customView:false,viewPreset:'all'});
+    } else if(btn.dataset.action==='prev' || btn.dataset.action==='next'){
+      const step=Math.max(1,Math.min(4,Number(state.step)||1));
+      apply('step'+step,{mode:'guided',step:step,customView:false});
+    }
+  });
+
+  panel.addEventListener('change',function(ev){
+    const input=ev.target.closest('input[data-layer]'); if(!input||syncing) return;
+    const key=input.dataset.layer;
+    state.layers[key]=input.checked;
+    state.mode='guided'; state.customView=true; state.viewPreset='';
+    if(key==='dimensions' && originalDims && originalDims.checked!==input.checked){
+      syncing=true; originalDims.checked=input.checked; syncing=false;
+    }
+    syncUI(); triggerRedraw();
+  });
+  panel.addEventListener('click',function(ev){
+    const btn=ev.target.closest('button[data-preset]'); if(!btn) return;
+    if(btn.dataset.preset==='stage1') apply('stage1',{mode:'guided',step:2,customView:true,viewPreset:'stage1'});
+    else if(btn.dataset.preset==='stage2') apply('stage2',{mode:'guided',step:4,customView:true,viewPreset:'stage2'});
+    else apply('all',{mode:'direct',step:4,customView:false,viewPreset:'all'});
+  });
+  if(originalDims){
+    originalDims.addEventListener('change',function(){
+      if(syncing) return;
+      state.layers.dimensions=originalDims.checked;
+      state.customView=true; state.mode='guided'; state.viewPreset='';
+      syncUI(); triggerRedraw();
+    });
+  }
+
+  // Initial pedagogical step remains Step 1, exactly as in the supplied version.
+  if(!state.layers || !Object.keys(state.layers).length) state.layers=clonePreset('step1');
+  syncUI(); triggerRedraw();
+});
 })();
 </script>
 
