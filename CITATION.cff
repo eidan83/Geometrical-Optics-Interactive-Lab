@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+message: "If you use this software in teaching, research, or publication, please cite it using the information below."
+
+title: "Geometrical Optics Interactive Lab"
+
+type: software
+
+authors:
+  - family-names: "Abdullah"
+    given-names: "Eidan A."
+
+version: "2.0.0"
+
+repository-code: "https://github.com/eidan83/Geometrical-Optics-Interactive-Lab"
+
+url: "https://eidan83.github.io/Geometrical-Optics-Interactive-Lab/"
+
+license: "GPL-3.0-only"
+
+keywords:
+  - geometrical optics
+  - optical simulation
+  - ray tracing
+  - thin lenses
+  - thick lenses
+  - spherical mirrors
+  - prisms
+  - glass slabs
+  - optical bench
+  - physics education
+
+abstract: >-
+  A free browser-based interactive laboratory for teaching and exploring
+  geometrical optics. The software includes simulations of thin and thick
+  lenses, two-lens systems, spherical mirrors, prisms, parallel-sided glass
+  slabs, ray tracing, measurement tools, and guided educational examples.
+
+identifiers:
+  - type: other
+    value: "https://github.com/eidan83/Geometrical-Optics-Interactive-Lab"
+    description: "GitHub repository"
+
+contact:
+  - family-names: "Abdullah"
+    given-names: "Eidan A."
+    affiliation: "College of Science, Wasit University"
