@@ -10,7 +10,8 @@ authors:
     given-names: "Eidan A."
 
 version: "2.0.0"
-
+date-released: "2026-07-15"
+doi: "10.5281/zenodo.21370215"
 repository-code: "https://github.com/eidan83/Geometrical-Optics-Interactive-Lab"
 
 url: "https://eidan83.github.io/Geometrical-Optics-Interactive-Lab/"
