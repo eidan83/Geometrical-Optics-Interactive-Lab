@@ -1,5 +1,6 @@
 # Geometrical Optics Interactive Lab
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21370215.svg)](https://doi.org/10.5281/zenodo.21370215)
+
 A free, browser-based interactive laboratory designed for teaching and exploring the fundamental principles of geometrical optics.
 
 The simulator provides dynamic ray tracing, numerical calculations, guided examples, and interactive optical components. It runs directly in a modern web browser without installation or specialized software.
@@ -52,7 +53,13 @@ The original research-study version remains preserved separately in its original
 - Research version: v1.0.2
 - DOI: 10.5281/zenodo.18070606
 
-The present Interactive Lab includes substantial extensions, additional optical components, improved visualizations, measurement tools, and expanded educational examples.
+he present Interactive Lab includes substantial extensions, additional optical components, improved visualizations, measurement tools, and expanded educational examples.
+
+## Citation
+
+If you use this software in teaching, research, or publication, please cite:
+
+Abdullah, E. A. (2026). *Geometrical Optics Interactive Lab* (Version 2.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.21370215
 
 ## Author
 
@@ -61,14 +68,10 @@ College of Science
 Wasit University  
 Iraq
 
-## Citation
-
-Formal citation information and the DOI for this enhanced edition will be added after publication of the official GitHub release and archival in Zenodo.
-
 ## Version
 
-Current development version: **2.0.0**
+Current official release: **v2.0.0**
 
 ## License
 
-License information will be provided in the repository LICENSE file.
+This software is distributed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
