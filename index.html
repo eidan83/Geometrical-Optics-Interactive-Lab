@@ -3862,28 +3862,18 @@ function drawMirrorScene(s, y, sPrime, yPrime, f) {
         focalArrow(x2, -1);
 
         const label = `f = ${f >= 0 ? '+' : '−'}${Math.abs(f).toFixed(2)} cm`;
-        ctx.font = '700 15px Segoe UI, Arial, sans-serif';
-        const padX = 10, labelH = 28;
-        const labelW = ctx.measureText(label).width + 2 * padX;
         const labelX = (x1 + x2) / 2;
         const labelY = dimY - 20;
-        const rx = labelX - labelW / 2, ry = labelY - labelH / 2;
-        const r = 8;
-        ctx.beginPath();
-        ctx.moveTo(rx + r, ry);
-        ctx.arcTo(rx + labelW, ry, rx + labelW, ry + labelH, r);
-        ctx.arcTo(rx + labelW, ry + labelH, rx, ry + labelH, r);
-        ctx.arcTo(rx, ry + labelH, rx, ry, r);
-        ctx.arcTo(rx, ry, rx + labelW, ry, r);
-        ctx.closePath();
-        ctx.fillStyle = 'rgba(255,255,255,0.96)';
-        ctx.strokeStyle = 'rgba(142,68,173,0.52)';
-        ctx.lineWidth = 1;
-        ctx.fill();
-        ctx.stroke();
-        ctx.fillStyle = dimColor;
+        ctx.font = '800 16px Segoe UI, Arial, sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
+        if(window.V28DrawLabelBox) window.V28DrawLabelBox(ctx,label,labelX,labelY+0.5,16,'center');
+        ctx.lineJoin = 'round';
+        ctx.miterLimit = 2;
+        ctx.strokeStyle = 'rgba(255,255,255,0.98)';
+        ctx.lineWidth = 4.2;
+        ctx.strokeText(label, labelX, labelY + 0.5);
+        ctx.fillStyle = dimColor;
         ctx.fillText(label, labelX, labelY + 0.5);
         ctx.restore();
     }
@@ -6528,11 +6518,18 @@ ready(function(){
         const rr=Math.min(r,w/2,h/2); ctx.beginPath(); ctx.moveTo(x+rr,y); ctx.arcTo(x+w,y,x+w,y+h,rr); ctx.arcTo(x+w,y+h,x,y+h,rr); ctx.arcTo(x,y+h,x,y,rr); ctx.arcTo(x,y,x+w,y,rr); ctx.closePath();
     }
     function drawLabel(ctx,x,y,text,color){
-        ctx.save(); ctx.font='10.5px Segoe UI';
-        const w=ctx.measureText(text).width+10, h=16;
-        ctx.fillStyle='rgba(255,255,255,0.80)'; ctx.strokeStyle='rgba(150,165,180,0.35)'; ctx.lineWidth=.8;
-        roundRect(ctx,x-w/2,y-h/2,w,h,6); ctx.fill(); ctx.stroke();
-        ctx.fillStyle=color; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(text,x,y+0.5); ctx.restore();
+        ctx.save();
+        const fs=13;
+        ctx.font='800 '+fs+'px Segoe UI, Arial, sans-serif';
+        ctx.textAlign='center'; ctx.textBaseline='middle';
+        if(window.V28DrawLabelBox) window.V28DrawLabelBox(ctx,text,x,y+0.5,fs,'center');
+        ctx.lineJoin='round'; ctx.miterLimit=2;
+        ctx.strokeStyle='rgba(255,255,255,0.98)';
+        ctx.lineWidth=3.6;
+        ctx.strokeText(text,x,y+0.5);
+        ctx.fillStyle=color;
+        ctx.fillText(text,x,y+0.5);
+        ctx.restore();
     }
     function arrowHead(ctx,x1,y1,x2,y2,size,color){
         const ang=Math.atan2(y2-y1,x2-x1); ctx.save(); ctx.fillStyle=color; ctx.beginPath(); ctx.moveTo(x2,y2);
@@ -6670,17 +6667,14 @@ ready(function(){
         function thickLabel(x,y,text,color){
             ctx.save();
             const fontSize=Math.max(14,Math.min(18,W/92));
-            ctx.font='700 '+fontSize+'px Segoe UI';
-            const padX=8,padY=5;
-            const tw=ctx.measureText(text).width;
-            const boxW=tw+2*padX, boxH=fontSize+2*padY;
-            ctx.fillStyle='rgba(255,255,255,0.94)';
-            ctx.strokeStyle='rgba(120,140,158,0.48)';
-            ctx.lineWidth=1;
-            roundRect(ctx,x-boxW/2,y-boxH/2,boxW,boxH,7);
-            ctx.fill(); ctx.stroke();
-            ctx.fillStyle=color;
+            ctx.font='800 '+fontSize+'px Segoe UI, Arial, sans-serif';
             ctx.textAlign='center'; ctx.textBaseline='middle';
+            if(window.V28DrawLabelBox) window.V28DrawLabelBox(ctx,text,x,y+0.4,fontSize,'center');
+            ctx.lineJoin='round'; ctx.miterLimit=2;
+            ctx.strokeStyle='rgba(255,255,255,0.98)';
+            ctx.lineWidth=Math.max(3.8,fontSize*0.24);
+            ctx.strokeText(text,x,y+0.4);
+            ctx.fillStyle=color;
             ctx.fillText(text,x,y+0.4);
             ctx.restore();
         }
@@ -7280,12 +7274,13 @@ ready(function(){
     function line(a,b,color,width,dash){ctx.save();ctx.strokeStyle=color;ctx.lineWidth=width||1;ctx.setLineDash(dash||[]);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();ctx.restore();}
     function arrow(a,b,color,width,dash){line(a,b,color,width,dash);const ang=Math.atan2(b.y-a.y,b.x-a.x),s=8;ctx.save();ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(b.x,b.y);ctx.lineTo(b.x-s*Math.cos(ang-.45),b.y-s*Math.sin(ang-.45));ctx.lineTo(b.x-s*Math.cos(ang+.45),b.y-s*Math.sin(ang+.45));ctx.closePath();ctx.fill();ctx.restore();}
     function label(x,y,text,color,align){ctx.save();const fs=Math.max(11,Math.min(15,(canvas.clientWidth||800)/92));ctx.fillStyle=color||'#34495e';ctx.font='700 '+fs+'px Segoe UI';ctx.textAlign=align||'center';ctx.textBaseline='middle';ctx.fillText(text,x,y);ctx.restore();}
+    function haloLabel(x,y,text,color,align){ctx.save();const fs=Math.max(13,Math.min(17,(canvas.clientWidth||800)/88));ctx.font='800 '+fs+'px Segoe UI, Arial, sans-serif';ctx.textAlign=align||'center';ctx.textBaseline='middle';if(window.V28DrawLabelBox)window.V28DrawLabelBox(ctx,text,x,y,fs,align||'center');ctx.lineJoin='round';ctx.miterLimit=2;ctx.strokeStyle='rgba(255,255,255,.98)';ctx.lineWidth=Math.max(3.6,fs*.24);ctx.strokeText(text,x,y);ctx.fillStyle=color||'#34495e';ctx.fillText(text,x,y);ctx.restore();}
     function dimLine(x1,x2,y,axisY,text,color){
         if(!opts.dimensions||!Number.isFinite(x1)||!Number.isFinite(x2)||Math.abs(x2-x1)<8)return;
         const dash=[1.4,3.0];
         line({x:x1,y:axisY},{x:x1,y:y},color,1.25,dash);line({x:x2,y:axisY},{x:x2,y:y},color,1.25,dash);line({x:x1,y:y},{x:x2,y:y},color,1.25,dash);
-        const s=6,ang=0;ctx.save();ctx.fillStyle=color;[[x1,1],[x2,-1]].forEach(function(v){const x=v[0],dir=v[1];ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+dir*s,y-s*.55);ctx.lineTo(x+dir*s,y+s*.55);ctx.closePath();ctx.fill();});ctx.restore();
-        const mid=(x1+x2)/2;ctx.save();const fs=Math.max(12,Math.min(16,(canvas.clientWidth||800)/88));ctx.font='700 '+fs+'px Segoe UI';const bw=ctx.measureText(text).width+18;ctx.restore();badge(mid-bw/2,y-(fs+26),text,'rgba(255,255,255,.94)',color,false);
+        const s=6;ctx.save();ctx.fillStyle=color;[[x1,1],[x2,-1]].forEach(function(v){const x=v[0],dir=v[1];ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+dir*s,y-s*.55);ctx.lineTo(x+dir*s,y+s*.55);ctx.closePath();ctx.fill();});ctx.restore();
+        const mid=(x1+x2)/2;haloLabel(mid,y-18,text,color,'center');
     }
     function radiusOffset(R){return clamp(40+38*Math.log10(Math.max(5,Math.abs(R))),62,156);}
     function radiusFromOffset(dx){return clamp(Math.pow(10,(Math.abs(dx)-40)/38),5,1000)*(dx>=0?1:-1);}
@@ -7469,10 +7464,10 @@ ready(function(){
     function lineIntersection(p,r,q,s){ const den=cross(r,s); if(Math.abs(den)<1e-9) return null; const qp=sub(q,p); const t=cross(qp,s)/den, u=cross(qp,r)/den; return {point:add(p,mul(r,t)), t, u}; }
     function strokeLine(a,b,color,width,dash){ ctx.save(); ctx.strokeStyle=color; ctx.lineWidth=width||1.2; ctx.setLineDash(dash||[]); ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); ctx.restore(); }
     function arrowLine(a,b,color,width,dash){ strokeLine(a,b,color,width,dash); const ang=Math.atan2(b.y-a.y,b.x-a.x), len=9; ctx.save(); ctx.fillStyle=color; ctx.beginPath(); ctx.moveTo(b.x,b.y); ctx.lineTo(b.x-len*Math.cos(ang-0.45), b.y-len*Math.sin(ang-0.45)); ctx.lineTo(b.x-len*Math.cos(ang+0.45), b.y-len*Math.sin(ang+0.45)); ctx.closePath(); ctx.fill(); ctx.restore(); }
-    function drawText(text,p,color,align,font){ ctx.save(); const fs=Math.max(11,Math.min(14,(canvas.clientWidth||700)/96)); ctx.fillStyle=color||'#34495e'; ctx.font=font||('700 '+fs+'px Segoe UI'); ctx.textAlign=align||'center'; ctx.textBaseline='middle'; ctx.fillText(text,p.x,p.y); ctx.restore(); }
+    function drawText(text,p,color,align,font){ ctx.save(); const fs=Math.max(11,Math.min(14,(canvas.clientWidth||700)/96)); ctx.fillStyle=color||'#34495e'; ctx.font=font||('700 '+fs+'px Segoe UI'); ctx.textAlign=align||'center'; ctx.textBaseline='middle'; if(window.V28DrawLabelBox && /[0-9₀-₉=°δΔ]/.test(String(text)))window.V28DrawLabelBox(ctx,text,p.x,p.y,fs,align||'center'); ctx.fillText(text,p.x,p.y); ctx.restore(); }
     function roundRect(x,y,w,h,r){ const rr=Math.min(r,w/2,h/2); ctx.beginPath(); ctx.moveTo(x+rr,y); ctx.arcTo(x+w,y,x+w,y+h,rr); ctx.arcTo(x+w,y+h,x,y+h,rr); ctx.arcTo(x,y+h,x,y,rr); ctx.arcTo(x,y,x+w,y,rr); ctx.closePath(); }
     function badge(x,y,text,fill,stroke,ink){ ctx.save(); const fs=Math.max(12,Math.min(16,(canvas.clientWidth||700)/90)); ctx.font='700 '+fs+'px Segoe UI'; const w=ctx.measureText(text).width+18, h=fs+12; ctx.fillStyle=fill; ctx.strokeStyle=stroke; ctx.lineWidth=1.1; roundRect(x,y,w,h,9); ctx.fill(); ctx.stroke(); ctx.fillStyle=ink; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(text,x+w/2,y+h/2+0.5); ctx.restore(); }
-    function metricBadge(cx,cy,text,color){ ctx.save(); const fs=Math.max(12,Math.min(16,(canvas.clientWidth||700)/90)); ctx.font='700 '+fs+'px Segoe UI'; const w=ctx.measureText(text).width+18,h=fs+12; ctx.fillStyle='rgba(255,255,255,.95)';ctx.strokeStyle='rgba(120,140,158,.52)';ctx.lineWidth=1;roundRect(cx-w/2,cy-h/2,w,h,8);ctx.fill();ctx.stroke();ctx.fillStyle=color;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,cx,cy+.4);ctx.restore(); }
+    function metricBadge(cx,cy,text,color){ ctx.save(); const fs=Math.max(13,Math.min(17,(canvas.clientWidth||700)/90)); ctx.font='800 '+fs+'px Segoe UI, Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';if(window.V28DrawLabelBox)window.V28DrawLabelBox(ctx,text,cx,cy+.4,fs,'center');ctx.lineJoin='round';ctx.miterLimit=2;ctx.strokeStyle='rgba(255,255,255,.98)';ctx.lineWidth=Math.max(3.6,fs*.24);ctx.strokeText(text,cx,cy+.4);ctx.fillStyle=color;ctx.fillText(text,cx,cy+.4);ctx.restore(); }
     function summaryPanel(items,x,y,title){
         if(!items||!items.length)return;ctx.save();const fs=Math.max(11,Math.min(14,(canvas.clientWidth||700)/100)),row=fs+8,pad=9,titleH=title?row:0;ctx.font='700 '+fs+'px Segoe UI';let leftW=0,rightW=0;items.forEach(it=>{leftW=Math.max(leftW,ctx.measureText(it[0]).width);rightW=Math.max(rightW,ctx.measureText(it[1]).width);});const w=leftW+rightW+3*pad,h=items.length*row+2*pad+titleH;ctx.fillStyle='rgba(255,255,255,.95)';ctx.strokeStyle='rgba(120,140,158,.48)';ctx.lineWidth=1;roundRect(x,y,w,h,9);ctx.fill();ctx.stroke();if(title){ctx.fillStyle='#34495e';ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillText(title,x+pad,y+pad+row/2);ctx.strokeStyle='rgba(120,140,158,.25)';ctx.beginPath();ctx.moveTo(x+pad,y+pad+row);ctx.lineTo(x+w-pad,y+pad+row);ctx.stroke();}items.forEach((it,k)=>{const yy=y+pad+titleH+row*(k+.5);ctx.fillStyle=it[2]||'#566573';ctx.textAlign='left';ctx.fillText(it[0],x+pad,yy);ctx.fillStyle=it[3]||it[2]||'#2c3e50';ctx.textAlign='right';ctx.fillText(it[1],x+w-pad,yy);});ctx.restore();
     }
@@ -10441,8 +10436,7 @@ ready(function(){
     function rr(ctx,x,y,w,h,r){const q=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+q,y);ctx.arcTo(x+w,y,x+w,y+h,q);ctx.arcTo(x+w,y+h,x,y+h,q);ctx.arcTo(x,y+h,x,y,q);ctx.arcTo(x,y,x+w,y,q);ctx.closePath();}
     function arrow(ctx,x,y,dir,color,size){ctx.save();ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+dir*size,y-size*.58);ctx.lineTo(x+dir*size,y+size*.58);ctx.closePath();ctx.fill();ctx.restore();}
     function tag(ctx,W,x,y,text,color){
-        const fs=clamp(W/92,13,18);ctx.save();ctx.font='700 '+fs+'px Segoe UI';const px=9,py=5,tw=ctx.measureText(text).width,bw=tw+2*px,bh=fs+2*py;
-        ctx.fillStyle='rgba(255,255,255,.95)';ctx.strokeStyle='rgba(120,140,158,.52)';ctx.lineWidth=1;rr(ctx,x-bw/2,y-bh/2,bw,bh,8);ctx.fill();ctx.stroke();ctx.fillStyle=color;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,x,y+.4);ctx.restore();
+        const fs=clamp(W/92,13,18);ctx.save();ctx.font='800 '+fs+'px Segoe UI, Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';if(window.V28DrawLabelBox)window.V28DrawLabelBox(ctx,text,x,y+.4,fs,'center');ctx.lineJoin='round';ctx.miterLimit=2;ctx.strokeStyle='rgba(255,255,255,.98)';ctx.lineWidth=Math.max(3.8,fs*.24);ctx.strokeText(text,x,y+.4);ctx.fillStyle=color;ctx.fillText(text,x,y+.4);ctx.restore();
     }
     function prep(ctx,color){ctx.strokeStyle=color;ctx.fillStyle=color;ctx.lineWidth=1.35;ctx.setLineDash([1.4,3]);ctx.lineCap='round';}
     function hdim(ctx,W,axisY,x1,x2,y,text,color,above=true){
@@ -10736,6 +10730,223 @@ ready(function(){
             source.click();
         });
         if(previous) previous.replaceWith(floating); else wrap.appendChild(floating);
+    });
+});
+})();
+</script>
+
+<!-- v27: unified transparent measurement labels across all guided modules.
+     Numeric annotations now use bold colored text with a white halo instead of opaque boxes,
+     preserving readability without obscuring rays, optical elements, focal points, or images. -->
+
+
+
+<style id="v29-optional-label-box-style">
+.v29-label-box-option{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:5px 0 3px;
+    min-height:30px;
+    font-size:.76rem;
+    color:#34495e;
+}
+.v29-label-box-option label,
+.measure-overlay-toggle .v29-label-box-label{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:5px 9px;
+    border:1px solid rgba(174,194,211,.72);
+    border-radius:999px;
+    background:rgba(247,251,254,.93);
+    box-shadow:0 2px 7px rgba(35,75,110,.07);
+    cursor:pointer;
+    user-select:none;
+}
+.v29-label-box-option input[type="checkbox"],
+.v29-label-box-label input[type="checkbox"]{accent-color:#2471a3;}
+body.v19-viewport-fit .v29-label-box-option{margin:3px 0 2px;font-size:.66rem;min-height:26px;}
+body.v19-viewport-fit .v29-label-box-option label,
+body.v19-viewport-fit .measure-overlay-toggle .v29-label-box-label{padding:3px 7px;}
+</style>
+<script id="v29-optional-label-box-script">
+(function(){
+'use strict';
+
+/*
+ * v29 stability fix:
+ * - one option only per simulator section
+ * - no synthetic input or resize events during start-up
+ * - only the currently visible module is redrawn when the option changes
+ * - the option remains synchronized across sections during the current session
+ */
+window.V28_LABEL_BOXES=false;
+
+window.V28DrawLabelBox=function(ctx,text,x,y,fontSize,align){
+    if(!window.V28_LABEL_BOXES||!ctx||!Number.isFinite(x)||!Number.isFinite(y))return;
+    const label=String(text==null?'':text),fs=Number(fontSize)||14;
+    const padX=Math.max(7,fs*.52),padY=Math.max(4,fs*.30);
+    const metrics=ctx.measureText(label),tw=Math.max(1,metrics.width),h=fs+2*padY,w=tw+2*padX;
+    const a=align||ctx.textAlign||'center';
+    let bx=x-w/2;
+    if(a==='left'||a==='start')bx=x-padX;
+    else if(a==='right'||a==='end')bx=x-w+padX;
+    const by=y-h/2,r=Math.min(8,h/2,w/2);
+    ctx.save();
+    ctx.fillStyle='rgba(255,255,255,.88)';
+    ctx.strokeStyle='rgba(120,140,158,.38)';
+    ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.moveTo(bx+r,by);
+    ctx.arcTo(bx+w,by,bx+w,by+h,r);
+    ctx.arcTo(bx+w,by+h,bx,by+h,r);
+    ctx.arcTo(bx,by+h,bx,by,r);
+    ctx.arcTo(bx,by,bx+w,by,r);
+    ctx.closePath();
+    ctx.fill();ctx.stroke();ctx.restore();
+};
+
+function ready(fn){
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fn,{once:true});
+    else fn();
+}
+
+ready(function(){
+    const sections=[
+        ['tab-single','lens-canvas'],
+        ['tab-double','double-lens-canvas'],
+        ['tab-maker','lm-canvas'],
+        ['tab-mirrors','mirror-canvas'],
+        ['tab-thick','thick-canvas'],
+        ['tab-prism','prism-canvas']
+    ];
+
+    function cleanPreviousOptions(){
+        document.querySelectorAll('.v28-label-box-label,.v28-label-box-option,.v29-label-box-label,.v29-label-box-option').forEach(function(node){
+            if(node.classList.contains('v28-label-box-label')||node.classList.contains('v29-label-box-label')){
+                node.remove();
+            }else if(!node.querySelector('label:not(.v28-label-box-label):not(.v29-label-box-label)')){
+                node.remove();
+            }
+        });
+    }
+
+    function activeTab(){
+        return document.querySelector('.tab-content.active')||document.querySelector('.tab-content[style*="display: block"]');
+    }
+
+    function dispatchVisibleInput(id){
+        const el=document.getElementById(id);
+        if(el)el.dispatchEvent(new Event('input',{bubbles:true}));
+    }
+
+    function redrawTab(tab){
+        if(!tab)return;
+        try{
+            switch(tab.id){
+                case 'tab-single':
+                    dispatchVisibleInput('object-distance');
+                    break;
+                case 'tab-double':
+                    dispatchVisibleInput('dl_s1_range');
+                    break;
+                case 'tab-maker':
+                    if(typeof window.updateMaker==='function')window.updateMaker();
+                    else dispatchVisibleInput('lm-n-input');
+                    break;
+                case 'tab-mirrors':
+                    dispatchVisibleInput('mirror-object-distance');
+                    break;
+                case 'tab-thick':
+                    if(typeof window.updateThickLens==='function')window.updateThickLens('label-box-option');
+                    else dispatchVisibleInput('tl-s-range');
+                    break;
+                case 'tab-prism':
+                    if(tab.dataset.opticalMode==='slab'){
+                        if(typeof window.updateGlassSlab==='function')window.updateGlassSlab();
+                        else dispatchVisibleInput('sl-i-input');
+                    }else{
+                        if(typeof window.updatePrism==='function')window.updatePrism();
+                        else dispatchVisibleInput('pr-i-input');
+                    }
+                    break;
+            }
+        }catch(err){console.warn('Label-box redraw skipped:',err);}
+
+        requestAnimationFrame(function(){
+            requestAnimationFrame(function(){
+                try{
+                    if(tab.id==='tab-single'&&window.V23UnifiedMeasurements)window.V23UnifiedMeasurements.renderSingle();
+                    else if(tab.id==='tab-double'&&window.V23UnifiedMeasurements)window.V23UnifiedMeasurements.renderDouble();
+                    else if(tab.id==='tab-mirrors'&&window.V23UnifiedMeasurements)window.V23UnifiedMeasurements.renderMirror();
+                    else if(tab.id==='tab-thick'&&typeof window.renderThickMeasurementOverlay==='function')window.renderThickMeasurementOverlay();
+                }catch(err){console.warn('Measurement overlay redraw skipped:',err);}
+            });
+        });
+    }
+
+    function syncChecks(){
+        document.querySelectorAll('.v29-label-box-toggle').forEach(function(cb){cb.checked=!!window.V28_LABEL_BOXES;});
+    }
+
+    function setState(value){
+        window.V28_LABEL_BOXES=!!value;
+        syncChecks();
+        redrawTab(activeTab());
+    }
+
+    function installOne(tabId,canvasId){
+        const tab=document.getElementById(tabId),canvas=document.getElementById(canvasId);
+        if(!tab||!canvas||tab.querySelector('.v29-label-box-toggle'))return;
+
+        const existingMeasure=tab.querySelector('.measure-overlay-toggle');
+        let host;
+        if(existingMeasure){
+            host=existingMeasure;
+        }else{
+            host=document.createElement('div');
+            host.className='v29-label-box-option';
+            const wrap=canvas.closest('.v13-canvas-wrap');
+            const column=canvas.closest('.canvas-column');
+            if(wrap&&wrap.parentElement)wrap.insertAdjacentElement('afterend',host);
+            else if(column)column.insertBefore(host,column.querySelector('.results-grid'));
+            else canvas.insertAdjacentElement('afterend',host);
+        }
+
+        const label=document.createElement('label');
+        label.className='v29-label-box-label';
+        label.title='Show or hide subtle backgrounds behind numerical measurement labels.';
+        const cb=document.createElement('input');
+        cb.type='checkbox';
+        cb.className='v29-label-box-toggle';
+        cb.checked=!!window.V28_LABEL_BOXES;
+        cb.setAttribute('aria-label','Box measurement values');
+        label.appendChild(cb);
+        label.appendChild(document.createTextNode(' Box measurement values'));
+        host.appendChild(label);
+        cb.addEventListener('change',function(){setState(cb.checked);});
+    }
+
+    /* Wait until the original canvas wrappers and dimension toggles are installed. */
+    window.setTimeout(function(){
+        cleanPreviousOptions();
+        sections.forEach(function(pair){installOne(pair[0],pair[1]);});
+        syncChecks();
+    },750);
+
+    /* Redraw only after the user changes tabs, never during initial page construction. */
+    document.querySelectorAll('.tab-button').forEach(function(button){
+        button.addEventListener('click',function(){
+            if(!window.V28_LABEL_BOXES)return;
+            window.setTimeout(function(){redrawTab(activeTab());},120);
+        });
+    });
+    document.querySelectorAll('.prism-mode-button').forEach(function(button){
+        button.addEventListener('click',function(){
+            if(!window.V28_LABEL_BOXES)return;
+            window.setTimeout(function(){redrawTab(document.getElementById('tab-prism'));},100);
+        });
     });
 });
 })();
