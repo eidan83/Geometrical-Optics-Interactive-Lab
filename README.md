@@ -1,77 +1,58 @@
-# Geometrical Optics Interactive Lab
-[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21370215-blue.svg)](https://doi.org/10.5281/zenodo.21370215)
+# iGOLab
 
-A free, browser-based interactive laboratory designed for teaching and exploring the fundamental principles of geometrical optics.
+**interactive Geometrical Optics Laboratory** — formerly Geometrical Optics Interactive Lab.
 
-The simulator provides dynamic ray tracing, numerical calculations, guided examples, and interactive optical components. It runs directly in a modern web browser without installation or specialized software.
+A free, self-contained browser application for geometrical-optics calculations and configurable optical-system construction.
 
-## Live Simulator
+## Open the simulator
 
-Open the interactive simulator using the website link displayed in the About section of this repository.
+[Launch iGOLab](https://eidan83.github.io/Geometrical-Optics-Interactive-Lab/), or download this repository and open `index.html` locally. No installation is required. Existing saved projects remain compatible.
 
-## Main Modules
+## Modules and tools
 
-1. Single thin lens
-2. Two thin-lens optical system
-3. Lens maker's formula
-4. Spherical mirrors
-5. Thick lens
-6. Prism
-7. Interactive optical bench
+- Single thin lens, two thin lenses and lens maker's formula.
+- Spherical mirrors, paraxial thick lenses, prisms and parallel-sided slabs.
+- Editable optical bench with sources, optical elements, screens and detectors.
+- Dragging and rotation, guided examples, rulers and protractors.
+- Project export/import, undo/redo and PNG export.
 
-## Main Features
+## Project history
 
-- Convex and concave thin lenses
-- Two-lens optical systems
-- Lens maker's formula
-- Concave and convex spherical mirrors
-- Thick-lens calculations and visualization
-- Prism refraction and deviation
-- Parallel-sided glass slab
-- Interactive ray tracing
-- Optical component dragging and rotation
-- Measurement tools
-- Guided educational examples
-- Immediate numerical results
-- Responsive browser-based interface
-- No installation required
+This software was first archived as Geometrical Optics Interactive Lab v2.0.0 on **15 July 2026** ([original archive](https://doi.org/10.5281/zenodo.21370215)). The iGOLab name continues the same project; the original archive and development history remain available.
 
-## Educational Purpose
+## Version 2.0.1
 
-The simulator is intended to support undergraduate teaching and self-directed learning in geometrical optics. It allows students to modify optical parameters and immediately observe their effects on ray propagation, image formation, magnification, refraction, and optical-system behaviour.
+This release adopts the iGOLab name and includes corrections to near-focal calculations, signed focal inputs and requested/applied thick-lens aperture handling. See [CHANGELOG.md](CHANGELOG.md).
 
-## Technical Information
+The released `index.html` is byte-identical to `verification/software_igolab/index.html` (SHA256 `95fa9222b334bb3b80ee67ac36d88d200ae995a95b252f11bd0336286d7c829c`). Its inline JavaScript and CSS are identical to the corrected RC2 baseline.
 
-The simulator is implemented as a self-contained HTML application using HTML, CSS, and JavaScript. It can be operated online through GitHub Pages or downloaded and opened locally in a modern web browser.
+## Verification and model limits
 
-## Relationship to the Original Research Version
+The current snapshot passed 164 numerical comparisons, 232 focal checks, 12 aperture-state checks and 39 browser cases, plus five emulated viewport profiles. The current browser run used headless Chromium 134 on Linux. Earlier Edge/Windows results and their exact RC1/RC2 sources are retained separately in `verification/`.
 
-This repository contains the expanded successor edition of the original Geometrical Optics Simulator used in an educational research study.
+Run the numerical checks with Node.js:
 
-The original research-study version remains preserved separately in its original GitHub repository and Zenodo archive:
+```sh
+cd verification/software_igolab
+node run_numeric.cjs
+node test_focal_numeric.cjs
+node test_aperture.cjs
+```
 
-- Research version: v1.0.2
-- DOI: 10.5281/zenodo.18070606
+Browser-test instructions and requirements accompany the scripts. `verification/validation/` contains the paraxial-versus-exact spherical-refraction benchmark and an independent RayOptics comparison.
 
-he present Interactive Lab includes substantial extensions, additional optical components, improved visualizations, measurement tools, and expanded educational examples.
+The analytical lens modules use first-order/paraxial models. The bench's thick-lens boundary is segmented; the smooth-surface benchmark is not a convergence proof for that representation. Detector outputs are relative model estimates. These technical checks do not establish learning gains or educational effectiveness.
 
-## Citation
+## Citation and archive
 
-If you use this software in teaching, research, or publication, please cite:
+Eidan A. Abdullah, *iGOLab (interactive Geometrical Optics Laboratory)*, version 2.0.1 (2026).
 
-Abdullah, E. A. (2026). *Geometrical Optics Interactive Lab* (Version 2.0.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.21370215
+[Zenodo record covering all versions](https://doi.org/10.5281/zenodo.21370214). The all-versions DOI is used in `CITATION.cff`; the earlier version 2.0.0 remains archived at [10.5281/zenodo.21370215](https://doi.org/10.5281/zenodo.21370215).
 
-## Author
+The earlier educational research simulator (v1.0.2) is a separate, smaller platform archived at [10.5281/zenodo.18070606](https://doi.org/10.5281/zenodo.18070606).
 
-**Eidan A. Abdullah**  
-College of Science  
-Wasit University  
-Iraq
+## Author and license
 
-## Version
+Eidan A. Abdullah — Department of Physics, College of Science, Wasit University, Iraq. [ORCID](https://orcid.org/0009-0009-4103-2360).
 
-Current official release: **v2.0.0**
-
-## License
-
-This software is distributed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
+GNU General Public License v3.0 only; see [LICENSE](LICENSE).

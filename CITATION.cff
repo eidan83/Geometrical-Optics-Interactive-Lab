@@ -1,17 +1,18 @@
 cff-version: 1.2.0
 message: "If you use this software in teaching, research, or publication, please cite it using the metadata below."
 
-title: "Geometrical Optics Interactive Lab"
+title: "iGOLab (interactive Geometrical Optics Laboratory)"
 type: software
 
 authors:
   - family-names: "Abdullah"
     given-names: "Eidan A."
+    orcid: "https://orcid.org/0009-0009-4103-2360"
     affiliation: "College of Science, Wasit University"
 
-version: "2.0.0"
-date-released: "2026-07-15"
-doi: "10.5281/zenodo.21370215"
+version: "2.0.1"
+date-released: "2026-10-03"
+doi: "10.5281/zenodo.21370214"
 
 repository-code: "https://github.com/eidan83/Geometrical-Optics-Interactive-Lab"
 url: "https://eidan83.github.io/Geometrical-Optics-Interactive-Lab/"

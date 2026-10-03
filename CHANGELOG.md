@@ -1,8 +1,23 @@
 # Changelog
 
-All notable changes to the Geometrical Optics Interactive Lab are documented in this file.
+All notable changes to iGOLab (formerly Geometrical Optics Interactive Lab) are documented in this file.
 
 The project follows the principles of Semantic Versioning.
+
+## [2.0.1] - 2026-10-03
+
+### Changed
+- Renamed the application to iGOLab (interactive Geometrical Optics Laboratory).
+- Preserved the existing website/repository URLs and saved-project format.
+
+### Fixed
+- Corrected finite conjugates near the focal distance and synchronized signed focal inputs and lens-type state.
+- Preserved the requested thick-lens clear aperture while displaying the curvature-constrained applied aperture.
+
+### Verification
+- Added reproducible numerical and browser checks, historical RC1/RC2 snapshots, and a paraxial-versus-exact spherical-refraction benchmark.
+- The current named snapshot passed 164 numerical comparisons, 232 focal checks, 12 aperture-state checks and 39 browser cases, plus five emulated viewport profiles.
+- The named snapshot has identical inline JavaScript and CSS to the corrected RC2 baseline. New browser results use headless Chromium/Linux; historical author runs use Edge/Windows.
 
 ## [2.0.0] - 2026-07-15
 
