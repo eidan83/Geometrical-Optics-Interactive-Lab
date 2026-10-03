@@ -1,0 +1,1323 @@
+{
+  "source_sha256": "176971a6524443352ead62603596488f54fccafc5c73f3cf429b8564c890b463",
+  "method": "Execute unmodified function text extracted from supplied HTML in Node VM. No browser, DOM, UI, or original 13-test suite execution.",
+  "counts": {
+    "total": 164,
+    "passed": 164,
+    "failed": 0
+  },
+  "rows": [
+    {
+      "group": "thin ordinary",
+      "id": "f=15,s=-50:q",
+      "got": 11.538461538461538,
+      "want": 11.538461538461538,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=15,s=-50:M",
+      "got": 0.23076923076923075,
+      "want": 0.23076923076923075,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=15,s=-20:q",
+      "got": 8.571428571428571,
+      "want": 8.571428571428571,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=15,s=-20:M",
+      "got": 0.42857142857142855,
+      "want": 0.42857142857142855,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=15,s=-10:q",
+      "got": 6,
+      "want": 6,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=15,s=-10:M",
+      "got": 0.6,
+      "want": 0.6,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=15,s=10:q",
+      "got": -30,
+      "want": -30,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=15,s=10:M",
+      "got": 3,
+      "want": 3,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=15,s=20:q",
+      "got": 60,
+      "want": 60,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=15,s=20:M",
+      "got": -3,
+      "want": -3,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=15,s=30:q",
+      "got": 30,
+      "want": 30,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=15,s=30:M",
+      "got": -1,
+      "want": -1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=15,s=50:q",
+      "got": 21.428571428571427,
+      "want": 21.428571428571427,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=15,s=50:M",
+      "got": -0.42857142857142855,
+      "want": -0.42857142857142855,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=-15,s=-50:q",
+      "got": -21.428571428571427,
+      "want": -21.428571428571427,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=-15,s=-50:M",
+      "got": -0.42857142857142855,
+      "want": -0.42857142857142855,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=-15,s=-20:q",
+      "got": -60,
+      "want": -60,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=-15,s=-20:M",
+      "got": -3,
+      "want": -3,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=-15,s=-10:q",
+      "got": 30,
+      "want": 30,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=-15,s=-10:M",
+      "got": 3,
+      "want": 3,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=-15,s=10:q",
+      "got": -6,
+      "want": -6,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=-15,s=10:M",
+      "got": 0.6,
+      "want": 0.6,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=-15,s=20:q",
+      "got": -8.571428571428571,
+      "want": -8.571428571428571,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=-15,s=20:M",
+      "got": 0.42857142857142855,
+      "want": 0.42857142857142855,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=-15,s=30:q",
+      "got": -10,
+      "want": -10,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=-15,s=30:M",
+      "got": 0.3333333333333333,
+      "want": 0.3333333333333333,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=-15,s=50:q",
+      "got": -11.538461538461538,
+      "want": -11.538461538461538,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin ordinary",
+      "id": "f=-15,s=50:M",
+      "got": 0.23076923076923075,
+      "want": 0.23076923076923075,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin focal boundary",
+      "id": "f=15,s=14.8:q",
+      "got": -1110.0000000000039,
+      "want": -1110,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin focal boundary",
+      "id": "f=15,s=14.95:q",
+      "got": -4484.999999999936,
+      "want": -4485,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin focal boundary",
+      "id": "f=15,s=15:q",
+      "got": "Infinity",
+      "want": "Infinity",
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin focal boundary",
+      "id": "f=15,s=15.05:q",
+      "got": 4514.999999999935,
+      "want": 4515,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin focal boundary",
+      "id": "f=15,s=15.2:q",
+      "got": 1140.000000000004,
+      "want": 1140,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin focal boundary",
+      "id": "f=-15,s=-15.2:q",
+      "got": -1140.000000000004,
+      "want": -1140,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin focal boundary",
+      "id": "f=-15,s=-15.05:q",
+      "got": -4514.999999999935,
+      "want": -4515,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin focal boundary",
+      "id": "f=-15,s=-15:q",
+      "got": "Infinity",
+      "want": "Infinity",
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin focal boundary",
+      "id": "f=-15,s=-14.95:q",
+      "got": 4484.999999999936,
+      "want": 4485,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thin focal boundary",
+      "id": "f=-15,s=-14.8:q",
+      "got": 1110.0000000000039,
+      "want": 1110,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":-30,\"y\":6}:A",
+      "got": 0.9315789473684211,
+      "want": 0.9315789473684211,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":-30,\"y\":6}:B",
+      "got": 2.6315789473684212,
+      "want": 2.6315789473684212,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":-30,\"y\":6}:C",
+      "got": -0.05022105263157895,
+      "want": -0.05022105263157895,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":-30,\"y\":6}:D",
+      "got": 0.9315789473684211,
+      "want": 0.9315789473684211,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":-30,\"y\":6}:q",
+      "got": 10.382938306782366,
+      "want": 10.382938306782368,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":-30,\"y\":6}:M",
+      "got": 0.41013685619306645,
+      "want": 0.41013685619306656,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick determinant",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":-30,\"y\":6}",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":10,\"y\":6}:A",
+      "got": 0.9315789473684211,
+      "want": 0.9315789473684211,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":10,\"y\":6}:B",
+      "got": 2.6315789473684212,
+      "want": 2.6315789473684212,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":10,\"y\":6}:C",
+      "got": -0.05022105263157895,
+      "want": -0.05022105263157895,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":10,\"y\":6}:D",
+      "got": 0.9315789473684211,
+      "want": 0.9315789473684211,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":10,\"y\":6}:q",
+      "got": -27.825447413581767,
+      "want": -27.825447413581767,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":10,\"y\":6}:M",
+      "got": 2.3290022064231435,
+      "want": 2.3290022064231435,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick determinant",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":10,\"y\":6}",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":45,\"y\":6}:A",
+      "got": 0.9315789473684211,
+      "want": 0.9315789473684211,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":45,\"y\":6}:B",
+      "got": 2.6315789473684212,
+      "want": 2.6315789473684212,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":45,\"y\":6}:C",
+      "got": -0.05022105263157895,
+      "want": -0.05022105263157895,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":45,\"y\":6}:D",
+      "got": 0.9315789473684211,
+      "want": 0.9315789473684211,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":45,\"y\":6}:q",
+      "got": 33.53936368318872,
+      "want": 33.53936368318872,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":45,\"y\":6}:M",
+      "got": -0.7528032013946669,
+      "want": -0.7528032013946672,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick determinant",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":-20,\"t\":4,\"s\":45,\"y\":6}",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":-30,\"y\":6}:A",
+      "got": 1.068421052631579,
+      "want": 1.068421052631579,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":-30,\"y\":6}:B",
+      "got": 2.6315789473684212,
+      "want": 2.6315789473684212,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":-30,\"y\":6}:C",
+      "got": 0.05377894736842106,
+      "want": 0.05377894736842106,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":-30,\"y\":6}:D",
+      "got": 1.068421052631579,
+      "want": 1.068421052631579,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":-30,\"y\":6}:q",
+      "got": -53.988796600347676,
+      "want": -53.98879660034769,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":-30,\"y\":6}:M",
+      "got": -1.8350395982229082,
+      "want": -1.8350395982229089,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick determinant",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":-30,\"y\":6}",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":10,\"y\":6}:A",
+      "got": 1.068421052631579,
+      "want": 1.068421052631579,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":10,\"y\":6}:B",
+      "got": 2.6315789473684212,
+      "want": 2.6315789473684212,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":10,\"y\":6}:C",
+      "got": 0.05377894736842106,
+      "want": 0.05377894736842106,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":10,\"y\":6}:D",
+      "got": 1.068421052631579,
+      "want": 1.068421052631579,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":10,\"y\":6}:q",
+      "got": -8.290189396421784,
+      "want": -8.290189396421784,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":10,\"y\":6}:M",
+      "got": 0.6225833934071695,
+      "want": 0.6225833934071695,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick determinant",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":10,\"y\":6}",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":45,\"y\":6}:A",
+      "got": 1.068421052631579,
+      "want": 1.068421052631579,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":45,\"y\":6}:B",
+      "got": 2.6315789473684212,
+      "want": 2.6315789473684212,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":45,\"y\":6}:C",
+      "got": 0.05377894736842106,
+      "want": 0.05377894736842106,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":45,\"y\":6}:D",
+      "got": 1.068421052631579,
+      "want": 1.068421052631579,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":45,\"y\":6}:q",
+      "got": -14.536594197432146,
+      "want": -14.536594197432146,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":45,\"y\":6}:M",
+      "got": 0.28665831837178074,
+      "want": 0.28665831837178074,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick determinant",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":-20,\"R2\":20,\"t\":4,\"s\":45,\"y\":6}",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":-30,\"y\":6}:A",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":-30,\"y\":6}:B",
+      "got": 2.6315789473684212,
+      "want": 2.6315789473684212,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":-30,\"y\":6}:C",
+      "got": -0.026000000000000002,
+      "want": -0.026000000000000002,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":-30,\"y\":6}:D",
+      "got": 0.9315789473684211,
+      "want": 0.9315789473684211,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":-30,\"y\":6}:q",
+      "got": 15.990159901599016,
+      "want": 15.990159901599014,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":-30,\"y\":6}:M",
+      "got": 0.5842558425584256,
+      "want": 0.5842558425584256,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick determinant",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":-30,\"y\":6}",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":10,\"y\":6}:A",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":10,\"y\":6}:B",
+      "got": 2.6315789473684212,
+      "want": 2.6315789473684212,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":10,\"y\":6}:C",
+      "got": -0.026000000000000002,
+      "want": -0.026000000000000002,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":10,\"y\":6}:D",
+      "got": 0.9315789473684211,
+      "want": 0.9315789473684211,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":10,\"y\":6}:q",
+      "got": -18.808777429467085,
+      "want": -18.808777429467085,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":10,\"y\":6}:M",
+      "got": 1.4890282131661443,
+      "want": 1.4890282131661443,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick determinant",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":10,\"y\":6}",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":45,\"y\":6}:A",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":45,\"y\":6}:B",
+      "got": 2.6315789473684212,
+      "want": 2.6315789473684212,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":45,\"y\":6}:C",
+      "got": -0.026000000000000002,
+      "want": -0.026000000000000002,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":45,\"y\":6}:D",
+      "got": 0.9315789473684211,
+      "want": 0.9315789473684211,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":45,\"y\":6}:q",
+      "got": 199.77924944812352,
+      "want": 199.7792494481235,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":45,\"y\":6}:M",
+      "got": -4.194260485651212,
+      "want": -4.194260485651212,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick determinant",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":0,\"R2\":-20,\"t\":4,\"s\":45,\"y\":6}",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":-30,\"y\":6}:A",
+      "got": 0.9315789473684211,
+      "want": 0.9315789473684211,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":-30,\"y\":6}:B",
+      "got": 2.6315789473684212,
+      "want": 2.6315789473684212,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":-30,\"y\":6}:C",
+      "got": -0.026000000000000002,
+      "want": -0.026000000000000002,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":-30,\"y\":6}:D",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":-30,\"y\":6}:q",
+      "got": 14.222353636901241,
+      "want": 14.222353636901241,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":-30,\"y\":6}:M",
+      "got": 0.5617977528089888,
+      "want": 0.5617977528089888,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick determinant",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":-30,\"y\":6}",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":10,\"y\":6}:A",
+      "got": 0.9315789473684211,
+      "want": 0.9315789473684211,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":10,\"y\":6}:B",
+      "got": 2.6315789473684212,
+      "want": 2.6315789473684212,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":10,\"y\":6}:C",
+      "got": -0.026000000000000002,
+      "want": -0.026000000000000002,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":10,\"y\":6}:D",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":10,\"y\":6}:q",
+      "got": -16.145092460881934,
+      "want": -16.145092460881937,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":10,\"y\":6}:M",
+      "got": 1.3513513513513513,
+      "want": 1.3513513513513515,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick determinant",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":10,\"y\":6}",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":45,\"y\":6}:A",
+      "got": 0.9315789473684211,
+      "want": 0.9315789473684211,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":45,\"y\":6}:B",
+      "got": 2.6315789473684212,
+      "want": 2.6315789473684212,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":45,\"y\":6}:C",
+      "got": -0.026000000000000002,
+      "want": -0.026000000000000002,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick matrix",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":45,\"y\":6}:D",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":45,\"y\":6}:q",
+      "got": 262.07430340557255,
+      "want": 262.07430340557244,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick conjugate",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":45,\"y\":6}:M",
+      "got": -5.882352941176466,
+      "want": -5.882352941176464,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "thick determinant",
+      "id": "{\"n0\":1,\"n\":1.52,\"R1\":20,\"R2\":0,\"t\":4,\"s\":45,\"y\":6}",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab",
+      "id": "i=0:r",
+      "got": 0,
+      "want": 0,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab",
+      "id": "i=0:shift",
+      "got": 0,
+      "want": 0,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab",
+      "id": "i=0:OPL",
+      "got": 12,
+      "want": 12,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab",
+      "id": "i=30:r",
+      "got": 19.471220634490688,
+      "want": 19.47122063449069,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab",
+      "id": "i=30:shift",
+      "got": 1.5505102572168223,
+      "want": 1.5505102572168215,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab",
+      "id": "i=30:OPL",
+      "got": 12.727922061357855,
+      "want": 12.727922061357855,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab",
+      "id": "i=45:r",
+      "got": 28.1255057020557,
+      "want": 28.1255057020557,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab",
+      "id": "i=45:shift",
+      "got": 2.633138465418563,
+      "want": 2.6331384654185626,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab",
+      "id": "i=45:OPL",
+      "got": 13.606721028332181,
+      "want": 13.60672102833218,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab",
+      "id": "i=70:r",
+      "got": 38.7895564163551,
+      "want": 38.7895564163551,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab",
+      "id": "i=70:shift",
+      "got": 5.318431942090501,
+      "want": 5.318431942090501,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab",
+      "id": "i=70:OPL",
+      "got": 15.395428380629962,
+      "want": 15.395428380629964,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab",
+      "id": "i=85:r",
+      "got": 41.61560051205658,
+      "want": 41.61560051205659,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab",
+      "id": "i=85:shift",
+      "got": 7.350174092567195,
+      "want": 7.350174092567195,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab",
+      "id": "i=85:OPL",
+      "got": 16.050993175963892,
+      "want": 16.050993175963896,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab critical",
+      "id": "critical+-0.001",
+      "got": false,
+      "want": false,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "slab critical",
+      "id": "critical+0.001",
+      "got": true,
+      "want": true,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "prism minimum",
+      "id": "r1",
+      "got": 30.000000000000004,
+      "want": 30,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "prism minimum",
+      "id": "r2",
+      "got": 29.999999999999996,
+      "want": 30,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "prism minimum",
+      "id": "deviation",
+      "got": 37.180755781458274,
+      "want": 37.18075578145829,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "vector Snell",
+      "id": "i=0:sin(r)",
+      "got": 0,
+      "want": 0,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "vector Snell",
+      "id": "i=0:unit",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "vector Snell",
+      "id": "i=30:sin(r)",
+      "got": 0.3333333333333333,
+      "want": 0.3333333333333333,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "vector Snell",
+      "id": "i=30:unit",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "vector Snell",
+      "id": "i=70:sin(r)",
+      "got": 0.6264617471906055,
+      "want": 0.6264617471906055,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "vector Snell",
+      "id": "i=70:unit",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "vector Snell",
+      "id": "i=85:sin(r)",
+      "got": 0.6641297987278303,
+      "want": 0.6641297987278304,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "vector Snell",
+      "id": "i=85:unit",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "vector TIR",
+      "id": "critical+-0.001",
+      "got": false,
+      "want": false,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "vector TIR",
+      "id": "critical+0.001",
+      "got": true,
+      "want": true,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "bench baseline",
+      "id": "camera rays",
+      "got": 14,
+      "want": 14,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "bench baseline",
+      "id": "camera interactions",
+      "got": 26,
+      "want": 26,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "bench baseline",
+      "id": "camera screen hits",
+      "got": 6,
+      "want": 6,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "bench baseline",
+      "id": "focus detector power",
+      "got": 0.9999999999999997,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "bench baseline",
+      "id": "focus detector relative",
+      "got": 100,
+      "want": 100,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "bench baseline",
+      "id": "focus detector signal",
+      "got": 100,
+      "want": 100,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "bench aperture",
+      "id": "five of eleven rays",
+      "got": 5,
+      "want": 5,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "bench aperture",
+      "id": "power incl efficiency",
+      "got": 0.3636363636363637,
+      "want": 0.36363636363636365,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "bench mixed noncoaxial",
+      "id": "one hit",
+      "got": 1,
+      "want": 1,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "bench mixed noncoaxial",
+      "id": "two refractions reflection screen",
+      "got": 4,
+      "want": 4,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "bench mixed noncoaxial",
+      "id": "screen hit x",
+      "got": 70,
+      "want": 70,
+      "tolerance": 1e-9,
+      "pass": true
+    },
+    {
+      "group": "bench mixed noncoaxial",
+      "id": "screen hit y",
+      "got": 20,
+      "want": 20,
+      "tolerance": 1e-9,
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,1397 @@
+{
+  "method": "Extracted numeric functions and classification; no browser execution.",
+  "source_sha256": "176971a6524443352ead62603596488f54fccafc5c73f3cf429b8564c890b463",
+  "total": 232,
+  "passed": 232,
+  "failed": 0,
+  "rows": [
+    {
+      "name": "computeSingleLens#0: f=5,s=4.95",
+      "got": -495.00000000000176,
+      "want": -495.00000000000176,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=5,s=5",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=5,s=5.05",
+      "got": 505.0000000000018,
+      "want": 505.0000000000018,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=5,s=5.0000001",
+      "got": 250000004.2989217,
+      "want": 250000004.2989217,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=5,s=4.9999999",
+      "got": -249999994.29892167,
+      "want": -249999994.29892167,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=5,s=6",
+      "got": 30,
+      "want": 30,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=15,s=14.95",
+      "got": -4484.999999999936,
+      "want": -4484.999999999936,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=15,s=15",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=15,s=15.05",
+      "got": 4514.999999999935,
+      "want": 4514.999999999935,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=15,s=15.0000001",
+      "got": 2250000028.6743097,
+      "want": 2250000028.6743097,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=15,s=14.9999999",
+      "got": -2249999998.6743097,
+      "want": -2249999998.6743097,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=15,s=16",
+      "got": 240,
+      "want": 240,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=40,s=39.95",
+      "got": -31960.000000001815,
+      "want": -31960.000000001815,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=40,s=40",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=40,s=40.05",
+      "got": 32040.000000001823,
+      "want": 32040.000000001823,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=40,s=40.0000001",
+      "got": 15999999853.022444,
+      "want": 15999999853.022444,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=40,s=39.9999999",
+      "got": -15999999773.022444,
+      "want": -15999999773.022444,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=40,s=41",
+      "got": 1640,
+      "want": 1640,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-5,s=-5.05",
+      "got": -505.0000000000018,
+      "want": -505.0000000000018,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-5,s=-5",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-5,s=-4.95",
+      "got": 495.00000000000176,
+      "want": 495.00000000000176,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-5,s=-4.9999999",
+      "got": 249999994.29892167,
+      "want": 249999994.29892167,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-5,s=-5.0000001",
+      "got": -250000004.2989217,
+      "want": -250000004.2989217,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-5,s=-4",
+      "got": 20,
+      "want": 20,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-15,s=-15.05",
+      "got": -4514.999999999935,
+      "want": -4514.999999999935,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-15,s=-15",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-15,s=-14.95",
+      "got": 4484.999999999936,
+      "want": 4484.999999999936,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-15,s=-14.9999999",
+      "got": 2249999998.6743097,
+      "want": 2249999998.6743097,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-15,s=-15.0000001",
+      "got": -2250000028.6743097,
+      "want": -2250000028.6743097,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-15,s=-14",
+      "got": 210,
+      "want": 210,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-40,s=-40.05",
+      "got": -32040.000000001823,
+      "want": -32040.000000001823,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-40,s=-40",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-40,s=-39.95",
+      "got": 31960.000000001815,
+      "want": 31960.000000001815,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-40,s=-39.9999999",
+      "got": 15999999773.022444,
+      "want": 15999999773.022444,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-40,s=-40.0000001",
+      "got": -15999999853.022444,
+      "want": -15999999853.022444,
+      "pass": true
+    },
+    {
+      "name": "computeSingleLens#0: f=-40,s=-39",
+      "got": 1560,
+      "want": 1560,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=5,s=4.95",
+      "got": -495.00000000000176,
+      "want": -495.00000000000176,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=5,s=5",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=5,s=5.05",
+      "got": 505.0000000000018,
+      "want": 505.0000000000018,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=5,s=5.0000001",
+      "got": 250000004.2989217,
+      "want": 250000004.2989217,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=5,s=4.9999999",
+      "got": -249999994.29892167,
+      "want": -249999994.29892167,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=5,s=6",
+      "got": 30,
+      "want": 30,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=15,s=14.95",
+      "got": -4484.999999999936,
+      "want": -4484.999999999936,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=15,s=15",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=15,s=15.05",
+      "got": 4514.999999999935,
+      "want": 4514.999999999935,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=15,s=15.0000001",
+      "got": 2250000028.6743097,
+      "want": 2250000028.6743097,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=15,s=14.9999999",
+      "got": -2249999998.6743097,
+      "want": -2249999998.6743097,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=15,s=16",
+      "got": 240,
+      "want": 240,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=40,s=39.95",
+      "got": -31960.000000001815,
+      "want": -31960.000000001815,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=40,s=40",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=40,s=40.05",
+      "got": 32040.000000001823,
+      "want": 32040.000000001823,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=40,s=40.0000001",
+      "got": 15999999853.022444,
+      "want": 15999999853.022444,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=40,s=39.9999999",
+      "got": -15999999773.022444,
+      "want": -15999999773.022444,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=40,s=41",
+      "got": 1640,
+      "want": 1640,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-5,s=-5.05",
+      "got": -505.0000000000018,
+      "want": -505.0000000000018,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-5,s=-5",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-5,s=-4.95",
+      "got": 495.00000000000176,
+      "want": 495.00000000000176,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-5,s=-4.9999999",
+      "got": 249999994.29892167,
+      "want": 249999994.29892167,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-5,s=-5.0000001",
+      "got": -250000004.2989217,
+      "want": -250000004.2989217,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-5,s=-4",
+      "got": 20,
+      "want": 20,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-15,s=-15.05",
+      "got": -4514.999999999935,
+      "want": -4514.999999999935,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-15,s=-15",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-15,s=-14.95",
+      "got": 4484.999999999936,
+      "want": 4484.999999999936,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-15,s=-14.9999999",
+      "got": 2249999998.6743097,
+      "want": 2249999998.6743097,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-15,s=-15.0000001",
+      "got": -2250000028.6743097,
+      "want": -2250000028.6743097,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-15,s=-14",
+      "got": 210,
+      "want": 210,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-40,s=-40.05",
+      "got": -32040.000000001823,
+      "want": -32040.000000001823,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-40,s=-40",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-40,s=-39.95",
+      "got": 31960.000000001815,
+      "want": 31960.000000001815,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-40,s=-39.9999999",
+      "got": 15999999773.022444,
+      "want": 15999999773.022444,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-40,s=-40.0000001",
+      "got": -15999999853.022444,
+      "want": -15999999853.022444,
+      "pass": true
+    },
+    {
+      "name": "computeLens#0: f=-40,s=-39",
+      "got": 1560,
+      "want": 1560,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=5,s=4.95",
+      "got": -495.00000000000176,
+      "want": -495.00000000000176,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=5,s=5",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=5,s=5.05",
+      "got": 505.0000000000018,
+      "want": 505.0000000000018,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=5,s=5.0000001",
+      "got": 250000004.2989217,
+      "want": 250000004.2989217,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=5,s=4.9999999",
+      "got": -249999994.29892167,
+      "want": -249999994.29892167,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=5,s=6",
+      "got": 30,
+      "want": 30,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=15,s=14.95",
+      "got": -4484.999999999936,
+      "want": -4484.999999999936,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=15,s=15",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=15,s=15.05",
+      "got": 4514.999999999935,
+      "want": 4514.999999999935,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=15,s=15.0000001",
+      "got": 2250000028.6743097,
+      "want": 2250000028.6743097,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=15,s=14.9999999",
+      "got": -2249999998.6743097,
+      "want": -2249999998.6743097,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=15,s=16",
+      "got": 240,
+      "want": 240,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=40,s=39.95",
+      "got": -31960.000000001815,
+      "want": -31960.000000001815,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=40,s=40",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=40,s=40.05",
+      "got": 32040.000000001823,
+      "want": 32040.000000001823,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=40,s=40.0000001",
+      "got": 15999999853.022444,
+      "want": 15999999853.022444,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=40,s=39.9999999",
+      "got": -15999999773.022444,
+      "want": -15999999773.022444,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=40,s=41",
+      "got": 1640,
+      "want": 1640,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-5,s=-5.05",
+      "got": -505.0000000000018,
+      "want": -505.0000000000018,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-5,s=-5",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-5,s=-4.95",
+      "got": 495.00000000000176,
+      "want": 495.00000000000176,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-5,s=-4.9999999",
+      "got": 249999994.29892167,
+      "want": 249999994.29892167,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-5,s=-5.0000001",
+      "got": -250000004.2989217,
+      "want": -250000004.2989217,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-5,s=-4",
+      "got": 20,
+      "want": 20,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-15,s=-15.05",
+      "got": -4514.999999999935,
+      "want": -4514.999999999935,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-15,s=-15",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-15,s=-14.95",
+      "got": 4484.999999999936,
+      "want": 4484.999999999936,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-15,s=-14.9999999",
+      "got": 2249999998.6743097,
+      "want": 2249999998.6743097,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-15,s=-15.0000001",
+      "got": -2250000028.6743097,
+      "want": -2250000028.6743097,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-15,s=-14",
+      "got": 210,
+      "want": 210,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-40,s=-40.05",
+      "got": -32040.000000001823,
+      "want": -32040.000000001823,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-40,s=-40",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-40,s=-39.95",
+      "got": 31960.000000001815,
+      "want": 31960.000000001815,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-40,s=-39.9999999",
+      "got": 15999999773.022444,
+      "want": 15999999773.022444,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-40,s=-40.0000001",
+      "got": -15999999853.022444,
+      "want": -15999999853.022444,
+      "pass": true
+    },
+    {
+      "name": "singleLensCalc#0: f=-40,s=-39",
+      "got": 1560,
+      "want": 1560,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=5,s=4.95",
+      "got": -495.00000000000176,
+      "want": -495.00000000000176,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=5,s=5",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=5,s=5.05",
+      "got": 505.0000000000018,
+      "want": 505.0000000000018,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=5,s=5.0000001",
+      "got": 250000004.2989217,
+      "want": 250000004.2989217,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=5,s=4.9999999",
+      "got": -249999994.29892167,
+      "want": -249999994.29892167,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=5,s=6",
+      "got": 30,
+      "want": 30,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=15,s=14.95",
+      "got": -4484.999999999936,
+      "want": -4484.999999999936,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=15,s=15",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=15,s=15.05",
+      "got": 4514.999999999935,
+      "want": 4514.999999999935,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=15,s=15.0000001",
+      "got": 2250000028.6743097,
+      "want": 2250000028.6743097,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=15,s=14.9999999",
+      "got": -2249999998.6743097,
+      "want": -2249999998.6743097,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=15,s=16",
+      "got": 240,
+      "want": 240,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=40,s=39.95",
+      "got": -31960.000000001815,
+      "want": -31960.000000001815,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=40,s=40",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=40,s=40.05",
+      "got": 32040.000000001823,
+      "want": 32040.000000001823,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=40,s=40.0000001",
+      "got": 15999999853.022444,
+      "want": 15999999853.022444,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=40,s=39.9999999",
+      "got": -15999999773.022444,
+      "want": -15999999773.022444,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=40,s=41",
+      "got": 1640,
+      "want": 1640,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-5,s=-5.05",
+      "got": -505.0000000000018,
+      "want": -505.0000000000018,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-5,s=-5",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-5,s=-4.95",
+      "got": 495.00000000000176,
+      "want": 495.00000000000176,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-5,s=-4.9999999",
+      "got": 249999994.29892167,
+      "want": 249999994.29892167,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-5,s=-5.0000001",
+      "got": -250000004.2989217,
+      "want": -250000004.2989217,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-5,s=-4",
+      "got": 20,
+      "want": 20,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-15,s=-15.05",
+      "got": -4514.999999999935,
+      "want": -4514.999999999935,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-15,s=-15",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-15,s=-14.95",
+      "got": 4484.999999999936,
+      "want": 4484.999999999936,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-15,s=-14.9999999",
+      "got": 2249999998.6743097,
+      "want": 2249999998.6743097,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-15,s=-15.0000001",
+      "got": -2250000028.6743097,
+      "want": -2250000028.6743097,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-15,s=-14",
+      "got": 210,
+      "want": 210,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-40,s=-40.05",
+      "got": -32040.000000001823,
+      "want": -32040.000000001823,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-40,s=-40",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-40,s=-39.95",
+      "got": 31960.000000001815,
+      "want": 31960.000000001815,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-40,s=-39.9999999",
+      "got": 15999999773.022444,
+      "want": 15999999773.022444,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-40,s=-40.0000001",
+      "got": -15999999853.022444,
+      "want": -15999999853.022444,
+      "pass": true
+    },
+    {
+      "name": "lens#0: f=-40,s=-39",
+      "got": 1560,
+      "want": 1560,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=5,s=4.95",
+      "got": -495.00000000000176,
+      "want": -495.00000000000176,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=5,s=5",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=5,s=5.05",
+      "got": 505.0000000000018,
+      "want": 505.0000000000018,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=5,s=5.0000001",
+      "got": 250000004.2989217,
+      "want": 250000004.2989217,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=5,s=4.9999999",
+      "got": -249999994.29892167,
+      "want": -249999994.29892167,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=5,s=6",
+      "got": 30,
+      "want": 30,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=15,s=14.95",
+      "got": -4484.999999999936,
+      "want": -4484.999999999936,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=15,s=15",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=15,s=15.05",
+      "got": 4514.999999999935,
+      "want": 4514.999999999935,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=15,s=15.0000001",
+      "got": 2250000028.6743097,
+      "want": 2250000028.6743097,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=15,s=14.9999999",
+      "got": -2249999998.6743097,
+      "want": -2249999998.6743097,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=15,s=16",
+      "got": 240,
+      "want": 240,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=40,s=39.95",
+      "got": -31960.000000001815,
+      "want": -31960.000000001815,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=40,s=40",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=40,s=40.05",
+      "got": 32040.000000001823,
+      "want": 32040.000000001823,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=40,s=40.0000001",
+      "got": 15999999853.022444,
+      "want": 15999999853.022444,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=40,s=39.9999999",
+      "got": -15999999773.022444,
+      "want": -15999999773.022444,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=40,s=41",
+      "got": 1640,
+      "want": 1640,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-5,s=-5.05",
+      "got": -505.0000000000018,
+      "want": -505.0000000000018,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-5,s=-5",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-5,s=-4.95",
+      "got": 495.00000000000176,
+      "want": 495.00000000000176,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-5,s=-4.9999999",
+      "got": 249999994.29892167,
+      "want": 249999994.29892167,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-5,s=-5.0000001",
+      "got": -250000004.2989217,
+      "want": -250000004.2989217,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-5,s=-4",
+      "got": 20,
+      "want": 20,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-15,s=-15.05",
+      "got": -4514.999999999935,
+      "want": -4514.999999999935,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-15,s=-15",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-15,s=-14.95",
+      "got": 4484.999999999936,
+      "want": 4484.999999999936,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-15,s=-14.9999999",
+      "got": 2249999998.6743097,
+      "want": 2249999998.6743097,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-15,s=-15.0000001",
+      "got": -2250000028.6743097,
+      "want": -2250000028.6743097,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-15,s=-14",
+      "got": 210,
+      "want": 210,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-40,s=-40.05",
+      "got": -32040.000000001823,
+      "want": -32040.000000001823,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-40,s=-40",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-40,s=-39.95",
+      "got": 31960.000000001815,
+      "want": 31960.000000001815,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-40,s=-39.9999999",
+      "got": 15999999773.022444,
+      "want": 15999999773.022444,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-40,s=-40.0000001",
+      "got": -15999999853.022444,
+      "want": -15999999853.022444,
+      "pass": true
+    },
+    {
+      "name": "lens#1: f=-40,s=-39",
+      "got": 1560,
+      "want": 1560,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=5,s=4.95",
+      "got": -495.00000000000176,
+      "want": -495.00000000000176,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=5,s=5",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=5,s=5.05",
+      "got": 505.0000000000018,
+      "want": 505.0000000000018,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=5,s=5.0000001",
+      "got": 250000004.2989217,
+      "want": 250000004.2989217,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=5,s=4.9999999",
+      "got": -249999994.29892167,
+      "want": -249999994.29892167,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=5,s=6",
+      "got": 30,
+      "want": 30,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=15,s=14.95",
+      "got": -4484.999999999936,
+      "want": -4484.999999999936,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=15,s=15",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=15,s=15.05",
+      "got": 4514.999999999935,
+      "want": 4514.999999999935,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=15,s=15.0000001",
+      "got": 2250000028.6743097,
+      "want": 2250000028.6743097,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=15,s=14.9999999",
+      "got": -2249999998.6743097,
+      "want": -2249999998.6743097,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=15,s=16",
+      "got": 240,
+      "want": 240,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=40,s=39.95",
+      "got": -31960.000000001815,
+      "want": -31960.000000001815,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=40,s=40",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=40,s=40.05",
+      "got": 32040.000000001823,
+      "want": 32040.000000001823,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=40,s=40.0000001",
+      "got": 15999999853.022444,
+      "want": 15999999853.022444,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=40,s=39.9999999",
+      "got": -15999999773.022444,
+      "want": -15999999773.022444,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=40,s=41",
+      "got": 1640,
+      "want": 1640,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-5,s=-5.05",
+      "got": -505.0000000000018,
+      "want": -505.0000000000018,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-5,s=-5",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-5,s=-4.95",
+      "got": 495.00000000000176,
+      "want": 495.00000000000176,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-5,s=-4.9999999",
+      "got": 249999994.29892167,
+      "want": 249999994.29892167,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-5,s=-5.0000001",
+      "got": -250000004.2989217,
+      "want": -250000004.2989217,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-5,s=-4",
+      "got": 20,
+      "want": 20,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-15,s=-15.05",
+      "got": -4514.999999999935,
+      "want": -4514.999999999935,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-15,s=-15",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-15,s=-14.95",
+      "got": 4484.999999999936,
+      "want": 4484.999999999936,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-15,s=-14.9999999",
+      "got": 2249999998.6743097,
+      "want": 2249999998.6743097,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-15,s=-15.0000001",
+      "got": -2250000028.6743097,
+      "want": -2250000028.6743097,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-15,s=-14",
+      "got": 210,
+      "want": 210,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-40,s=-40.05",
+      "got": -32040.000000001823,
+      "want": -32040.000000001823,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-40,s=-40",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-40,s=-39.95",
+      "got": 31960.000000001815,
+      "want": 31960.000000001815,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-40,s=-39.9999999",
+      "got": 15999999773.022444,
+      "want": 15999999773.022444,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-40,s=-40.0000001",
+      "got": -15999999853.022444,
+      "want": -15999999853.022444,
+      "pass": true
+    },
+    {
+      "name": "lens#2: f=-40,s=-39",
+      "got": 1560,
+      "want": 1560,
+      "pass": true
+    },
+    {
+      "name": "single main f=15,s=14.95",
+      "got": -4484.999999999936,
+      "want": -4484.999999999936,
+      "pass": true
+    },
+    {
+      "name": "single main f=15,s=15",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "infinity classification",
+      "pass": true
+    },
+    {
+      "name": "single main f=15,s=15.05",
+      "got": 4514.999999999935,
+      "want": 4514.999999999935,
+      "pass": true
+    },
+    {
+      "name": "single main f=15,s=-15",
+      "got": 7.5,
+      "want": 7.5,
+      "pass": true
+    },
+    {
+      "name": "single main f=15,s=-15.05",
+      "got": 7.512479201331114,
+      "want": 7.512479201331114,
+      "pass": true
+    },
+    {
+      "name": "single main f=15,s=-14.95",
+      "got": 7.487479131886477,
+      "want": 7.487479131886477,
+      "pass": true
+    },
+    {
+      "name": "single main f=15,s=30",
+      "got": 30,
+      "want": 30,
+      "pass": true
+    },
+    {
+      "name": "single main f=-15,s=14.95",
+      "got": -7.487479131886477,
+      "want": -7.487479131886477,
+      "pass": true
+    },
+    {
+      "name": "single main f=-15,s=15",
+      "got": -7.5,
+      "want": -7.5,
+      "pass": true
+    },
+    {
+      "name": "single main f=-15,s=15.05",
+      "got": -7.512479201331114,
+      "want": -7.512479201331114,
+      "pass": true
+    },
+    {
+      "name": "single main f=-15,s=-15",
+      "got": "Infinity",
+      "want": "Infinity",
+      "pass": true
+    },
+    {
+      "name": "infinity classification",
+      "pass": true
+    },
+    {
+      "name": "single main f=-15,s=-15.05",
+      "got": -4514.999999999935,
+      "want": -4514.999999999935,
+      "pass": true
+    },
+    {
+      "name": "single main f=-15,s=-14.95",
+      "got": 4484.999999999936,
+      "want": 4484.999999999936,
+      "pass": true
+    },
+    {
+      "name": "single main f=-15,s=30",
+      "got": -10,
+      "want": -10,
+      "pass": true
+    }
+  ]
+}

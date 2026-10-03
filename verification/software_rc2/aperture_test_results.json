@@ -1,0 +1,55 @@
+{
+  "scope": "Extracted application functions and input-event handlers with stub DOM; not browser rendering",
+  "passed": 12,
+  "inline_scripts_parsed": 31,
+  "results": [
+    {
+      "name": "Legacy aperture initializes requested value",
+      "pass": true
+    },
+    {
+      "name": "Intermediate radius typing leaves model untouched",
+      "pass": true
+    },
+    {
+      "name": "Completed radius applies once without shrinking aperture",
+      "pass": true
+    },
+    {
+      "name": "Smaller radius constrains applied aperture but retains request",
+      "pass": true
+    },
+    {
+      "name": "Increasing radius restores requested aperture",
+      "pass": true
+    },
+    {
+      "name": "Second surface and sign change retain requested aperture",
+      "pass": true
+    },
+    {
+      "name": "Explicit new aperture replaces old request",
+      "pass": true
+    },
+    {
+      "name": "JSON persistence retains constrained request and restores it",
+      "pass": true
+    },
+    {
+      "name": "Final geometry is independent of input order",
+      "pass": true
+    },
+    {
+      "name": "Empty input preserves prior model",
+      "pass": true
+    },
+    {
+      "name": "Enter ends editing through blur",
+      "pass": true
+    },
+    {
+      "name": "Aperture is placed after both radii",
+      "pass": true
+    }
+  ]
+}

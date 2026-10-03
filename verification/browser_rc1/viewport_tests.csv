@@ -1,0 +1,6 @@
+﻿profile,viewport,touch,load_ms,all_tabs_operable,horizontal_overflow_px,bench_px,add_button_px,minimum_tab_height_px,camera_optical_elements,camera_rays,page_errors,console_errors
+Desktop,1440x900,False,414.8,True,0,1397x522,49x31,29,3,14,[],[]
+Tablet landscape,1024x768,True,412.4,True,0,981x422,42x38,29,3,14,[],[]
+Tablet portrait,768x1024,True,500.1,True,0,689x520,42x38,38,3,14,[],[]
+Phone portrait,390x844,True,429.8,True,0,364x390,42x38,36,3,14,[],[]
+Phone landscape,844x390,True,396.4,True,0,818x380,42x38,36,3,14,[],[]

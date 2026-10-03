@@ -1,0 +1,226 @@
+Run timestamp: 2026-10-02T20:20:43+03:00
+Environment: Windows-11-10.0.26300-SP0
+Browser: Chromium-family browser 154.0.4258.48
+Functional tests: 13/13 passed
+Page errors: 0
+Console errors: 0
+
+Full machine-readable output
+{
+  "run_timestamp": "2026-10-02T20:20:43+03:00",
+  "environment": "Windows-11-10.0.26300-SP0",
+  "python": "3.14.2",
+  "playwright": "1.61.0",
+  "browser": "Chromium-family browser 154.0.4258.48",
+  "launch_mode": "channel: msedge",
+  "simulator_source": "index.html",
+  "profiles": [
+    {
+      "profile": "Desktop",
+      "viewport": "1440x900",
+      "touch": false,
+      "load_ms": 404.0,
+      "all_tabs_operable": true,
+      "horizontal_overflow_px": 0,
+      "bench_px": "1397x522",
+      "add_button_px": "49x31",
+      "minimum_tab_height_px": 29,
+      "camera_optical_elements": "3",
+      "camera_rays": "14",
+      "page_errors": [],
+      "console_errors": []
+    },
+    {
+      "profile": "Tablet landscape",
+      "viewport": "1024x768",
+      "touch": true,
+      "load_ms": 371.0,
+      "all_tabs_operable": true,
+      "horizontal_overflow_px": 0,
+      "bench_px": "981x422",
+      "add_button_px": "42x38",
+      "minimum_tab_height_px": 29,
+      "camera_optical_elements": "3",
+      "camera_rays": "14",
+      "page_errors": [],
+      "console_errors": []
+    },
+    {
+      "profile": "Tablet portrait",
+      "viewport": "768x1024",
+      "touch": true,
+      "load_ms": 354.2,
+      "all_tabs_operable": true,
+      "horizontal_overflow_px": 0,
+      "bench_px": "689x520",
+      "add_button_px": "42x38",
+      "minimum_tab_height_px": 38,
+      "camera_optical_elements": "3",
+      "camera_rays": "14",
+      "page_errors": [],
+      "console_errors": []
+    },
+    {
+      "profile": "Phone portrait",
+      "viewport": "390x844",
+      "touch": true,
+      "load_ms": 373.2,
+      "all_tabs_operable": true,
+      "horizontal_overflow_px": 0,
+      "bench_px": "364x390",
+      "add_button_px": "42x38",
+      "minimum_tab_height_px": 36,
+      "camera_optical_elements": "3",
+      "camera_rays": "14",
+      "page_errors": [],
+      "console_errors": []
+    },
+    {
+      "profile": "Phone landscape",
+      "viewport": "844x390",
+      "touch": true,
+      "load_ms": 360.0,
+      "all_tabs_operable": true,
+      "horizontal_overflow_px": 0,
+      "bench_px": "818x380",
+      "add_button_px": "42x38",
+      "minimum_tab_height_px": 36,
+      "camera_optical_elements": "3",
+      "camera_rays": "14",
+      "page_errors": [],
+      "console_errors": []
+    }
+  ],
+  "functional": [
+    {
+      "test": "Thin-lens calculation",
+      "pass": true,
+      "evidence": {
+        "s_prime": "30.00 cm",
+        "M": "-1.000"
+      }
+    },
+    {
+      "test": "Sequential two-lens calculation",
+      "pass": true,
+      "evidence": {
+        "s1_prime": "21.43 cm",
+        "s2_prime": "-42.22 cm",
+        "M_total": "-1.333"
+      }
+    },
+    {
+      "test": "Lens-maker calculation",
+      "pass": true,
+      "evidence": {
+        "f": "19.23 cm",
+        "P": "5.20 D"
+      }
+    },
+    {
+      "test": "Spherical-mirror calculation",
+      "pass": true,
+      "evidence": {
+        "s_prime": "10.00 cm",
+        "M": "-0.333"
+      }
+    },
+    {
+      "test": "Thick-lens matrix outputs",
+      "pass": true,
+      "evidence": {
+        "tl-efl": "+19.912 cm",
+        "tl-power": "5.0221 D",
+        "tl-q": "+53.176 cm",
+        "tl-mag": "−1.73897"
+      }
+    },
+    {
+      "test": "Prism refraction outputs",
+      "pass": true,
+      "evidence": {
+        "pr-r1": "30.000°",
+        "pr-r2": "30.000°",
+        "pr-e": "48.591°",
+        "pr-delta": "+37.181°"
+      }
+    },
+    {
+      "test": "Prism total internal reflection",
+      "pass": true,
+      "evidence": "The ray undergoes total internal reflection at the second face because |r₂| exceeds the critical angle. The reflected internal path is shown."
+    },
+    {
+      "test": "Parallel-slab outputs",
+      "pass": true,
+      "evidence": {
+        "sl-r": "28.126°",
+        "sl-e": "45.000°",
+        "sl-d": "+2.6331 cm",
+        "sl-status": "Emergent ray parallel to incident ray"
+      }
+    },
+    {
+      "test": "Slab total internal reflection",
+      "pass": true,
+      "evidence": "Total internal reflection at first face"
+    },
+    {
+      "test": "Camera multi-element propagation",
+      "pass": true,
+      "evidence": {
+        "v21-element-count": "3",
+        "v21-ray-count": "14",
+        "v21-interaction-count": "26",
+        "v21-screen-hits": "6"
+      }
+    },
+    {
+      "test": "Detector/focus signal",
+      "pass": true,
+      "evidence": {
+        "v21-detector-name": "Digital Power Meter",
+        "v21-detector-power": "1.0000 mW",
+        "v21-detector-relative": "100.0%",
+        "v21-detector-focus": "100.0/100"
+      }
+    },
+    {
+      "test": "Add/undo/redo state history",
+      "pass": true,
+      "evidence": {
+        "before": 3,
+        "after_add": 4,
+        "after_undo": 3,
+        "after_redo": 4
+      }
+    },
+    {
+      "test": "Project export/import round trip",
+      "pass": true,
+      "evidence": {
+        "exported": 4,
+        "cleared": 0,
+        "restored": 4,
+        "format": "GeometricalOpticsInteractiveLabProject",
+        "version": "1.0"
+      }
+    }
+  ],
+  "performance": {
+    "single_lens_update_to_two_frames": {
+      "median_ms": 13.9,
+      "p95_ms": 14
+    },
+    "bench_example_load_to_two_frames": {
+      "median_ms": 13.8,
+      "p95_ms": 15.6
+    }
+  },
+  "functional_summary": {
+    "passed": 13,
+    "total": 13,
+    "page_errors": [],
+    "console_errors": []
+  }
+}

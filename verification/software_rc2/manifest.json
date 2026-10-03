@@ -1,0 +1,10 @@
+{
+  "revision": "aperture-fix-rc2",
+  "based_on_sha256": "176971a6524443352ead62603596488f54fccafc5c73f3cf429b8564c890b463",
+  "sha256": "74c32acdda997b35bc2be62fe54884c36ed68af68c53575ee94ab702ce79c5b8",
+  "aperture_function_and_event_checks": 12,
+  "numerical_comparisons": 164,
+  "focal_checks": 232,
+  "inline_scripts_parsed": 31,
+  "browser_execution": "Completed on 2026-10-02, Edge 154.0.4258.48: baseline 13/13, focal 21/21, aperture 5/5; five emulated viewport profiles passed. Evidence: ../browser_rc2_full."
+}

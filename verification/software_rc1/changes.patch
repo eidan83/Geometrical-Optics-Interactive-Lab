@@ -1,0 +1,303 @@
+--- original/index.html
++++ corrected/index.html
+@@ -2,7 +2,7 @@
+ <html lang="en" dir="ltr">
+ <head>
+     <meta charset="UTF-8">
+-    <title>Geometrical Optics: Lenses, Mirrors & Prism Simulator – Eidan A. Abdullah</title>
++    <title>Geometrical Optics: Lenses, Mirrors & Prism Simulator – Eidan A. Abdullah — Focal Fix RC1</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+     <style>
+@@ -945,7 +945,7 @@
+ @media(max-width:720px){#v21-export-project,#v21-import-project{font-size:.63rem!important;padding:4px 6px!important;}}
+ </style>
+ </head>
+-<body class="v16-maker-stable">
++<body data-goil-revision="focal-fix-rc1" class="v16-maker-stable">
+ <div class="page">
+     <header>
+         <!-- شعار كلية العلوم في الهيدر (يسار) -->
+@@ -994,7 +994,7 @@
+ 
+                         <div class="slider-group">
+                             <div class="slider-label">
+-                                <span>Focal length |f| (cm)</span>
++                                <span>Focal length f (cm)</span>
+                                 <span class="value" id="focal-length-value">15.00 cm</span>
+                             </div>
+                             <input type="range" id="focal-length" min="5" max="40" step="0.01" value="15">
+@@ -1145,7 +1145,7 @@
+                         <div class="two-lens-grid">
+                             <div class="slider-group">
+                                 <div class="slider-label">
+-                                    <span>|f₁| (cm)</span>
++                                    <span>f₁ (cm)</span>
+                                 </div>
+                                 <input type="range" id="dl_f1_range" min="2" max="40" step="0.5" value="15">
+                                 <input type="number" id="dl_f1_input" step="0.01" value="15">
+@@ -1153,7 +1153,7 @@
+ 
+                             <div class="slider-group">
+                                 <div class="slider-label">
+-                                    <span>|f₂| (cm)</span>
++                                    <span>f₂ (cm)</span>
+                                 </div>
+                                 <input type="range" id="dl_f2_range" min="2" max="40" step="0.5" value="20">
+                                 <input type="number" id="dl_f2_input" step="0.01" value="20">
+@@ -2027,7 +2027,7 @@
+         let f = lensType === 'convex' ? focalLength : -focalLength;
+         let s = objectDistance;
+ 
+-        if (lensType === 'convex' && Math.abs(s - Math.abs(f)) < 0.1) {
++        if (s === f) {
+             return { s_prime: Infinity, M: Infinity, y_prime: Infinity, f };
+         }
+ 
+@@ -2036,9 +2036,9 @@
+         }
+ 
+         let den = 1 / f - 1 / s;
+-        if (Math.abs(den) < 1e-4) den = den > 0 ? 1e-4 : -1e-4;
+-
+-        let s_prime = 1 / den;
++        
++
++        let s_prime = f * s / (s - f);
+         let M = -s_prime / s;
+         let y_prime = M * objectHeight;
+ 
+@@ -2050,7 +2050,7 @@
+ 
+         if (s_prime === Infinity) {
+             position = 'at infinity';
+-            nature = 'real, inverted';
++            nature = 'collimated output; no finite image';
+         } else if (s_prime > 0) {
+             position = 'on the image side (right of the lens)';
+             nature = 'real ';
+@@ -2070,10 +2070,14 @@
+         let s = objectDistance;
+         let absF = Math.abs(f);
+ 
++        if (s_prime === Infinity) {
++            physicsNotes.textContent = 'Object at the focal plane (s = f): outgoing rays are parallel; no finite image plane or finite transverse magnification exists.';
++            return;
++        }
+         if (s < 0) {
+             physicsNotes.textContent =
+                 'Here s < 0: the object is on the image side of the lens (a virtual object). ' +
+-                'The incoming rays are converging as if they originated from that point. ' +
++                'The incoming rays converge toward that point before interacting with the lens. ' +
+                 'The thin-lens equation 1/f = 1/s + 1/s′ still holds, but with s negative.';
+             return;
+         }
+@@ -2083,7 +2087,7 @@
+                 physicsNotes.textContent =
+                     'Convex lens with s > f: the rays converge to form a real, inverted image on the image side. ' +
+                     'The position and magnification are given directly by the thin-lens equation.';
+-            } else if (Math.abs(s - absF) < 0.1) {
++            } else if (s === f) {
+                 physicsNotes.textContent =
+                     'Object at the focal point (s = f): emerging rays are parallel and the image is formed at infinity.';
+             } else {
+@@ -2098,6 +2102,9 @@
+     }
+ 
+     function updateSimulation() {
++        const signedF = lensType === 'convex' ? focalLength : -focalLength;
++        document.getElementById('focal-length-input').value = signedF;
++        focalLengthValue.textContent = signedF.toFixed(2) + ' cm';
+         const { s_prime, M, y_prime, f } = calculateImageProperties();
+ 
+         if (s_prime === Infinity) {
+@@ -2354,7 +2361,7 @@
+         if (s_p === Infinity) {
+             const hitPar = { x: 0, y: yO };
+             segWithArrow(Q, hitPar, 'rgba(231,76,60,0.9)', false, false);
+-            const endPar = { x: xRight, y: hitPar.y };
++            const endPar = { x: xRight, y: hitPar.y - (yO / f) * xRight };
+             segWithArrow(hitPar, endPar, 'rgba(231,76,60,0.9)', false, true);
+ 
+             const hitC = A;
+@@ -2448,13 +2455,15 @@
+ });
+ 
+ focalLengthInput.addEventListener('change', function () {
+-    let v = parseFloat(this.value);
+-    if (isNaN(v)) return;
+-    if (v < 5) v = 5;
+-    if (v > 40) v = 40;
+-    focalLength = v;
+-    focalLengthSlider.value = v;
+-    focalLengthValue.textContent = focalLength.toFixed(2) + ' cm';
++    const v = Number(this.value);
++    if (!Number.isFinite(v) || v === 0 || this.value.trim() === '') {
++        this.value = lensType === 'convex' ? focalLength : -focalLength;
++        return;
++    }
++    lensType = v < 0 ? 'concave' : 'convex';
++    focalLength = Math.min(40, Math.max(5, Math.abs(v)));
++    lensOptions.forEach(opt => opt.classList.toggle('active', opt.dataset.type === lensType));
++    focalLengthSlider.value = focalLength;
+     updateSimulation();
+     updateDoubleSimulation();
+ });
+@@ -2644,6 +2653,16 @@
+         inputElem.addEventListener('change', () => {
+             let val = parseFloat(inputElem.value);
+             if (isNaN(val)) return;
++            const focalInput = inputElem.id === 'dl_f1_input' || inputElem.id === 'dl_f2_input';
++            if (focalInput) {
++                const first = inputElem.id === 'dl_f1_input';
++                if (val === 0) { updateDoubleSimulation(); return; }
++                const type = val < 0 ? 'concave' : 'convex';
++                if (first) lens1Type = type; else lens2Type = type;
++                const key = first ? 'data-lens1' : 'data-lens2';
++                document.querySelectorAll('[' + key + ']').forEach(el => el.classList.toggle('active', el.getAttribute(key) === type));
++                val = Math.abs(val);
++            }
+             if (val < parseFloat(rangeElem.min)) val = parseFloat(rangeElem.min);
+             if (val > parseFloat(rangeElem.max)) val = parseFloat(rangeElem.max);
+             getterSetter(val);
+@@ -2682,18 +2701,20 @@
+             s_in = s_in >= 0 ? 1e-4 : -1e-4;
+         }
+ 
+-        if (f_eff > 0 && Math.abs(s_in - Math.abs(f_eff)) < 0.1) {
++        if (s_in === f_eff) {
+             return { s_p: Infinity, M: Infinity };
+         }
+ 
+         let den = 1 / f_eff - 1 / s_in;
+-        if (Math.abs(den) < 1e-4) den = den > 0 ? 1e-4 : -1e-4;
+-        let s_p = 1 / den;
++        
++        let s_p = f_eff * s_in / (s_in - f_eff);
+         let M   = -s_p / s_in;
+         return { s_p, M };
+     }
+ 
+     function updateDoubleSimulation() {
++        document.getElementById('dl_f1_input').value = lens1Type === 'convex' ? f1 : -f1;
++        document.getElementById('dl_f2_input').value = lens2Type === 'convex' ? f2 : -f2;
+         const f1_eff = (lens1Type === 'convex') ? f1 : -f1;
+         const f2_eff = (lens2Type === 'convex') ? f2 : -f2;
+ 
+@@ -5795,7 +5816,7 @@
+         let zone;
+         if(s<0) zone='Virtual object';
+         else if(type==='concave') zone='Real object; diverging lens';
+-        else if(Math.abs(s-fmag)<0.10) zone='At F';
++        else if(s===f) zone='At F';
+         else if(Math.abs(s-2*fmag)<0.10) zone='At 2F';
+         else if(s>2*fmag) zone='Beyond 2F';
+         else if(s>fmag) zone='Between F and 2F';
+@@ -6196,10 +6217,10 @@
+         if(!canvas) return;
+         function computeLens(f_eff,s_in){
+             if(Math.abs(s_in)<1e-4) s_in = s_in>=0?1e-4:-1e-4;
+-            if(f_eff>0 && Math.abs(s_in-Math.abs(f_eff))<0.1) return {s_p:Infinity,M:Infinity};
++            if(s_in===f_eff) return {s_p:Infinity,M:Infinity};
+             let den = 1/f_eff - 1/s_in;
+-            if(Math.abs(den)<1e-4) den = den>=0?1e-4:-1e-4;
+-            const s_p=1/den, M=-s_p/s_in; return {s_p,M};
++            
++            const s_p=f_eff*s_in/(s_in-f_eff), M=-s_p/s_in; return {s_p,M};
+         }
+         function scene(){
+             const W=canvas.clientWidth || canvas.width || 1, H=canvas.clientHeight || canvas.height || 1;
+@@ -6208,9 +6229,9 @@
+             const f1 = num('dl_f1_range',15), f2 = num('dl_f2_range',20), s1 = num('dl_s1_range',50), d = num('dl_d_range',35), y1 = num('dl_y_range',8);
+             const f1_eff = lens1Type==='convex'?f1:-f1, f2_eff=lens2Type==='convex'?f2:-f2;
+             const r1=computeLens(f1_eff,s1); const y1p = Number.isFinite(r1.M)?r1.M*y1:0;
+-            let s2_val=Infinity,s2p_val=Infinity;
++            let s2_val=Infinity,s2p_val=f2_eff;
+             if(r1.s_p!==Infinity){ s2_val=d-r1.s_p; const r2=computeLens(f2_eff,s2_val); s2p_val=r2.s_p; }
+-            const x_L1=0, x_L2=d, x_obj=-s1, x_img1=r1.s_p, x_img2=(s2p_val===Infinity?x_L2+40:x_L2+s2p_val);
++            const x_L1=0, x_L2=d, x_obj=-s1, x_img1=Number.isFinite(r1.s_p)?r1.s_p:d, x_img2=(s2p_val===Infinity?x_L2+40:x_L2+s2p_val);
+             const minX = Math.min(x_obj, x_L1 - Math.abs(f1_eff)*1.6, x_L2 - Math.abs(f2_eff)*1.6, x_img1, x_img2, -40);
+             const maxX = Math.max(x_L2 + Math.abs(f2_eff)*1.6, x_img1, x_img2, 40);
+             const minY=-25,maxY=25,padX=25,padY=25;
+@@ -6417,13 +6438,13 @@
+         setHandle('lens-canvas','object',cx-s*scale,cy-y*scale,true);
+         setHandle('lens-canvas','focus',cx+f*scale,cy,true);
+     }
+-    function singleLensCalc(f,s){if(Math.abs(s)<1e-4)s=s>=0?1e-4:-1e-4;if(f>0&&Math.abs(s-Math.abs(f))<.1)return Infinity;let d=1/f-1/s;if(Math.abs(d)<1e-4)d=d>=0?1e-4:-1e-4;return 1/d;}
++    function singleLensCalc(f,s){if(Math.abs(s)<1e-4)s=s>=0?1e-4:-1e-4;if(s===f)return Infinity;let d=1/f-1/s;return f*s/(s-f);}
+     function computeDouble(){
+         const c=document.getElementById('double-lens-canvas');if(!c)return;const W=c.clientWidth,H=c.clientHeight;if(!W||!H){hideAll('double-lens-canvas');return;}
+         const t1=document.querySelector('.lens-option[data-lens1].active')?.dataset.lens1||'convex',t2=document.querySelector('.lens-option[data-lens2].active')?.dataset.lens2||'convex';
+         const f1=number('dl_f1_range',15),f2=number('dl_f2_range',20),s1=number('dl_s1_range',50),d=number('dl_d_range',35),y=number('dl_y_range',8);
+         const f1_eff=t1==='convex'?f1:-f1,f2_eff=t2==='convex'?f2:-f2;
+-        const s1p=singleLensCalc(f1_eff,s1),s2=Number.isFinite(s1p)?d-s1p:Infinity,s2p=Number.isFinite(s2)?singleLensCalc(f2_eff,s2):Infinity;
++        const s1p=singleLensCalc(f1_eff,s1),s2=Number.isFinite(s1p)?d-s1p:Infinity,s2p=Number.isFinite(s2)?singleLensCalc(f2_eff,s2):f2_eff;
+         const xObj=-s1,xL1=0,xL2=d,xImg1=Number.isFinite(s1p)?s1p:d,xImg2=Number.isFinite(s2p)?d+s2p:d+40;
+         const minX=Math.min(xObj,xL1-Math.abs(f1_eff)*1.6,xL2-Math.abs(f2_eff)*1.6,xImg1,xImg2,-40),maxX=Math.max(xL2+Math.abs(f2_eff)*1.6,xImg1,xImg2,40);
+         const padX=25,padY=25,minY=-25,maxY=25,scale=Math.min((W-2*padX)/(maxX-minX),(H-2*padY)/(maxY-minY));
+@@ -6561,8 +6582,8 @@
+         const fmag=num('focal-length',15), s=num('object-distance',30), y=num('object-height',10);
+         const lensType=document.querySelector('.lens-option.active[data-type]')?.dataset.type || 'convex';
+         const f=lensType==='convex'?fmag:-fmag; let s2=s; if(Math.abs(s2)<1e-4) s2=s2>=0?1e-4:-1e-4;
+-        if(lensType==='convex' && Math.abs(s2-Math.abs(f))<0.1) return {f,s:s2,y,sPrime:Infinity,yPrime:Infinity};
+-        let den=1/f-1/s2; if(Math.abs(den)<1e-4) den=den>0?1e-4:-1e-4; const sPrime=1/den, M=-sPrime/s2, yPrime=M*y;
++        if(s2===f) return {f,s:s2,y,sPrime:Infinity,yPrime:Infinity};
++        let den=1/f-1/s2;  const sPrime=f*s2/(s2-f), M=-sPrime/s2, yPrime=M*y;
+         return {f,s:s2,y,sPrime,yPrime};
+     }
+     function renderSingle(){
+@@ -6583,8 +6604,8 @@
+         const lens2Type=document.querySelector('.lens-option.active[data-lens2]')?.dataset.lens2||'convex';
+         const f1=num('dl_f1_range',15), f2=num('dl_f2_range',20), s1=num('dl_s1_range',50), d=num('dl_d_range',35), y1=num('dl_y_range',8);
+         const f1e=lens1Type==='convex'?f1:-f1, f2e=lens2Type==='convex'?f2:-f2;
+-        function lens(f,s){ if(Math.abs(s)<1e-4) s=s>=0?1e-4:-1e-4; if(f>0 && Math.abs(s-Math.abs(f))<0.1) return {s_p:Infinity,M:Infinity}; let den=1/f-1/s; if(Math.abs(den)<1e-4) den=den>0?1e-4:-1e-4; const s_p=1/den,M=-s_p/s; return {s_p,M}; }
+-        const r1=lens(f1e,s1); const y1p=Number.isFinite(r1.M)?r1.M*y1:Infinity; let s2=Infinity,s2p=Infinity,y2=Infinity;
++        function lens(f,s){ if(Math.abs(s)<1e-4) s=s>=0?1e-4:-1e-4; if(s===f) return {s_p:Infinity,M:Infinity}; let den=1/f-1/s;  const s_p=f*s/(s-f),M=-s_p/s; return {s_p,M}; }
++        const r1=lens(f1e,s1); const y1p=Number.isFinite(r1.M)?r1.M*y1:Infinity; let s2=Infinity,s2p=f2e,y2=(-f2e/f1e)*y1;
+         if(r1.s_p!==Infinity){ s2=d-r1.s_p; const r2=lens(f2e,s2); s2p=r2.s_p; y2=Number.isFinite(r2.M)&&Number.isFinite(y1p)?r2.M*y1p:Infinity; }
+         return {f1,f2,f1e,f2e,s1,d,y1,s1p:r1.s_p,s2,s2p,y2};
+     }
+@@ -6593,7 +6614,7 @@
+         const layers=(window.DL_GUIDED_STATE&&window.DL_GUIDED_STATE.layers)||{};
+         if(layers.dimensions===false) return;
+         const ctx=canvas.getContext('2d'); const W=canvas.width,H=canvas.height; if(!W||!H) return; const P=computeDouble();
+-        const xL1=0,xL2=P.d,xObj=-P.s1,xImg1=P.s1p,xImg2=(P.s2p===Infinity?xL2+40:xL2+P.s2p);
++        const xL1=0,xL2=P.d,xObj=-P.s1,xImg1=Number.isFinite(P.s1p)?P.s1p:P.d,xImg2=(P.s2p===Infinity?xL2+40:xL2+P.s2p);
+         const minX=Math.min(xObj,xL1-P.f1*1.6,xL2-P.f2*1.6,xImg1,xImg2,-40),maxX=Math.max(xL2+P.f2*1.6,xImg1,xImg2,40);
+         const minY=-25,maxY=25,padX=25,padY=25,scale=Math.min((W-2*padX)/(maxX-minX),(H-2*padY)/(maxY-minY));
+         function X(x){ return padX+(x-minX)*scale; } function Y(y){ return H-(padY+(y-minY)*scale); } const axisY=Y(0);
+@@ -6771,9 +6792,9 @@
+         const lens2Type=document.querySelector('.lens-option[data-lens2].active')?.dataset.lens2||'convex';
+         const f1=num('dl_f1_range',15),f2=num('dl_f2_range',20),s1=num('dl_s1_range',50),d=num('dl_d_range',35);
+         const f1e=lens1Type==='convex'?f1:-f1, f2e=lens2Type==='convex'?f2:-f2;
+-        function lens(f,s){ if(Math.abs(s)<1e-4) s=s>=0?1e-4:-1e-4; if(f>0 && Math.abs(s-Math.abs(f))<0.1) return {s_p:Infinity,M:Infinity}; let den=1/f-1/s; if(Math.abs(den)<1e-4) den=den>0?1e-4:-1e-4; const s_p=1/den,M=-s_p/s; return {s_p,M}; }
+-        const r1=lens(f1e,s1); let s2=Infinity,s2p=Infinity; if(r1.s_p!==Infinity){ s2=d-r1.s_p; const r2=lens(f2e,s2); s2p=r2.s_p; }
+-        const xObj=-s1,xL1=0,xL2=d,xImg1=r1.s_p,xImg2=(s2p===Infinity?xL2+40:xL2+s2p);
++        function lens(f,s){ if(Math.abs(s)<1e-4) s=s>=0?1e-4:-1e-4; if(s===f) return {s_p:Infinity,M:Infinity}; let den=1/f-1/s;  const s_p=f*s/(s-f),M=-s_p/s; return {s_p,M}; }
++        const r1=lens(f1e,s1); let s2=Infinity,s2p=f2e; if(r1.s_p!==Infinity){ s2=d-r1.s_p; const r2=lens(f2e,s2); s2p=r2.s_p; }
++        const xObj=-s1,xL1=0,xL2=d,xImg1=Number.isFinite(r1.s_p)?r1.s_p:d,xImg2=(s2p===Infinity?xL2+40:xL2+s2p);
+         const minX=Math.min(xObj,xL1-Math.abs(f1e)*1.6,xL2-Math.abs(f2e)*1.6,xImg1,xImg2,-40),maxX=Math.max(xL2+Math.abs(f2e)*1.6,xImg1,xImg2,40);
+         const minY=-25,maxY=25,padX=25,padY=25,scale=Math.min((W-2*padX)/(maxX-minX),(H-2*padY)/(maxY-minY));
+         const X=x=>padX+(x-minX)*scale,Y=y=>H-(padY+(y-minY)*scale), worldX=px=>minX+(px-padX)/scale;
+@@ -10455,7 +10476,7 @@
+ 
+     function singleState(){
+         const fmag=num('focal-length',15),s=num('object-distance',30),y=num('object-height',10),type=document.querySelector('#tab-single .lens-option.active')?.dataset.type||'convex';
+-        const f=type==='convex'?fmag:-fmag;let den=1/f-1/s;const sp=Math.abs(den)<1e-8?Infinity:1/den;return{f,s,y,sp,yp:Number.isFinite(sp)?(-sp/s)*y:Infinity};
++        const f=type==='convex'?fmag:-fmag;let den=1/f-1/s;const sp=s===f?Infinity:f*s/(s-f);return{f,s,y,sp,yp:Number.isFinite(sp)?(-sp/s)*y:Infinity};
+     }
+     function renderSingle(){
+         const cb=$('ov-single-dims'),c=$('lens-canvas');if(!c||!cb||!cb.checked)return;
+@@ -10470,9 +10491,9 @@
+     function dblState(){
+         const t1=document.querySelector('#tab-double .lens-option.active[data-lens1]')?.dataset.lens1||'convex',t2=document.querySelector('#tab-double .lens-option.active[data-lens2]')?.dataset.lens2||'convex';
+         const f1=num('dl_f1_range',15),f2=num('dl_f2_range',20),s1=num('dl_s1_range',50),d=num('dl_d_range',35),y=num('dl_y_range',8),F1=t1==='convex'?f1:-f1,F2=t2==='convex'?f2:-f2;
+-        function lens(f,s){const den=1/f-1/s;if(Math.abs(den)<1e-8)return{sp:Infinity,m:Infinity};const sp=1/den;return{sp,m:-sp/s};}
+-        const a=lens(F1,s1),s2=Number.isFinite(a.sp)?d-a.sp:Infinity,b=Number.isFinite(s2)?lens(F2,s2):{sp:Infinity,m:Infinity};
+-        return{f1,f2,F1,F2,s1,d,y,s1p:a.sp,y1p:Number.isFinite(a.m)?a.m*y:Infinity,s2,s2p:b.sp,y2:Number.isFinite(a.m)&&Number.isFinite(b.m)?a.m*b.m*y:Infinity};
++        function lens(f,s){if(s===f)return{sp:Infinity,m:Infinity};const sp=f*s/(s-f);return{sp,m:-sp/s};}
++        const a=lens(F1,s1),s2=Number.isFinite(a.sp)?d-a.sp:Infinity,b=Number.isFinite(s2)?lens(F2,s2):{sp:F2,m:0};
++        return{f1,f2,F1,F2,s1,d,y,s1p:a.sp,y1p:Number.isFinite(a.m)?a.m*y:Infinity,s2,s2p:b.sp,y2:!Number.isFinite(a.sp)?(-F2/F1)*y:(Number.isFinite(a.m)&&Number.isFinite(b.m)?a.m*b.m*y:Infinity)};
+     }
+     function renderDouble(){
+         const cb=$('ov-double-dims'),c=$('double-lens-canvas');if(!c||!cb||!cb.checked)return;const layers=(window.DL_GUIDED_STATE&&window.DL_GUIDED_STATE.layers)||{};if(layers.dimensions===false)return;

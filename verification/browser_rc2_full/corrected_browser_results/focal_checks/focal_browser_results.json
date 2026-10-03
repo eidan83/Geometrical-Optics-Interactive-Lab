@@ -1,0 +1,178 @@
+{
+  "timestamp": "2026-10-02T20:21:04.861387+03:00",
+  "source_sha256": "74c32acdda997b35bc2be62fe54884c36ed68af68c53575ee94ab702ce79c5b8",
+  "total": 21,
+  "passed": 21,
+  "failed": 0,
+  "browser_errors": [],
+  "rows": [
+    {
+      "test": "single f=15,s=14.95",
+      "pass": true,
+      "q": -4485.0,
+      "expected": -4484.999999999936,
+      "type": "convex",
+      "input": 15.0,
+      "nature": "virtual upright"
+    },
+    {
+      "test": "single f=15,s=15.05",
+      "pass": true,
+      "q": 4515.0,
+      "expected": 4514.999999999935,
+      "type": "convex",
+      "input": 15.0,
+      "nature": "real inverted"
+    },
+    {
+      "test": "single f=15,s=15",
+      "pass": true,
+      "q": "inf",
+      "expected": "inf",
+      "type": "convex",
+      "input": 15.0,
+      "nature": "collimated output; no finite image"
+    },
+    {
+      "test": "single f=-15,s=-15",
+      "pass": true,
+      "q": "inf",
+      "expected": "inf",
+      "type": "concave",
+      "input": -15.0,
+      "nature": "collimated output; no finite image"
+    },
+    {
+      "test": "single f=-15,s=-14.95",
+      "pass": true,
+      "q": 4485.0,
+      "expected": 4484.999999999936,
+      "type": "concave",
+      "input": -15.0,
+      "nature": "real upright"
+    },
+    {
+      "test": "single f=-15,s=-15.05",
+      "pass": true,
+      "q": -4515.0,
+      "expected": -4514.999999999935,
+      "type": "concave",
+      "input": -15.0,
+      "nature": "virtual inverted"
+    },
+    {
+      "test": "single f=-15,s=30",
+      "pass": true,
+      "q": -10.0,
+      "expected": -10.0,
+      "type": "concave",
+      "input": -15.0,
+      "nature": "virtual upright"
+    },
+    {
+      "test": "single f=15,s=-15",
+      "pass": true,
+      "q": 7.5,
+      "expected": 7.5,
+      "type": "convex",
+      "input": 15.0,
+      "nature": "real upright"
+    },
+    {
+      "test": "single synchronization concave",
+      "pass": true,
+      "input": -15.0,
+      "type": "concave"
+    },
+    {
+      "test": "single synchronization convex",
+      "pass": true,
+      "input": 15.0,
+      "type": "convex"
+    },
+    {
+      "test": "single synchronization negative_input",
+      "pass": true,
+      "input": -15.0,
+      "type": "concave"
+    },
+    {
+      "test": "single synchronization range",
+      "pass": true,
+      "input": -20.0,
+      "type": "concave"
+    },
+    {
+      "test": "single synchronization zero",
+      "pass": true,
+      "input": -20.0,
+      "type": "concave"
+    },
+    {
+      "test": "single synchronization clamp",
+      "pass": true,
+      "input": -40.0,
+      "type": "concave"
+    },
+    {
+      "test": "single synchronization reset",
+      "pass": true,
+      "input": 15.0,
+      "type": "convex"
+    },
+    {
+      "test": "double f1=15,s1=14.95",
+      "pass": true,
+      "q": -4485.0,
+      "expected": -4484.999999999936,
+      "q2": 20.09,
+      "expected2": 20.08888888888889,
+      "type": "convex"
+    },
+    {
+      "test": "double f1=15,s1=15.05",
+      "pass": true,
+      "q": 4515.0,
+      "expected": 4514.999999999935,
+      "q2": 19.91,
+      "expected2": 19.911111111111108,
+      "type": "convex"
+    },
+    {
+      "test": "double f1=15,s1=15",
+      "pass": true,
+      "q": "inf",
+      "expected": "inf",
+      "q2": 20.0,
+      "expected2": 20,
+      "type": "convex"
+    },
+    {
+      "test": "double f1=-15,s1=-15",
+      "pass": true,
+      "q": "inf",
+      "expected": "inf",
+      "q2": 20.0,
+      "expected2": 20,
+      "type": "concave"
+    },
+    {
+      "test": "double f1=-15,s1=-14.95",
+      "pass": true,
+      "q": 4485.0,
+      "expected": 4484.999999999936,
+      "q2": 19.91,
+      "expected2": 19.910514541387023,
+      "type": "concave"
+    },
+    {
+      "test": "double f1=-15,s1=-15.05",
+      "pass": true,
+      "q": -4515.0,
+      "expected": -4514.999999999935,
+      "q2": 20.09,
+      "expected2": 20.088300220750554,
+      "type": "concave"
+    }
+  ]
+}

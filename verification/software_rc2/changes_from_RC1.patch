@@ -1,0 +1,69 @@
+--- RC1/index.html
++++ RC2/index.html
+@@ -2,7 +2,7 @@
+ <html lang="en" dir="ltr">
+ <head>
+     <meta charset="UTF-8">
+-    <title>Geometrical Optics: Lenses, Mirrors & Prism Simulator – Eidan A. Abdullah — Focal Fix RC1</title>
++    <title>Geometrical Optics: Lenses, Mirrors & Prism Simulator – Eidan A. Abdullah — Aperture Fix RC2</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+     <style>
+@@ -945,7 +945,7 @@
+ @media(max-width:720px){#v21-export-project,#v21-import-project{font-size:.63rem!important;padding:4px 6px!important;}}
+ </style>
+ </head>
+-<body data-goil-revision="focal-fix-rc1" class="v16-maker-stable">
++<body data-goil-revision="aperture-fix-rc2" class="v16-maker-stable">
+ <div class="page">
+     <header>
+         <!-- شعار كلية العلوم في الهيدر (يسار) -->
+@@ -9905,7 +9905,7 @@
+     if(e.type==='pointSource'){f('angle','Central angle (°)',-180,180,.5);f('spread','Angular spread (°)',0,160,.5);f('rays','Rays (maximum 14)',1,14,1);f('power','Source optical power (mW)',0,1000,.001);f('color','Ray color',null,null,null,'color',null,true);}
+     if(e.type==='parallelSource'){f('angle','Beam angle (°)',-180,180,.5);f('width','Beam width (cm)',1,50,.1);f('rays','Rays (maximum 14)',1,14,1);f('power','Source optical power (mW)',0,1000,.001);f('color','Ray color',null,null,null,'color',null,true);}
+     if(e.type==='lens'){f('f','Focal length f (cm)',-100,100,.1);f('aperture','Clear aperture (cm)',2,55,.1);}
+-    if(e.type==='thickLens'){f('angle','Optical-axis angle (°)',-180,180,.5);f('n','Lens refractive index n',1,3,.001);f('__ambient','Surrounding index n₀',1,2.5,.001,'number',state.ambient);f('width','Central thickness d (cm)',1,20,.1);f('aperture','Clear aperture (cm)',2,50,.1);f('R1','First radius R₁ (cm)',-100,100,.1);f('R2','Second radius R₂ (cm)',-100,100,.1);f('__thickF','Derived effective focal length (cm)',null,null,null,'number',Number.isFinite(thickLensEffectiveF(e))?fmt(thickLensEffectiveF(e),4):'Infinity',true,true);}
++    if(e.type==='thickLens'){f('angle','Optical-axis angle (°)',-180,180,.5);f('n','Lens refractive index n',1,3,.001);f('__ambient','Surrounding index n₀',1,2.5,.001,'number',state.ambient);f('width','Central thickness d (cm)',1,20,.1);f('R1','First radius R₁ (cm)',-100,100,.1);f('R2','Second radius R₂ (cm)',-100,100,.1);f('requestedAperture','Clear aperture (cm)',2,50,.1,'number',num(e.requestedAperture,e.aperture));f('__usedAperture','Applied clear aperture (cm)',null,null,null,'number',fmt(e.aperture,4),false,true);f('__thickF','Derived effective focal length (cm)',null,null,null,'number',Number.isFinite(thickLensEffectiveF(e))?fmt(thickLensEffectiveF(e),4):'Infinity',true,true);}
+     if(e.type==='planeMirror'){f('angle','Mirror line angle (°)',-180,180,.5);f('length','Mirror length (cm)',2,55,.1);}
+     if(e.type==='sphericalMirror'){f('axisAngle','Optical-axis angle (°)',-180,180,.5);f('R','Signed radius R (cm)',-100,100,.1);f('__mirrorF','Focal length f = R/2 (cm)',-50,50,.1,'number',e.R/2);f('aperture','Mirror aperture (cm)',2,55,.1);}
+     if(e.type==='prism'){f('angle','Prism rotation (°)',-180,180,.5);f('apex','Apex angle A (°)',20,140,.1);f('n','Prism refractive index n',1,3,.001);f('__ambient','Surrounding index n₀',1,2.5,.001,'number',state.ambient);f('width','Base width (cm)',2,50,.1);f('__prismHeight','Derived prism height (cm)',null,null,null,'number',fmt(prismHeightFromApex(e),4),false,true);}
+@@ -9917,10 +9917,24 @@
+     if(e.type==='protractor'){f('a1','Baseline angle (°)',-180,180,.5);f('a2','Second arm angle (°)',-180,180,.5);f('radius','Protractor radius (cm)',4,20,.1);}
+     var html='<div class="v21-inspector-grid">';fields.forEach(function(q){var val=q.value!=null?q.value:e[q.key];html+='<label class="'+(q.full?'v21-full-field ':'')+(q.readonly?'v21-derived-field':'')+'">'+escapeHtml(q.label)+'<input data-v21-prop="'+q.key+'" type="'+q.type+'" value="'+escapeHtml(val==null?'':val)+'"'+(q.min!=null?' min="'+q.min+'"':'')+(q.max!=null?' max="'+q.max+'"':'')+(q.step!=null?' step="'+q.step+'"':'')+(q.readonly?' readonly':'')+'></label>';});
+     var warning=(e.n!=null&&e.n<=state.ambient)?' v21-physics-warning':'';html+='<div class="v21-physics-summary'+warning+'">'+escapeHtml(elementPhysicsSummary(e))+'</div></div>';
++    if(e.type==='thickLens'&&e.aperture<e.requestedAperture-1e-9){
++        html+='<div class="v21-physics-summary v21-physics-warning">Requested aperture: '+fmt(e.requestedAperture,2)+' cm. Applied aperture: '+fmt(e.aperture,2)+' cm, limited by the surface radii. The requested value is retained and restored when the radii allow it.</div>';
++    }
+     inspector.innerHTML=html;
+     inspector.querySelectorAll('[data-v21-prop]:not([readonly])').forEach(function(inp){
+-        inp.addEventListener('input',function(){var key=inp.dataset.v21Prop;if(key==='label')e.label=inp.value;else if(key==='__mirrorF')e.R=2*num(inp.value,e.R/2);else if(key==='__ambient'){state.ambient=clamp(num(inp.value,state.ambient),1,2.5);syncGlobalUI();}else e[key]=inp.type==='color'?inp.value:num(inp.value,e[key]);sanitize(e);renderSvg();});
+-        inp.addEventListener('change',function(){commit();setTimeout(function(){renderSvg();renderInspector();},0);});
++        var deferred=e.type==='thickLens'&&inp.type==='number';
++        function applyInput(){
++            var key=inp.dataset.v21Prop;
++            if(deferred&&(inp.value.trim()===''||!Number.isFinite(Number(inp.value))))return;
++            if(key==='label')e.label=inp.value;
++            else if(key==='__mirrorF')e.R=2*num(inp.value,e.R/2);
++            else if(key==='__ambient'){state.ambient=clamp(num(inp.value,state.ambient),1,2.5);syncGlobalUI();}
++            else e[key]=inp.type==='color'?inp.value:num(inp.value,e[key]);
++            sanitize(e);renderSvg();
++        }
++        inp.addEventListener('input',function(){if(!deferred)applyInput();});
++        inp.addEventListener('change',function(){if(deferred)applyInput();commit();setTimeout(function(){renderSvg();renderInspector();},0);});
++        if(deferred)inp.addEventListener('keydown',function(ev){if(ev.key==='Enter'){ev.preventDefault();inp.blur();}});
+     });
+ }
+ function openProperties(){
+@@ -9941,7 +9955,11 @@
+     e.x=clamp(num(e.x,50),0,120);e.y=clamp(num(e.y,0),-30,30);
+     if(e.f!=null&&Math.abs(e.f)<.5)e.f=e.f<0?-.5:.5;if(e.R!=null&&Math.abs(e.R)<3)e.R=e.R<0?-3:3;
+     if(e.R1!=null&&Math.abs(e.R1)<3)e.R1=e.R1<0?-3:3;if(e.R2!=null&&Math.abs(e.R2)<3)e.R2=e.R2<0?-3:3;
+-    if(e.type==='thickLens')e.aperture=Math.min(e.aperture,1.82*Math.min(Math.abs(e.R1),Math.abs(e.R2)));
++    if(e.type==='thickLens'){
++        // Keep the user's requested diameter through temporary curvature constraints.
++        e.requestedAperture=clamp(num(e.requestedAperture,num(e.aperture,24)),2,50);
++        e.aperture=Math.min(e.requestedAperture,1.82*Math.min(Math.abs(e.R1),Math.abs(e.R2)));
++    }
+     if(e.type==='prism'){e.apex=clamp(num(e.apex,60),20,140);e.width=clamp(num(e.width,20),2,50);e.height=prismHeightFromApex(e);if(e.height>50){e.height=50;e.width=2*e.height*Math.tan(e.apex*Math.PI/360);}}
+     ['aperture','activeLength','length','width','height','opening','radius','rays','spread'].forEach(function(k){if(e[k]!=null)e[k]=Math.max(k==='rays'?1:.2,num(e[k],1));});
+     if(e.rays!=null)e.rays=clamp(Math.round(e.rays),1,14);if(e.power!=null)e.power=clamp(num(e.power,1),0,1000);if(e.efficiency!=null)e.efficiency=clamp(num(e.efficiency,1),0,1);if(e.type==='photodetector'){e.length=clamp(num(e.length,12),2,40);e.activeLength=clamp(num(e.activeLength,3),.2,e.length);}

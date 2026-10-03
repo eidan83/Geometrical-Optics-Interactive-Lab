@@ -1,0 +1,16 @@
+{
+  "status": "local revision; author browser verification completed; archive publication pending",
+  "revision": "focal-fix-rc1",
+  "original_sha256": "4283c9ade8cb5af1f919a99446068692f95ef79596795514bb6f27143e84c052",
+  "candidate_sha256": "176971a6524443352ead62603596488f54fccafc5c73f3cf429b8564c890b463",
+  "numeric_comparisons": 164,
+  "additional_numeric_checks": 232,
+  "browser_checks_executed_here": false,
+  "author_browser_run": {
+    "date": "2026-10-01",
+    "baseline_passed": 13,
+    "added_passed": 21,
+    "browser": "Microsoft Edge 154.0.4258.37",
+    "source_sha256": "176971a6524443352ead62603596488f54fccafc5c73f3cf429b8564c890b463"
+  }
+}
