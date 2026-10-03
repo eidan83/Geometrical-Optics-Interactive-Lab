@@ -1,0 +1,9 @@
+{
+  "external_package": "rayoptics",
+  "version": "0.9.8",
+  "routines": "Spherical.intersect, Spherical.normal, raytrace.bend",
+  "ray_comparisons": 4040,
+  "max_abs_image_intercept_difference_cm": 4.1300296516055823e-14,
+  "tolerance_cm": 1e-09,
+  "passed": true
+}

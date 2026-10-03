@@ -1,0 +1,481 @@
+{
+  "geometry": {
+    "n": 1.52,
+    "R1_cm": 20.0,
+    "R2_cm": -20.0,
+    "thickness_cm": 4.0,
+    "object_distance_cm": 45.0
+  },
+  "matrix": [
+    [
+      0.9315789473684211,
+      2.6315789473684212
+    ],
+    [
+      -0.05022105263157895,
+      0.9315789473684211
+    ]
+  ],
+  "paraxial_q_cm": 33.53936368318872,
+  "magnification": -0.7528032013946673,
+  "efl_cm": 19.911968140850973,
+  "reference_checks": {
+    "paraxial_limit_relative_error": 5.078146559763205e-11,
+    "matrix_determinant": 1.0,
+    "mirror_symmetry_error_cm": 0.0,
+    "normal_incidence_snell_error": 0.0
+  },
+  "axial": [
+    {
+      "height_cm": 0.25,
+      "exact_q_cm": 33.52871831012173,
+      "paraxial_q_cm": 33.53936368318872,
+      "relative_focus_error_percent": 0.03173993748820415
+    },
+    {
+      "height_cm": 0.5,
+      "exact_q_cm": 33.4967790597215,
+      "paraxial_q_cm": 33.53936368318872,
+      "relative_focus_error_percent": 0.12696908584632996
+    },
+    {
+      "height_cm": 1,
+      "exact_q_cm": 33.36897410416748,
+      "paraxial_q_cm": 33.53936368318872,
+      "relative_focus_error_percent": 0.5080286574030803
+    },
+    {
+      "height_cm": 2,
+      "exact_q_cm": 32.85692369174621,
+      "paraxial_q_cm": 33.53936368318872,
+      "relative_focus_error_percent": 2.03474340744447
+    },
+    {
+      "height_cm": 3,
+      "exact_q_cm": 32.00003003883783,
+      "paraxial_q_cm": 33.53936368318872,
+      "relative_focus_error_percent": 4.58963282336351
+    },
+    {
+      "height_cm": 4,
+      "exact_q_cm": 30.791034485738933,
+      "paraxial_q_cm": 33.53936368318872,
+      "relative_focus_error_percent": 8.194339115704087
+    },
+    {
+      "height_cm": 5,
+      "exact_q_cm": 29.214982200926535,
+      "paraxial_q_cm": 33.53936368318872,
+      "relative_focus_error_percent": 12.893451179068544
+    },
+    {
+      "height_cm": 6,
+      "exact_q_cm": 27.242223100266507,
+      "paraxial_q_cm": 33.53936368318872,
+      "relative_focus_error_percent": 18.77537284966021
+    }
+  ],
+  "grid": [
+    {
+      "half_bundle_cm": 0.25,
+      "field_deg": 0,
+      "rays": 101,
+      "paraxial_image_cm": -0.0,
+      "rms_error_cm": 3.0589717513220904e-05,
+      "max_error_cm": 7.858486324149871e-05,
+      "rms_error_percent_EFL": 0.00015362478132165992,
+      "max_surface_height_cm": 0.2500086814976055
+    },
+    {
+      "half_bundle_cm": 0.25,
+      "field_deg": 2,
+      "rays": 101,
+      "paraxial_image_cm": -1.1829810180848814,
+      "rms_error_cm": 0.0005293585791663841,
+      "max_error_cm": 0.0010510413570736787,
+      "rms_error_percent_EFL": 0.002658494506529283,
+      "max_surface_height_cm": 0.3392904696100155
+    },
+    {
+      "half_bundle_cm": 0.25,
+      "field_deg": 5,
+      "rays": 101,
+      "paraxial_image_cm": -2.9637785694625403,
+      "rms_error_cm": 0.0038870340148788114,
+      "max_error_cm": 0.007653738588863757,
+      "rms_error_percent_EFL": 0.01952109398419664,
+      "max_surface_height_cm": 0.4767213211189897
+    },
+    {
+      "half_bundle_cm": 0.25,
+      "field_deg": 10,
+      "rays": 101,
+      "paraxial_image_cm": -5.9732782006314675,
+      "rms_error_cm": 0.02335705782153265,
+      "max_error_cm": 0.0408660811322612,
+      "rms_error_percent_EFL": 0.1173016030174024,
+      "max_surface_height_cm": 0.7052088550476034
+    },
+    {
+      "half_bundle_cm": 0.25,
+      "field_deg": 15,
+      "rays": 101,
+      "paraxial_image_cm": -9.077085444296921,
+      "rms_error_cm": 0.07507647108628027,
+      "max_error_cm": 0.11790265773290365,
+      "rms_error_percent_EFL": 0.3770419405817297,
+      "max_surface_height_cm": 0.9329871673018486
+    },
+    {
+      "half_bundle_cm": 0.5,
+      "field_deg": 0,
+      "rays": 101,
+      "paraxial_image_cm": -0.0,
+      "rms_error_cm": 0.00024490910187984616,
+      "max_error_cm": 0.0006292989733305276,
+      "rms_error_percent_EFL": 0.0012299592895460485,
+      "max_surface_height_cm": 0.5000694746044078
+    },
+    {
+      "half_bundle_cm": 0.5,
+      "field_deg": 2,
+      "rays": 101,
+      "paraxial_image_cm": -1.1829810180848814,
+      "rms_error_cm": 0.0011951304545067124,
+      "max_error_cm": 0.002414161730313946,
+      "rms_error_percent_EFL": 0.006002070945738448,
+      "max_surface_height_cm": 0.5867074084081891
+    },
+    {
+      "half_bundle_cm": 0.5,
+      "field_deg": 5,
+      "rays": 101,
+      "paraxial_image_cm": -2.9637785694625403,
+      "rms_error_cm": 0.006687165935100701,
+      "max_error_cm": 0.013322774452158015,
+      "rms_error_percent_EFL": 0.033583651238279416,
+      "max_surface_height_cm": 0.723680186713663
+    },
+    {
+      "half_bundle_cm": 0.5,
+      "field_deg": 10,
+      "rays": 101,
+      "paraxial_image_cm": -5.9732782006314675,
+      "rms_error_cm": 0.03163542252135809,
+      "max_error_cm": 0.062180138745834945,
+      "rms_error_percent_EFL": 0.1588764219467363,
+      "max_surface_height_cm": 0.9508018605308364
+    },
+    {
+      "half_bundle_cm": 0.5,
+      "field_deg": 15,
+      "rays": 101,
+      "paraxial_image_cm": -9.077085444296921,
+      "rms_error_cm": 0.08956913858906262,
+      "max_error_cm": 0.16628341965890847,
+      "rms_error_percent_EFL": 0.4498256423246503,
+      "max_surface_height_cm": 1.1764688525965936
+    },
+    {
+      "half_bundle_cm": 1,
+      "field_deg": 0,
+      "rays": 101,
+      "paraxial_image_cm": -0.0,
+      "rms_error_cm": 0.001965429052225062,
+      "max_error_cm": 0.005054358492574185,
+      "rms_error_percent_EFL": 0.009870591587542915,
+      "max_surface_height_cm": 1.0005565225179511
+    },
+    {
+      "half_bundle_cm": 1,
+      "field_deg": 2,
+      "rays": 101,
+      "paraxial_image_cm": -1.1829810180848814,
+      "rms_error_cm": 0.0038046926136743524,
+      "max_error_cm": 0.008448367262578138,
+      "rms_error_percent_EFL": 0.019107566799831933,
+      "max_surface_height_cm": 1.0816973662076885
+    },
+    {
+      "half_bundle_cm": 1,
+      "field_deg": 5,
+      "rays": 101,
+      "paraxial_image_cm": -2.9637785694625403,
+      "rms_error_cm": 0.014068752823276376,
+      "max_error_cm": 0.027950240572010454,
+      "rms_error_percent_EFL": 0.07065475759984378,
+      "max_surface_height_cm": 1.2174934182910075
+    },
+    {
+      "half_bundle_cm": 1,
+      "field_deg": 10,
+      "rays": 101,
+      "paraxial_image_cm": -5.9732782006314675,
+      "rms_error_cm": 0.05440864532668203,
+      "max_error_cm": 0.10794173075518287,
+      "rms_error_percent_EFL": 0.273245944056421,
+      "max_surface_height_cm": 1.4414893701881812
+    },
+    {
+      "half_bundle_cm": 1,
+      "field_deg": 15,
+      "rays": 101,
+      "paraxial_image_cm": -9.077085444296921,
+      "rms_error_cm": 0.13386052848809302,
+      "max_error_cm": 0.2656118374395007,
+      "rms_error_percent_EFL": 0.6722616646491493,
+      "max_surface_height_cm": 1.6626125796358346
+    },
+    {
+      "half_bundle_cm": 2,
+      "field_deg": 0,
+      "rays": 101,
+      "paraxial_image_cm": -0.0,
+      "rms_error_cm": 0.015924718165245468,
+      "max_error_cm": 0.04109020084638004,
+      "rms_error_percent_EFL": 0.0799756109119854,
+      "max_surface_height_cm": 2.004475625937686
+    },
+    {
+      "half_bundle_cm": 2,
+      "field_deg": 2,
+      "rays": 101,
+      "paraxial_image_cm": -1.1829810180848814,
+      "rms_error_cm": 0.01953919570933471,
+      "max_error_cm": 0.047995786116882266,
+      "rms_error_percent_EFL": 0.09812789760972201,
+      "max_surface_height_cm": 2.073750555612555
+    },
+    {
+      "half_bundle_cm": 2,
+      "field_deg": 5,
+      "rays": 101,
+      "paraxial_image_cm": -2.9637785694625403,
+      "rms_error_cm": 0.03949670107430434,
+      "max_error_cm": 0.08426012874209521,
+      "rms_error_percent_EFL": 0.19835659034263792,
+      "max_surface_height_cm": 2.2062356453635656
+    },
+    {
+      "half_bundle_cm": 2,
+      "field_deg": 10,
+      "rays": 101,
+      "paraxial_image_cm": -5.9732782006314675,
+      "rms_error_cm": 0.11515500062044448,
+      "max_error_cm": 0.22647514272998492,
+      "rms_error_percent_EFL": 0.578320534694885,
+      "max_surface_height_cm": 2.4226155784357566
+    },
+    {
+      "half_bundle_cm": 2,
+      "field_deg": 15,
+      "rays": 101,
+      "paraxial_image_cm": -9.077085444296921,
+      "rms_error_cm": 0.25197389205527015,
+      "max_error_cm": 0.4902559407540785,
+      "rms_error_percent_EFL": 1.2654394094691517,
+      "max_surface_height_cm": 2.6336652301351373
+    },
+    {
+      "half_bundle_cm": 3,
+      "field_deg": 0,
+      "rays": 101,
+      "paraxial_image_cm": -0.0,
+      "rms_error_cm": 0.05493258545336122,
+      "max_error_cm": 0.14257546969399248,
+      "rms_error_percent_EFL": 0.2758772265241962,
+      "max_surface_height_cm": 3.015239881142857
+    },
+    {
+      "half_bundle_cm": 3,
+      "field_deg": 2,
+      "rays": 101,
+      "paraxial_image_cm": -1.1829810180848814,
+      "rms_error_cm": 0.06040419261165114,
+      "max_error_cm": 0.15410075322615802,
+      "rms_error_percent_EFL": 0.30335621363177645,
+      "max_surface_height_cm": 3.071662947968009
+    },
+    {
+      "half_bundle_cm": 3,
+      "field_deg": 5,
+      "rays": 101,
+      "paraxial_image_cm": -2.9637785694625403,
+      "rms_error_cm": 0.0902183642751117,
+      "max_error_cm": 0.20930092217509078,
+      "rms_error_percent_EFL": 0.4530861220595347,
+      "max_surface_height_cm": 3.1998010645414023
+    },
+    {
+      "half_bundle_cm": 3,
+      "field_deg": 10,
+      "rays": 101,
+      "paraxial_image_cm": -5.9732782006314675,
+      "rms_error_cm": 0.2031913596381189,
+      "max_error_cm": 0.4106838484784108,
+      "rms_error_percent_EFL": 1.0204483966668056,
+      "max_surface_height_cm": 3.407291129010282
+    },
+    {
+      "half_bundle_cm": 3,
+      "field_deg": 15,
+      "rays": 101,
+      "paraxial_image_cm": -9.077085444296921,
+      "rms_error_cm": 0.40481029435270766,
+      "max_error_cm": 0.7813070572936667,
+      "rms_error_percent_EFL": 2.0329999098492295,
+      "max_surface_height_cm": 3.607683130176255
+    },
+    {
+      "half_bundle_cm": 4,
+      "field_deg": 0,
+      "rays": 101,
+      "paraxial_image_cm": -0.0,
+      "rms_error_cm": 0.13444805556971132,
+      "max_error_cm": 0.35205572076920033,
+      "rms_error_percent_EFL": 0.6752122874979923,
+      "max_surface_height_cm": 4.036585387336881
+    },
+    {
+      "half_bundle_cm": 4,
+      "field_deg": 2,
+      "rays": 101,
+      "paraxial_image_cm": -1.1829810180848814,
+      "rms_error_cm": 0.14191843925317388,
+      "max_error_cm": 0.37013360019012564,
+      "rms_error_percent_EFL": 0.7127293407125185,
+      "max_surface_height_cm": 4.079970039444971
+    },
+    {
+      "half_bundle_cm": 4,
+      "field_deg": 5,
+      "rays": 101,
+      "paraxial_image_cm": -2.9637785694625403,
+      "rms_error_cm": 0.18222619885027772,
+      "max_error_cm": 0.4512872275869033,
+      "rms_error_percent_EFL": 0.9151591523312369,
+      "max_surface_height_cm": 4.203163850219606
+    },
+    {
+      "half_bundle_cm": 4,
+      "field_deg": 10,
+      "rays": 101,
+      "paraxial_image_cm": -5.9732782006314675,
+      "rms_error_cm": 0.33473980656965524,
+      "max_error_cm": 0.7364315529307515,
+      "rms_error_percent_EFL": 1.6810985443619213,
+      "max_surface_height_cm": 4.401428653823757
+    },
+    {
+      "half_bundle_cm": 4,
+      "field_deg": 15,
+      "rays": 101,
+      "paraxial_image_cm": -9.077085444296921,
+      "rms_error_cm": 0.607277814405505,
+      "max_error_cm": 1.2298672007916274,
+      "rms_error_percent_EFL": 3.0498131079249102,
+      "max_surface_height_cm": 4.591798485791924
+    },
+    {
+      "half_bundle_cm": 5,
+      "field_deg": 0,
+      "rays": 101,
+      "paraxial_image_cm": -0.0,
+      "rms_error_cm": 0.2743979148512355,
+      "max_error_cm": 0.727648547676913,
+      "rms_error_percent_EFL": 1.3780552123739418,
+      "max_surface_height_cm": 5.07266567019793
+    },
+    {
+      "half_bundle_cm": 5,
+      "field_deg": 2,
+      "rays": 101,
+      "paraxial_image_cm": -1.1829810180848814,
+      "rms_error_cm": 0.2840932625766518,
+      "max_error_cm": 0.7559912899611176,
+      "rms_error_percent_EFL": 1.4267462692139008,
+      "max_surface_height_cm": 5.104702884522496
+    },
+    {
+      "half_bundle_cm": 5,
+      "field_deg": 5,
+      "rays": 101,
+      "paraxial_image_cm": -2.9637785694625403,
+      "rms_error_cm": 0.33608303520824373,
+      "max_error_cm": 0.8717770455066618,
+      "rms_error_percent_EFL": 1.687844379977401,
+      "max_surface_height_cm": 5.223034653614191
+    },
+    {
+      "half_bundle_cm": 5,
+      "field_deg": 10,
+      "rays": 101,
+      "paraxial_image_cm": -5.9732782006314675,
+      "rms_error_cm": 0.5322317232931428,
+      "max_error_cm": 1.2749320676966311,
+      "rms_error_percent_EFL": 2.672923738770089,
+      "max_surface_height_cm": 5.413158586593894
+    },
+    {
+      "half_bundle_cm": 5,
+      "field_deg": 15,
+      "rays": 101,
+      "paraxial_image_cm": -9.077085444296921,
+      "rms_error_cm": 0.8845101161109874,
+      "max_error_cm": 1.984784205155366,
+      "rms_error_percent_EFL": 4.4421029094373905,
+      "max_surface_height_cm": 5.595984525677789
+    },
+    {
+      "half_bundle_cm": 6,
+      "field_deg": 0,
+      "rays": 101,
+      "paraxial_image_cm": -0.0,
+      "rms_error_cm": 0.5028620849613874,
+      "max_error_cm": 1.3574068384413076,
+      "rms_error_percent_EFL": 2.525426323527136,
+      "max_surface_height_cm": 6.128270677953457
+    },
+    {
+      "half_bundle_cm": 6,
+      "field_deg": 2,
+      "rays": 101,
+      "paraxial_image_cm": -1.1829810180848814,
+      "rms_error_cm": 0.5151552477300846,
+      "max_error_cm": 1.4029364257083432,
+      "rms_error_percent_EFL": 2.5871638809686672,
+      "max_surface_height_cm": 6.163795722651746
+    },
+    {
+      "half_bundle_cm": 6,
+      "field_deg": 5,
+      "rays": 101,
+      "paraxial_image_cm": -2.9637785694625403,
+      "rms_error_cm": 0.5808376041227741,
+      "max_error_cm": 1.5691684747806947,
+      "rms_error_percent_EFL": 2.9170275887050057,
+      "max_surface_height_cm": 6.26891461592393
+    },
+    {
+      "half_bundle_cm": 6,
+      "field_deg": 10,
+      "rays": 101,
+      "paraxial_image_cm": -5.9732782006314675,
+      "rms_error_cm": 0.8281016132306962,
+      "max_error_cm": 2.1369743018504828,
+      "rms_error_percent_EFL": 4.158813470235423,
+      "max_surface_height_cm": 6.454215649885903
+    },
+    {
+      "half_bundle_cm": 6,
+      "field_deg": 15,
+      "rays": 101,
+      "paraxial_image_cm": -9.077085444296921,
+      "rms_error_cm": 1.2753431112986136,
+      "max_error_cm": 3.1517976027963908,
+      "rms_error_percent_EFL": 6.404907351584932,
+      "max_surface_height_cm": 6.6349481840027416
+    }
+  ],
+  "definition": "Bundle half-width a specified at front vertex plane; field=atan(object_height/s). 101 equally weighted meridional launch rays per combination. No Fresnel power weighting. Error relative to first-order predicted image height, normalized by EFL."
+}

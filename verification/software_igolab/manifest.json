@@ -1,0 +1,25 @@
+{
+  "name": "iGOLab",
+  "expanded_name": "interactive Geometrical Optics Laboratory",
+  "revision": "igolab-name-rc1",
+  "based_on_revision": "aperture-fix-rc2",
+  "based_on_sha256": "74c32acdda997b35bc2be62fe54884c36ed68af68c53575ee94ab702ce79c5b8",
+  "sha256": "95fa9222b334bb3b80ee67ac36d88d200ae995a95b252f11bd0336286d7c829c",
+  "scope": "HTML title, header, application metadata and revision marker only; all inline scripts and styles unchanged.",
+  "inline_scripts_identical_to_rc2": true,
+  "styles_identical_to_rc2": true,
+  "numerical_comparisons": 164,
+  "focal_checks": 232,
+  "aperture_state_checks": 12,
+  "inline_scripts_parsed": 31,
+  "browser": "Chromium 134.0.6998.35 (Linux, headless)",
+  "playwright": "1.51.0",
+  "browser_cases": {
+    "baseline": 13,
+    "focal": 21,
+    "aperture": 5,
+    "passed": 39,
+    "failed": 0
+  },
+  "emulated_viewports_passed": 5
+}

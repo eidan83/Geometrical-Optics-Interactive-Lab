@@ -1,0 +1,29 @@
+{
+  "source_sha256": "95fa9222b334bb3b80ee67ac36d88d200ae995a95b252f11bd0336286d7c829c",
+  "browser": "134.0.6998.35",
+  "checks": [
+    {
+      "test": "Typing 2 then 20 does not shrink the aperture",
+      "pass": true
+    },
+    {
+      "test": "Constraint displays applied aperture and keeps request",
+      "pass": true
+    },
+    {
+      "test": "Both surfaces restore requested aperture",
+      "pass": true
+    },
+    {
+      "test": "Explicit aperture change is preserved",
+      "pass": true
+    },
+    {
+      "test": "Export/import preserves aperture intent",
+      "pass": true
+    }
+  ],
+  "page_errors": [],
+  "passed": 5,
+  "total": 5
+}
